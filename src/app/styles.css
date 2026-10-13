@@ -1,15 +1,191 @@
 @import "tailwindcss";
+@import "@fontsource-variable/atkinson-hyperlegible-next";
 
-* {
-	box-sizing: border-box;
+:root {
+	--background: #f6f5f1;
+	--foreground: #1d1c19;
+	--foreground-soft: #3a3833;
+	--card: #ffffff;
+	--card-foreground: #1d1c19;
+	--popover: #ffffff;
+	--popover-foreground: #1d1c19;
+
+	/* green is reserved for actions and the selected state */
+	--primary: #1e5a3c;
+	--primary-hover: #174a31;
+	--primary-foreground: #ffffff;
+	--accent: #e6efe8;
+	--accent-foreground: #1e5a3c;
+	--accent-border: #b9d3c0;
+
+	--secondary: #f1efe9;
+	--secondary-foreground: #1d1c19;
+	--muted: #eeece6;
+	--muted-foreground: #55524a;
+	--disabled-foreground: #8c887d;
+
+	/* red: urgent deadlines and errors */
+	--destructive: #a3200f;
+	--destructive-foreground: #ffffff;
+	--destructive-soft: #fce9e6;
+	--destructive-border: #f1b7ae;
+	--destructive-title: #7a1709;
+	--destructive-text: #5c1307;
+
+	/* amber: upcoming deadlines and values the user should check */
+	--warning: #8a4b00;
+	--warning-soft: #fdf1dc;
+	--warning-border: #efcf94;
+	--warning-strong: #d99a2b;
+	--warning-field: #fffbf2;
+	--warning-text: #5e3300;
+
+	--border: #d9d6cc;
+	--border-subtle: #eceae3;
+	--input: #b9b5a8;
+	--ring: #cfe0d4;
+
+	/* used only inside the logo, never on buttons, badges or text */
+	--brand-gold: #b08a3e;
 }
 
-html,
-body,
-#app {
-	min-height: 100%;
+@theme inline {
+	--font-sans:
+		"Atkinson Hyperlegible Next Variable", ui-sans-serif, system-ui, sans-serif;
+
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-foreground-soft: var(--foreground-soft);
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+	--color-popover: var(--popover);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-primary: var(--primary);
+	--color-primary-hover: var(--primary-hover);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-accent-border: var(--accent-border);
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-disabled-foreground: var(--disabled-foreground);
+	--color-destructive: var(--destructive);
+	--color-destructive-foreground: var(--destructive-foreground);
+	--color-destructive-soft: var(--destructive-soft);
+	--color-destructive-border: var(--destructive-border);
+	--color-destructive-title: var(--destructive-title);
+	--color-destructive-text: var(--destructive-text);
+	--color-warning: var(--warning);
+	--color-warning-soft: var(--warning-soft);
+	--color-warning-border: var(--warning-border);
+	--color-warning-strong: var(--warning-strong);
+	--color-warning-field: var(--warning-field);
+	--color-warning-text: var(--warning-text);
+	--color-border: var(--border);
+	--color-border-subtle: var(--border-subtle);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
+	--color-brand-gold: var(--brand-gold);
+
+	/* 10px for buttons and fields; cards use the default rounded-xl (12px) */
+	--radius-control: 0.625rem;
+
+	/* the only elevation in the interface, for menus, popovers and dialogs */
+	--shadow-popover: 0 12px 32px rgb(29 28 25 / 0.16);
 }
 
-body {
-	margin: 0;
+/* Spacing uses the default Tailwind scale and only its even pixel values:
+   1 (4px) icon and text, 2 (8px) inside a group, 4 (16px) inside a card,
+   6 (24px) between cards. Only the page edge changes with the screen size. */
+@utility page-gutter {
+	padding-inline: 1.25rem;
+	@variant lg {
+		padding-inline: 2.5rem;
+	}
+}
+
+/* Type scale. Font sizes are even and go in steps of 2px (14, 16, 18, 20, then 26
+   and 28 for the page title), line heights are multiples of 4px. Mobile sizes are
+   larger for readability in sunlight, desktop sizes start at the lg breakpoint.
+   The type-* prefix keeps these apart from text-* colour utilities, which
+   tailwind-merge would otherwise treat as conflicting. */
+@utility type-page-title {
+	font-size: 1.625rem;
+	line-height: 2rem;
+	font-weight: 700;
+	@variant lg {
+		font-size: 1.75rem;
+		line-height: 2.25rem;
+	}
+}
+
+@utility type-section-title {
+	font-size: 1.25rem;
+	line-height: 1.75rem;
+	font-weight: 700;
+}
+
+@utility type-body {
+	font-size: 1.125rem;
+	line-height: 1.75rem;
+	@variant lg {
+		font-size: 1rem;
+		line-height: 1.5rem;
+	}
+}
+
+@utility type-label {
+	font-size: 1rem;
+	line-height: 1.5rem;
+	font-weight: 600;
+}
+
+/* secondary text: hints, captions, meta lines */
+@utility type-small {
+	font-size: 1rem;
+	line-height: 1.5rem;
+	@variant lg {
+		font-size: 0.875rem;
+		line-height: 1.25rem;
+	}
+}
+
+/* uppercase label above a group of items, e.g. a month in a list */
+@utility type-overline {
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+}
+
+@layer base {
+	* {
+		@apply border-border;
+	}
+
+	html,
+	body,
+	#app {
+		min-height: 100%;
+	}
+
+	body {
+		@apply bg-background text-foreground type-body font-sans;
+		margin: 0;
+		font-variant-numeric: tabular-nums;
+		-webkit-font-smoothing: antialiased;
+	}
+
+	a {
+		@apply text-primary hover:text-primary-hover;
+	}
+
+	/* keyboard focus for everything that does not draw its own ring */
+	:focus-visible {
+		outline: 2px solid var(--primary);
+		outline-offset: 2px;
+	}
 }

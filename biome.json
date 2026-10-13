@@ -32,7 +32,7 @@
 	},
 	"overrides": [
 		{
-			"includes": ["src/shared/**"],
+			"includes": ["src/**", "!src/app/**", "!src/features/**"],
 			"linter": {
 				"rules": {
 					"style": {
@@ -71,7 +71,7 @@
 									},
 									{
 										"group": ["#/features", "#/features/**"],
-										"message": "Features must not import each other. Use relative imports inside a feature and move code used by several features to src/shared."
+										"message": "Features must not import each other. Use relative imports inside a feature and move code used by several features out of src/features (src/components, src/lib, ...)."
 									}
 								]
 							}
