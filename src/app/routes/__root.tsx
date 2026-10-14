@@ -2,7 +2,7 @@ import { TanStackDevtools } from "@tanstack/react-devtools";
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
-import appCss from "../styles.css?url";
+import appCss from "#/app/styles.css?url";
 
 export const Route = createRootRoute({
 	head: () => ({
@@ -12,7 +12,8 @@ export const Route = createRootRoute({
 			},
 			{
 				name: "viewport",
-				content: "width=device-width, initial-scale=1",
+				// viewport-fit=cover lets the mobile tab bar read the safe area of the phone
+				content: "width=device-width, initial-scale=1, viewport-fit=cover",
 			},
 			{
 				title: "Brazda",
@@ -43,7 +44,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				{children}
 				<TanStackDevtools
 					config={{
-						position: "bottom-right",
+						// kept off the bottom edge, where it would cover the mobile tab bar
+						position: "middle-right",
 					}}
 					plugins={[
 						{

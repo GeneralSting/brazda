@@ -17,6 +17,7 @@ type LogoProps = {
 	wordmark?: boolean; // shows the name "brazda" next to the sign
 	inverse?: boolean; // white version for green backgrounds
 	className?: string;
+	wordmarkClassName?: string; // classes for the name alone, e.g. to fade it out
 };
 
 export const Logo = ({
@@ -25,6 +26,7 @@ export const Logo = ({
 	wordmark = true,
 	inverse = false,
 	className,
+	wordmarkClassName,
 }: LogoProps) => {
 	const id = useId();
 	const maskId = `${id}-mask`;
@@ -99,7 +101,10 @@ export const Logo = ({
 			{wordmark ? (
 				<span
 					aria-hidden="true"
-					className="font-extrabold leading-none tracking-[-0.03em]"
+					className={cn(
+						"font-extrabold leading-none tracking-[-0.03em]",
+						wordmarkClassName,
+					)}
 					style={{
 						fontSize: Math.round(size * (isTile ? 0.66 : 0.78)),
 						color: inverse ? "#ffffff" : "var(--primary)",

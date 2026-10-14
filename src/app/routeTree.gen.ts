@@ -9,50 +9,269 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppRouteRouteImport } from './routes/_app/route'
+import { Route as AppIndexRouteImport } from './routes/_app/index'
+import { Route as AppDokumentiRouteImport } from './routes/_app/dokumenti'
+import { Route as AppGospodarstvoRouteImport } from './routes/_app/gospodarstvo'
+import { Route as AppIzbornikRouteImport } from './routes/_app/izbornik'
+import { Route as AppParceleRouteImport } from './routes/_app/parcele'
+import { Route as AppPretplataRouteImport } from './routes/_app/pretplata'
+import { Route as AppProfilRouteImport } from './routes/_app/profil'
+import { Route as AppRadoviRouteImport } from './routes/_app/radovi'
+import { Route as AppRokoviRouteImport } from './routes/_app/rokovi'
+import { Route as AppUnosRadaRouteImport } from './routes/_app/unos-rada'
 
-const IndexRoute = IndexRouteImport.update({
+const AppRouteRoute = AppRouteRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppDokumentiRoute = AppDokumentiRouteImport.update({
+  id: '/dokumenti',
+  path: '/dokumenti',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppGospodarstvoRoute = AppGospodarstvoRouteImport.update({
+  id: '/gospodarstvo',
+  path: '/gospodarstvo',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppIzbornikRoute = AppIzbornikRouteImport.update({
+  id: '/izbornik',
+  path: '/izbornik',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppParceleRoute = AppParceleRouteImport.update({
+  id: '/parcele',
+  path: '/parcele',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppPretplataRoute = AppPretplataRouteImport.update({
+  id: '/pretplata',
+  path: '/pretplata',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppProfilRoute = AppProfilRouteImport.update({
+  id: '/profil',
+  path: '/profil',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppRadoviRoute = AppRadoviRouteImport.update({
+  id: '/radovi',
+  path: '/radovi',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppRokoviRoute = AppRokoviRouteImport.update({
+  id: '/rokovi',
+  path: '/rokovi',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppUnosRadaRoute = AppUnosRadaRouteImport.update({
+  id: '/unos-rada',
+  path: '/unos-rada',
+  getParentRoute: () => AppRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof AppIndexRoute
+  '/dokumenti': typeof AppDokumentiRoute
+  '/gospodarstvo': typeof AppGospodarstvoRoute
+  '/izbornik': typeof AppIzbornikRoute
+  '/parcele': typeof AppParceleRoute
+  '/pretplata': typeof AppPretplataRoute
+  '/profil': typeof AppProfilRoute
+  '/radovi': typeof AppRadoviRoute
+  '/rokovi': typeof AppRokoviRoute
+  '/unos-rada': typeof AppUnosRadaRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/dokumenti': typeof AppDokumentiRoute
+  '/gospodarstvo': typeof AppGospodarstvoRoute
+  '/izbornik': typeof AppIzbornikRoute
+  '/parcele': typeof AppParceleRoute
+  '/pretplata': typeof AppPretplataRoute
+  '/profil': typeof AppProfilRoute
+  '/radovi': typeof AppRadoviRoute
+  '/rokovi': typeof AppRokoviRoute
+  '/unos-rada': typeof AppUnosRadaRoute
+  '/': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_app': typeof AppRouteRouteWithChildren
+  '/_app/dokumenti': typeof AppDokumentiRoute
+  '/_app/gospodarstvo': typeof AppGospodarstvoRoute
+  '/_app/izbornik': typeof AppIzbornikRoute
+  '/_app/parcele': typeof AppParceleRoute
+  '/_app/pretplata': typeof AppPretplataRoute
+  '/_app/profil': typeof AppProfilRoute
+  '/_app/radovi': typeof AppRadoviRoute
+  '/_app/rokovi': typeof AppRokoviRoute
+  '/_app/unos-rada': typeof AppUnosRadaRoute
+  '/_app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/dokumenti'
+    | '/gospodarstvo'
+    | '/izbornik'
+    | '/parcele'
+    | '/pretplata'
+    | '/profil'
+    | '/radovi'
+    | '/rokovi'
+    | '/unos-rada'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/dokumenti'
+    | '/gospodarstvo'
+    | '/izbornik'
+    | '/parcele'
+    | '/pretplata'
+    | '/profil'
+    | '/radovi'
+    | '/rokovi'
+    | '/unos-rada'
+    | '/'
+  id:
+    | '__root__'
+    | '/_app'
+    | '/_app/dokumenti'
+    | '/_app/gospodarstvo'
+    | '/_app/izbornik'
+    | '/_app/parcele'
+    | '/_app/pretplata'
+    | '/_app/profil'
+    | '/_app/radovi'
+    | '/_app/rokovi'
+    | '/_app/unos-rada'
+    | '/_app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  AppRouteRoute: typeof AppRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AppRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app/': {
+      id: '/_app/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/dokumenti': {
+      id: '/_app/dokumenti'
+      path: '/dokumenti'
+      fullPath: '/dokumenti'
+      preLoaderRoute: typeof AppDokumentiRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/gospodarstvo': {
+      id: '/_app/gospodarstvo'
+      path: '/gospodarstvo'
+      fullPath: '/gospodarstvo'
+      preLoaderRoute: typeof AppGospodarstvoRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/izbornik': {
+      id: '/_app/izbornik'
+      path: '/izbornik'
+      fullPath: '/izbornik'
+      preLoaderRoute: typeof AppIzbornikRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/parcele': {
+      id: '/_app/parcele'
+      path: '/parcele'
+      fullPath: '/parcele'
+      preLoaderRoute: typeof AppParceleRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/pretplata': {
+      id: '/_app/pretplata'
+      path: '/pretplata'
+      fullPath: '/pretplata'
+      preLoaderRoute: typeof AppPretplataRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/profil': {
+      id: '/_app/profil'
+      path: '/profil'
+      fullPath: '/profil'
+      preLoaderRoute: typeof AppProfilRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/radovi': {
+      id: '/_app/radovi'
+      path: '/radovi'
+      fullPath: '/radovi'
+      preLoaderRoute: typeof AppRadoviRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/rokovi': {
+      id: '/_app/rokovi'
+      path: '/rokovi'
+      fullPath: '/rokovi'
+      preLoaderRoute: typeof AppRokoviRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/unos-rada': {
+      id: '/_app/unos-rada'
+      path: '/unos-rada'
+      fullPath: '/unos-rada'
+      preLoaderRoute: typeof AppUnosRadaRouteImport
+      parentRoute: typeof AppRouteRoute
     }
   }
 }
 
+interface AppRouteRouteChildren {
+  AppDokumentiRoute: typeof AppDokumentiRoute
+  AppGospodarstvoRoute: typeof AppGospodarstvoRoute
+  AppIzbornikRoute: typeof AppIzbornikRoute
+  AppParceleRoute: typeof AppParceleRoute
+  AppPretplataRoute: typeof AppPretplataRoute
+  AppProfilRoute: typeof AppProfilRoute
+  AppRadoviRoute: typeof AppRadoviRoute
+  AppRokoviRoute: typeof AppRokoviRoute
+  AppUnosRadaRoute: typeof AppUnosRadaRoute
+  AppIndexRoute: typeof AppIndexRoute
+}
+
+const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppDokumentiRoute: AppDokumentiRoute,
+  AppGospodarstvoRoute: AppGospodarstvoRoute,
+  AppIzbornikRoute: AppIzbornikRoute,
+  AppParceleRoute: AppParceleRoute,
+  AppPretplataRoute: AppPretplataRoute,
+  AppProfilRoute: AppProfilRoute,
+  AppRadoviRoute: AppRadoviRoute,
+  AppRokoviRoute: AppRokoviRoute,
+  AppUnosRadaRoute: AppUnosRadaRoute,
+  AppIndexRoute: AppIndexRoute,
+}
+
+const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
+  AppRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  AppRouteRoute: AppRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

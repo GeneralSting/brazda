@@ -16,6 +16,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@base-ui/react": "^1.9.0",
 		"@fontsource-variable/atkinson-hyperlegible-next": "^5.3.0",
 		"@tailwindcss/vite": "^4.1.18",
 		"@tanstack/react-devtools": "0.10.13",
