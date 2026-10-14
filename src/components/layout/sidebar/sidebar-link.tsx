@@ -1,0 +1,32 @@
+import { Link } from "@tanstack/react-router";
+import type { NavItem } from "#/components/layout/navigation/types";
+import { cn } from "#/lib/utils";
+import { LABEL_CLASSES, ROW_CLASSES } from "./constants";
+
+type SidebarLinkProps = {
+	item: NavItem;
+	active: boolean;
+};
+
+// one section of the main navigation
+export const SidebarLink = ({ item, active }: SidebarLinkProps) => (
+	<Link
+		to={item.to}
+		// as a rail the label is not visible, so the browser shows it on hover
+		title={item.label}
+		aria-current={active ? "page" : undefined}
+		className={cn(
+			ROW_CLASSES,
+			"h-11 gap-3 px-3.5 text-base",
+			active
+				? "bg-accent font-bold text-accent-foreground hover:text-accent-foreground"
+				: "font-medium text-foreground-soft hover:bg-secondary hover:text-foreground-soft",
+		)}
+	>
+		<item.icon
+			className={cn("size-5 shrink-0", !active && "text-muted-foreground")}
+			aria-hidden="true"
+		/>
+		<span className={LABEL_CLASSES}>{item.label}</span>
+	</Link>
+);

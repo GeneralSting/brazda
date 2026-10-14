@@ -94,11 +94,33 @@
 
 	/* the only elevation in the interface, for menus, popovers and dialogs */
 	--shadow-popover: 0 12px 32px rgb(29 28 25 / 0.16);
+	/* lifts the round "Upiši rad" button above the mobile tab bar */
+	--shadow-action: 0 4px 12px rgb(30 90 60 / 0.35);
 }
 
 /* Spacing uses the default Tailwind scale and only its even pixel values:
    1 (4px) icon and text, 2 (8px) inside a group, 4 (16px) inside a card,
    6 (24px) between cards. Only the page edge changes with the screen size. */
+/* The sidebar as a narrow rail of icons. It applies when the user collapsed it,
+   and by default between the md and lg breakpoints, where a full sidebar would
+   take too much of the screen. Used as rail:hidden, rail:w-18 and so on, on
+   elements inside the application shell, which carries the data-sidebar attribute. */
+@custom-variant rail {
+	&:where([data-sidebar="collapsed"] *) {
+		@slot;
+	}
+	@media (width < 64rem) {
+		&:where([data-sidebar="auto"] *) {
+			@slot;
+		}
+	}
+}
+
+/* keeps the bottom bar clear of the home indicator on phones without a home button */
+@utility pb-safe {
+	padding-bottom: env(safe-area-inset-bottom);
+}
+
 @utility page-gutter {
 	padding-inline: 1.25rem;
 	@variant lg {
@@ -187,5 +209,18 @@
 	:focus-visible {
 		outline: 2px solid var(--primary);
 		outline-offset: 2px;
+	}
+}
+
+/* People who asked their system for less motion get the end state at once.
+   Written outside of any layer on purpose: unlayered styles win over the Tailwind
+   utilities, so every transition is switched off without !important. */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	::before,
+	::after {
+		transition-duration: 0.01ms;
+		animation-duration: 0.01ms;
+		animation-iteration-count: 1;
 	}
 }
