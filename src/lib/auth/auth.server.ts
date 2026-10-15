@@ -1,5 +1,6 @@
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth } from "better-auth/minimal";
+import { tanstackStartCookies } from "better-auth/tanstack-start";
 import { getServerEnv } from "#/config/env.server";
 import { getDb } from "#/lib/db/client.server";
 import * as schema from "#/lib/db/schema/auth";
@@ -17,4 +18,5 @@ export const auth = betterAuth({
 	baseURL: env.BETTER_AUTH_URL,
 	database: drizzleAdapter(getDb(), { provider: "pg", schema }),
 	emailAndPassword: { enabled: true },
+	plugins: [tanstackStartCookies()], // lets sign-in from a server function set its cookie, has to stay the last plugin
 });

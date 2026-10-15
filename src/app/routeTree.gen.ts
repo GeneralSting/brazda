@@ -20,6 +20,7 @@ import { Route as AppProfilRouteImport } from './routes/_app/profil'
 import { Route as AppRadoviRouteImport } from './routes/_app/radovi'
 import { Route as AppRokoviRouteImport } from './routes/_app/rokovi'
 import { Route as AppUnosRadaRouteImport } from './routes/_app/unos-rada'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const AppRouteRoute = AppRouteRouteImport.update({
   id: '/_app',
@@ -75,6 +76,11 @@ const AppUnosRadaRoute = AppUnosRadaRouteImport.update({
   path: '/unos-rada',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
@@ -87,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/radovi': typeof AppRadoviRoute
   '/rokovi': typeof AppRokoviRoute
   '/unos-rada': typeof AppUnosRadaRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/dokumenti': typeof AppDokumentiRoute
@@ -99,6 +106,7 @@ export interface FileRoutesByTo {
   '/rokovi': typeof AppRokoviRoute
   '/unos-rada': typeof AppUnosRadaRoute
   '/': typeof AppIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -113,6 +121,7 @@ export interface FileRoutesById {
   '/_app/rokovi': typeof AppRokoviRoute
   '/_app/unos-rada': typeof AppUnosRadaRoute
   '/_app/': typeof AppIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -127,6 +136,7 @@ export interface FileRouteTypes {
     | '/radovi'
     | '/rokovi'
     | '/unos-rada'
+    | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/dokumenti'
@@ -139,6 +149,7 @@ export interface FileRouteTypes {
     | '/rokovi'
     | '/unos-rada'
     | '/'
+    | '/api/auth/$'
   id:
     | '__root__'
     | '/_app'
@@ -152,10 +163,12 @@ export interface FileRouteTypes {
     | '/_app/rokovi'
     | '/_app/unos-rada'
     | '/_app/'
+    | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AppRouteRoute: typeof AppRouteRouteWithChildren
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -237,6 +250,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppUnosRadaRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -272,6 +292,7 @@ const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   AppRouteRoute: AppRouteRouteWithChildren,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
