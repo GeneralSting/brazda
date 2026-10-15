@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppRouteRouteImport } from './routes/_app/route'
+import { Route as PrijavaRouteImport } from './routes/prijava'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
 import { Route as AppDokumentiRouteImport } from './routes/_app/dokumenti'
 import { Route as AppGospodarstvoRouteImport } from './routes/_app/gospodarstvo'
@@ -24,6 +25,11 @@ import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const AppRouteRoute = AppRouteRouteImport.update({
   id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrijavaRoute = PrijavaRouteImport.update({
+  id: '/prijava',
+  path: '/prijava',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppIndexRoute = AppIndexRouteImport.update({
@@ -84,6 +90,7 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
+  '/prijava': typeof PrijavaRoute
   '/dokumenti': typeof AppDokumentiRoute
   '/gospodarstvo': typeof AppGospodarstvoRoute
   '/izbornik': typeof AppIzbornikRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByFullPath {
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
+  '/prijava': typeof PrijavaRoute
   '/dokumenti': typeof AppDokumentiRoute
   '/gospodarstvo': typeof AppGospodarstvoRoute
   '/izbornik': typeof AppIzbornikRoute
@@ -111,6 +119,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteRouteWithChildren
+  '/prijava': typeof PrijavaRoute
   '/_app/dokumenti': typeof AppDokumentiRoute
   '/_app/gospodarstvo': typeof AppGospodarstvoRoute
   '/_app/izbornik': typeof AppIzbornikRoute
@@ -127,6 +136,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/prijava'
     | '/dokumenti'
     | '/gospodarstvo'
     | '/izbornik'
@@ -139,6 +149,7 @@ export interface FileRouteTypes {
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/prijava'
     | '/dokumenti'
     | '/gospodarstvo'
     | '/izbornik'
@@ -153,6 +164,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_app'
+    | '/prijava'
     | '/_app/dokumenti'
     | '/_app/gospodarstvo'
     | '/_app/izbornik'
@@ -168,6 +180,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   AppRouteRoute: typeof AppRouteRouteWithChildren
+  PrijavaRoute: typeof PrijavaRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -178,6 +191,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AppRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/prijava': {
+      id: '/prijava'
+      path: '/prijava'
+      fullPath: '/prijava'
+      preLoaderRoute: typeof PrijavaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app/': {
@@ -292,6 +312,7 @@ const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   AppRouteRoute: AppRouteRouteWithChildren,
+  PrijavaRoute: PrijavaRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

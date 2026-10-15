@@ -84,6 +84,7 @@ src
   - a screen that shows the sidebar / tab bar is a route inside `routes/_app`, only a screen that has to hide the shell is a route outside of it
   - a file in `routes` that starts with `-` is not a route, it holds helpers of the routes next to it
   - every screen is wrapped in `Page` from `#/components/layout/page`, which gives the page gutter, the title row and the spacing between blocks
+  - a screen outside the shell (sign-in, sign-up) is wrapped in `AuthPage` from `#/components/layout/auth-page/auth-page` instead - the form on the left, the green panel on the right from `lg`
   - a new section is added to the navigation in `#/components/layout/navigation/constants.ts`, the sidebar, the tab bar and the mobile menu all read from it
   - can import from `features` (only through the feature `index.ts`) and from shared code
 - shared code (every `src` folder other than `app` and `features`)

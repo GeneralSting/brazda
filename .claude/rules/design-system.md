@@ -8,12 +8,14 @@ paths:
 # Design system
 
 - the design system is global - it is CSS tokens plus base components, used through the whole application, never a feature and never a page of its own
-- source of the design is the Claude Design project "Njiva: poljoprivredna aplikacija" (`Njiva.dc.html`), section 0 is the design system and sections 1-7 are the screens, each for mobile (390px) and desktop (1280px)
+- our design system - the tokens and utilities in `styles.css`, the base components and the rules in this file - is the only source of truth; the Claude Design project "Njiva: poljoprivredna aplikacija" (`Njiva.dc.html`) is a reference for layout and content of the screens (section 0 the original system, 1-7 the application, 8 sign-in and sign-up), never for sizes, colours or type
+  - a screen from the design is rebuilt with what the system already has, its sizes are mapped onto our scale - a new token, utility or size is not added to match the design
+  - something new enters the system only when nothing in it can do the job, it is agreed first and then written into this file
 - design tokens (colours, radius, font) live in `src/app/styles.css` and are named after the shadcn/ui convention - colours are used through the token classes (`bg-primary`, `text-muted-foreground`, `border-border-subtle`), never as hex values in components
 - everything visual comes from a fixed set of classes defined in `src/app/styles.css` or from the default Tailwind scale - a screen is put together by picking from the lists below, not by inventing values
   - no arbitrary values (`text-[15px]`, `p-[13px]`, `leading-[22px]`), the only exception is something truly one-off such as a grid template
   - all sizes are even pixel values and go in steps - a smaller text is the next step down (18px -> 16px -> 14px), never 1px less
-  - a value that is missing is added to `styles.css` as a named token or utility first and then used, it is not written inline
+  - a value that is truly missing (see above, agreed first) is added to `styles.css` as a named token or utility and then used, it is not written inline
 - text - only the type scale utilities, font size and line height are never set separately
 
   | class                | mobile               | desktop (`lg`)       | use                                |
@@ -54,11 +56,12 @@ paths:
   - elements are faded or clipped during a change instead of being added and removed, so nothing jumps - the sidebar is the reference: only its width animates, rows keep their icon in place and clip their label
   - reduced motion is handled once in `styles.css` for the whole application, components do not repeat it
 - keyboard focus is styled globally in `styles.css`, buttons and fields draw their own ring - focus styles are never removed without a replacement
-- base components live in `src/components/ui` and are written by hand after the design (arrow functions, `cva` variants, `cn` from `#/lib/utils`) - button, input, field, badge, card, table, alert (error and warning tone), empty-state, dropdown-menu, avatar, plus `src/components/logo.tsx`
+- base components live in `src/components/ui` and are written by hand after the design (arrow functions, `cva` variants, `cn` from `#/lib/utils`) - button, input, field, badge, card, table, alert (error and warning tone), empty-state, dropdown-menu, avatar, password-input, input-field, plus `src/components/logo.tsx`
   - a component with behaviour that is hard to get right by hand (menu, dialog, select - keyboard, focus, position on the screen) takes that behaviour from Base UI (`@base-ui/react`) and only its look from us, `dropdown-menu.tsx` is the reference
   - a new screen is built from these first, a new base component is added only when the design shows one that is missing
   - `components.json` points the shadcn CLI to the same folders, so a missing component can be pulled with `pnpm dlx shadcn@latest add <name>` and then adjusted to the tokens
   - shadcn offers to overwrite existing files such as `button.tsx` when the new component depends on them - that is always declined
-- sizes from the design - main button 56px (`size="lg"`), other buttons and fields 48px, table row 52px, radius 10px for buttons and fields (`rounded-control`) and 12px for cards (`rounded-xl`)
+- a text field in a form is always `InputField` - label, field and the message under it as one component, so every label has the same font and the same distance to its field - whatever sits in the label row (a badge, "Zaboravili ste?") gets the label's 16px type; `Field` alone is only for a control that is not a text field
+- sizes from the design - main button 56px (`size="lg"`), other buttons 48px, fields always 48px with no exception, table row 52px, radius 10px for buttons and fields (`rounded-control`) and 12px for cards (`rounded-xl`)
 - green is reserved for actions and the selected state, red for urgent and errors, amber for soon and values to check - colour is never the only signal, an icon and a word always go with it
 - icons come from `lucide-react`

@@ -8,6 +8,8 @@ type FieldProps = {
 	htmlFor: string;
 	// shown next to the label, e.g. a "Provjerite" badge
 	labelAddon?: ReactNode;
+	// at the right end of the label row, e.g. a "Zaboravili ste?" link
+	labelAction?: ReactNode;
 	// helper text under the control
 	hint?: ReactNode;
 	// error text under the control, replaces the hint
@@ -23,6 +25,7 @@ export const Field = ({
 	label,
 	htmlFor,
 	labelAddon,
+	labelAction,
 	hint,
 	error,
 	warning = false,
@@ -30,11 +33,16 @@ export const Field = ({
 	children,
 }: FieldProps) => (
 	<div className={cn("flex flex-col gap-2", className)}>
-		<div className="flex items-center gap-2">
+		{/* fixed at one line, so a taller addon or action never moves the control down */}
+		<div className="flex h-6 items-center gap-2">
 			<label htmlFor={htmlFor} className="type-label">
 				{label}
 			</label>
 			{labelAddon}
+			{/* same type as the label, whatever is put there */}
+			{labelAction ? (
+				<div className="type-label ml-auto">{labelAction}</div>
+			) : null}
 		</div>
 		{children}
 		{error ? (
