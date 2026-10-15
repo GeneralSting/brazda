@@ -55,6 +55,7 @@ src
 +-- config                # shared: global configuration, env variables
 +-- hooks                 # shared: generic hooks
 +-- lib                   # shared: third party libraries preconfigured for this app, cn helper
+|   +-- db                # database client and schema (Drizzle, Neon PostgreSQL)
 +-- types                 # shared: types used across the application
 +-- utils                 # shared: generic utility functions
 ```
@@ -80,6 +81,8 @@ src
   - exposes only what is listed in its `index.ts`, with explicit named exports (no `export *`), everything else is private to the feature
   - only the needed inner folders are created, not all of them for every feature
 - imports between sections use the `#/` alias (`#/components/ui/button`, `#/lib/utils`, `#/features/parcels`), relative imports only point into the same folder or below it (`./sidebar-link`, `./navigation/utils`), never up with `../`
+- code that may run only on the server (database, secrets) lives in files ending in `.server.ts` - TanStack Start import protection then fails the build when client code imports one
+- environment variables are read only through `getServerEnv` from `#/config/env.server`, which validates them - `.env.example` lists every variable, the real values go into `.env.local`, which is never committed
 - folders are created when the first file needs them - `features`, `config`, `hooks`, `types` and `utils` do not exist until then
 - these rules are enforced by Biome (`noRestrictedImports` overrides in `biome.json`), `pnpm check` fails when a boundary is crossed
 
