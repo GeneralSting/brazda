@@ -1,0 +1,20 @@
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { betterAuth } from "better-auth/minimal";
+import { getServerEnv } from "#/config/env.server";
+import { getDb } from "#/lib/db/client.server";
+import * as schema from "#/lib/db/schema/auth";
+
+const env = getServerEnv();
+
+/**
+ * Sign-in of the application: users, sessions and accounts are stored in our own
+ * database through Drizzle. Server only, every request that needs the signed-in
+ * person goes through this instance
+ */
+export const auth = betterAuth({
+	appName: "Brazda",
+	secret: env.BETTER_AUTH_SECRET,
+	baseURL: env.BETTER_AUTH_URL,
+	database: drizzleAdapter(getDb(), { provider: "pg", schema }),
+	emailAndPassword: { enabled: true },
+});

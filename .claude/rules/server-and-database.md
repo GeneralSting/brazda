@@ -14,3 +14,5 @@ paths:
 - the database is Neon PostgreSQL in Frankfurt (`aws-eu-central-1`), reached through Drizzle ORM and the Neon WebSocket driver, which supports transactions
   - the running application connects with `DATABASE_URL_POOLED` through `getDb` from `#/lib/db/client.server`
   - drizzle-kit (`pnpm db:generate`, `pnpm db:migrate`, `pnpm db:studio`) uses the direct `DATABASE_URL`, migrations are generated into `drizzle/` and committed
+- every timestamp column is `timestamp(..., { withTimezone: true })`, so a moment means the same whatever the time zone of the server
+- sign-in is Better Auth, `auth` from `#/lib/auth/auth.server`, its tables are generated into `src/lib/db/schema/auth.ts` with `pnpm dlx auth@latest generate --config src/lib/auth/auth.server.ts --output src/lib/db/schema/auth.ts`, then a migration is generated from them like for any other table

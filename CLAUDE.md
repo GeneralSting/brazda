@@ -4,7 +4,7 @@
 - web only and online only - no offline mode and no native app, phones use it through the browser
 - the interface is in Croatian, code, comments and commit messages are in English
 - farming-domain decisions come from the farmer the owner works with, they are never guessed
-- stack: TanStack Start (React 19, React Compiler, TypeScript, Vite), Tailwind CSS 4, Base UI, Biome, Drizzle ORM on Neon PostgreSQL (PostGIS available for parcels)
+- stack: TanStack Start (React 19, React Compiler, TypeScript, Vite), Tailwind CSS 4, Base UI, Biome, Drizzle ORM on Neon PostgreSQL (PostGIS available for parcels), Better Auth
 - commands: `pnpm dev`, `pnpm check` (Biome), `pnpm typecheck`, `pnpm build`, `pnpm db:generate`, `pnpm db:migrate`, `pnpm db:studio`
 
 ## Rules by area
@@ -71,6 +71,7 @@ src
 +-- config                # shared: global configuration, env variables
 +-- hooks                 # shared: generic hooks
 +-- lib                   # shared: third party libraries preconfigured for this app, cn helper
+|   +-- auth              # sign-in (Better Auth), server instance
 |   +-- db                # database client and schema (Drizzle, Neon PostgreSQL)
 +-- types                 # shared: types used across the application
 +-- utils                 # shared: generic utility functions

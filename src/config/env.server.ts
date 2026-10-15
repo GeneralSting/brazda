@@ -3,6 +3,8 @@ import { z } from "zod";
 // every variable the server needs, the list is mirrored in .env.example
 const serverEnvSchema = z.object({
 	DATABASE_URL_POOLED: z.url(), // pooled connection to Neon, used by the running application
+	BETTER_AUTH_SECRET: z.string().min(32), // signs sessions and tokens, never shared or committed
+	BETTER_AUTH_URL: z.url(), // address the application is opened at, e.g. http://localhost:3000
 });
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>;
