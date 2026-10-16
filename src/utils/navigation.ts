@@ -1,6 +1,10 @@
 import type { ParsedLocation } from "@tanstack/react-router";
-import { MOBILE_MENU_NAV, MOBILE_MENU_PATH, USER_MENU_NAV } from "./constants";
-import type { NavItem } from "./types";
+import {
+	MOBILE_MENU_NAV,
+	MOBILE_MENU_PATH,
+	USER_MENU_NAV,
+} from "#/config/navigation";
+import type { NavItem } from "#/types/navigation";
 
 // for useLocation, so a component re-renders only when the path changes
 export const selectPathname = (location: ParsedLocation) => location.pathname;

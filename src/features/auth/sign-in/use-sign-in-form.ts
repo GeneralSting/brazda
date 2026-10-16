@@ -2,12 +2,12 @@ import { revalidateLogic } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAppForm } from "#/hooks/use-app-form";
-import { authClient } from "#/lib/auth/auth-client";
+import { authClient } from "#/services/auth-client";
 import {
 	getRequestErrorMessage,
 	parseResponse,
 	REQUEST_MESSAGES,
-} from "#/lib/form/utils";
+} from "#/utils/request";
 import {
 	CREDENTIALS_MISMATCH,
 	SIGN_IN_FORM,

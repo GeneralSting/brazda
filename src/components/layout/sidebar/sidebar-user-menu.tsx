@@ -1,18 +1,18 @@
 import { useLocation } from "@tanstack/react-router";
 import { LogOut } from "lucide-react";
-import { USER_MENU_NAV } from "#/components/layout/navigation/constants";
-import {
-	isNavItemActive,
-	isUserMenuActive,
-	selectPathname,
-} from "#/components/layout/navigation/utils";
-import type { ShellUser } from "#/components/layout/types";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuSeparator,
-} from "#/components/ui/dropdown-menu";
+} from "#/components/overlay/dropdown-menu";
+import { USER_MENU_NAV } from "#/config/navigation";
+import type { ShellUser } from "#/types/user";
+import {
+	isNavItemActive,
+	isUserMenuActive,
+	selectPathname,
+} from "#/utils/navigation";
 import { SidebarUserMenuLink } from "./sidebar-user-menu-link";
 import { SidebarUserTrigger } from "./sidebar-user-trigger";
 

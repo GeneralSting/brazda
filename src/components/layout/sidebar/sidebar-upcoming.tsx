@@ -1,6 +1,6 @@
 import { Lock } from "lucide-react";
-import { UPCOMING_NAV } from "#/components/layout/navigation/constants";
-import type { UpcomingNavItem } from "#/components/layout/navigation/types";
+import { UPCOMING_NAV } from "#/config/navigation";
+import type { UpcomingNavItem } from "#/types/navigation";
 
 const UpcomingItem = ({ item }: { item: UpcomingNavItem }) => (
 	<li className="flex h-10 items-center gap-3 px-3.5 text-muted-foreground text-sm">

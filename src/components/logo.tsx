@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { cn } from "#/lib/utils";
+import { cn } from "#/utils/cn";
 
 // lowercase letter b on a 32x32 grid
 const LETTER_PATH =

@@ -1,18 +1,18 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { type LucideIcon, Menu, Plus } from "lucide-react";
-import { cn } from "#/lib/utils";
 import {
 	MOBILE_MENU_PATH,
 	MOBILE_TAB_AFTER_ACTION,
 	MOBILE_TABS_BEFORE_ACTION,
 	NEW_WORK_PATH,
-} from "./navigation/constants";
-import type { NavItem } from "./navigation/types";
+} from "#/config/navigation";
+import type { NavItem } from "#/types/navigation";
+import { cn } from "#/utils/cn";
 import {
 	isMobileMenuActive,
 	isNavItemActive,
 	selectPathname,
-} from "./navigation/utils";
+} from "#/utils/navigation";
 
 type TabProps = {
 	to: NavItem["to"];

@@ -1,6 +1,6 @@
 import type { ChangeEvent, ComponentProps } from "react";
-import { InputField } from "#/components/ui/input-field";
 import { useFieldContext } from "#/hooks/use-form-context";
+import { InputField } from "./input-field";
 
 type TextFieldProps = Omit<
 	ComponentProps<typeof InputField>,

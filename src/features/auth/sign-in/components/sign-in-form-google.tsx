@@ -1,4 +1,4 @@
-import { Button } from "#/components/ui/button";
+import { Button } from "#/components/button";
 
 // the four-colour Google "G", drawn as Google publishes it, so its colours are not tokens
 const GoogleLogo = () => (

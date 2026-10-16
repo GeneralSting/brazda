@@ -1,9 +1,9 @@
 import { ChevronsUpDown } from "lucide-react";
-import type { ShellUser } from "#/components/layout/types";
-import { Avatar } from "#/components/ui/avatar";
-import { DropdownMenuTrigger } from "#/components/ui/dropdown-menu";
-import { cn } from "#/lib/utils";
-import { LABEL_CLASSES, ROW_CLASSES } from "./constants";
+import { Avatar } from "#/components/display/avatar";
+import { DropdownMenuTrigger } from "#/components/overlay/dropdown-menu";
+import { LABEL_CLASSES, ROW_CLASSES } from "#/config/sidebar";
+import type { ShellUser } from "#/types/user";
+import { cn } from "#/utils/cn";
 
 type SidebarUserTriggerProps = {
 	user: ShellUser;

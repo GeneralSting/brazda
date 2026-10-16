@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { EmptyState } from "#/components/ui/empty-state";
+import { EmptyState } from "#/components/feedback/empty-state";
 
 type PagePlaceholderProps = {
 	icon: LucideIcon;

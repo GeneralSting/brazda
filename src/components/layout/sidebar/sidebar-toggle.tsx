@@ -1,6 +1,6 @@
 import { ChevronsLeft } from "lucide-react";
-import { cn } from "#/lib/utils";
-import { LABEL_CLASSES, ROW_CLASSES } from "./constants";
+import { LABEL_CLASSES, ROW_CLASSES } from "#/config/sidebar";
+import { cn } from "#/utils/cn";
 
 type SidebarToggleProps = {
 	onToggle: () => void;

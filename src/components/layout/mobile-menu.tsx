@@ -1,16 +1,16 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, Lock, LogOut } from "lucide-react";
-import { Avatar } from "#/components/ui/avatar";
-import { Card } from "#/components/ui/card";
-import { cn } from "#/lib/utils";
+import { Avatar } from "#/components/display/avatar";
+import { Card } from "#/components/display/card";
 import {
 	MOBILE_ACCOUNT_NAV,
 	MOBILE_MENU_NAV,
 	PROFILE_PATH,
 	UPCOMING_NAV,
-} from "./navigation/constants";
-import type { NavItem } from "./navigation/types";
-import type { ShellUser } from "./types";
+} from "#/config/navigation";
+import type { NavItem } from "#/types/navigation";
+import type { ShellUser } from "#/types/user";
+import { cn } from "#/utils/cn";
 
 const ROW_CLASSES =
 	"type-body flex h-14 items-center gap-3.5 border-border-subtle border-t px-4 font-semibold first:border-t-0";

@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { cn } from "#/lib/utils";
+import { cn } from "#/utils/cn";
 
 // white surface with a border, shadows are kept for menus and dialogs
 export const Card = ({ className, ...props }: ComponentProps<"div">) => (

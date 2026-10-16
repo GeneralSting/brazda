@@ -1,4 +1,4 @@
-import type { ShellUser } from "#/components/layout/types";
+import type { ShellUser } from "#/types/user";
 
 /* Sample user from the design, shown until sign-in and holdings exist.
    It is replaced by the data of the signed-in session. */

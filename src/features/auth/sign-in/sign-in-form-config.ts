@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { EMAIL_FIELD, PASSWORD_FIELD } from "#/lib/form/constants";
-import { createFormConfig } from "#/lib/form/utils";
+import { EMAIL_FIELD, PASSWORD_FIELD } from "#/config/form-fields";
+import { createFormConfig } from "#/utils/form";
 
 // the fields of the sign-in form, the names used in its UI come from here
 export const SIGN_IN_FORM = createFormConfig({

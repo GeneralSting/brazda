@@ -1,5 +1,5 @@
-import { emailSchema, passwordSchema } from "./schemas";
-import type { FieldConfig } from "./types";
+import { emailSchema, passwordSchema } from "#/schemas/form-fields";
+import type { FieldConfig } from "#/types/form";
 
 // fields shared by the forms of several features, a form picks the ones it needs
 

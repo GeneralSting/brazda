@@ -8,7 +8,7 @@ if (existsSync(".env.local")) {
 
 export default defineConfig({
 	dialect: "postgresql",
-	schema: "./src/lib/db/schema",
+	schema: "./src/server/db/schema",
 	out: "./drizzle", // generated SQL migrations, commited and applied in order
 	casing: "snake_case",
 	// migrations go over the direct connection, the pooler is for the application

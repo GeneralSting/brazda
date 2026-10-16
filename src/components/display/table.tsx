@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { cn } from "#/lib/utils";
+import { cn } from "#/utils/cn";
 
 // the wrapper carries the card look and scrolls sideways when the table is too wide
 export const Table = ({ className, ...props }: ComponentProps<"table">) => (

@@ -1,6 +1,6 @@
 import { Menu } from "@base-ui/react/menu";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "#/lib/utils";
+import { cn } from "#/utils/cn";
 
 /* Menu that opens next to the element that was clicked. Base UI carries the
    behaviour (keyboard, focus, closing on outside click, position on the screen),

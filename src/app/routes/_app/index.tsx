@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { House, Plus } from "lucide-react";
-import { NEW_WORK_PATH } from "#/components/layout/navigation/constants";
+import { buttonVariants } from "#/components/button";
 import { Page } from "#/components/layout/page";
 import { PagePlaceholder } from "#/components/layout/page-placeholder";
-import { buttonVariants } from "#/components/ui/button";
-import { cn } from "#/lib/utils";
+import { NEW_WORK_PATH } from "#/config/navigation";
+import { cn } from "#/utils/cn";
 
 const HomePage = () => (
 	<Page

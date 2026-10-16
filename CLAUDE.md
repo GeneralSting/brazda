@@ -12,8 +12,8 @@
 Rules for one part of the code live in `.claude/rules/` and load on their own when a matching file is read or edited:
 
 - `design-system.md` - tokens, type and spacing scale, motion, base components; for `src/**/*.tsx` and `styles.css`
-- `server-and-database.md` - server-only files, environment variables, database; for `*.server.ts`, `src/lib/db`, `drizzle`
-- `forms.md` - how every form is built (schema, field config, form config, hook, UI) and how errors are shown; for `src/components/form`, `src/lib/form` and form files of features
+- `server-and-database.md` - server-only files, environment variables, database; for `*.server.ts`, `src/server`, `drizzle`
+- `forms.md` - how every form is built (schema, field config, form config, hook, UI) and how errors are shown; for `src/components/form`, the form hooks, schemas, configs and utils, and form files of features
 
 ## Project engineering guide
 
@@ -33,10 +33,10 @@ Rules for one part of the code live in `.claude/rules/` and load on their own wh
 - single responsibility - every component, hook and function does one thing; a bigger component is put together from smaller ones, each with its own job, instead of holding all the markup and logic itself
 - a file stays under 100 lines and 150 is the upper limit - only markup that cannot be split in a sensible way goes over it
 - a component made of several parts gets a folder named after it - the main file has the name of the folder and every part is a file prefixed with it (`sidebar/sidebar.tsx`, `sidebar/sidebar-link.tsx`), `src/components/layout/sidebar` is the reference
-- state and effects of a component live in a `use-*.ts` hook next to it, the component only renders (`sidebar/use-sidebar-mode.ts`)
-- code that is not a component is split by kind and never mixed in one file - `types.ts` for types, `constants.ts` for fixed data, `utils.ts` for functions, all three in a folder named after the subject, `src/components/layout/navigation` is the reference
-  - a type, constant or helper used by one file only stays in that file, it moves to `types.ts`, `constants.ts` or `utils.ts` of its folder when a second file needs it
-- files are imported directly (`#/components/layout/navigation/utils`), shared code has no `index.ts` barrel files - `index.ts` is only the public API of a feature. Routes pages can also be entry points to the feature specific logic/UI - it must be inside the routes folder because it is route/page but the specific logic and layout, UI is taken from the feature folder.
+- state and effects of a component live in a `use-*.ts` hook, never in the component file, the component only renders - a shared hook in `src/hooks` (`use-sidebar-mode.ts`), a hook of a feature in its part, next to `components` (`use-sign-in-form.ts`)
+- code that is not a component is split by kind and never mixed in one file - shared code sits at the top of `src` in a folder of its kind (`types`, `config`, `utils`, `schemas`, `hooks`) with one file per subject: `config/navigation.ts` holds the destinations, `types/navigation.ts` their types, `utils/navigation.ts` the functions over them
+  - a type, constant or helper used by one file only stays in that file, it moves to the folder of its kind when a second file needs it
+- files are imported directly (`#/utils/navigation`), shared code has no `index.ts` barrel files - `index.ts` is only the public API of a feature. Routes pages can also be entry points to the feature specific logic/UI - it must be inside the routes folder because it is route/page but the specific logic and layout, UI is taken from the feature folder.
 - files and folders are named in kebab-case after what they hold
 
 ## Project structure
@@ -64,20 +64,20 @@ src
 |           +-- use-sign-in-form.ts
 |           +-- api, types, utils...  # created when the part needs them
 |
-+-- components            # shared: components used across the application
-|   +-- layout            # application shell: page frame, mobile tab bar, mobile menu
-|   |   +-- navigation    # destinations of the sidebar, tab bar and menus - types, constants, utils
-|   |   +-- sidebar       # collapsible sidebar, one file per part
-|   +-- form              # form pieces (TanStack Form): field components, submit button, FormBuilder
-|   +-- ui                # base components of the design system (button, input, card...)
-+-- config                # shared: global configuration, env variables
-+-- hooks                 # shared: generic hooks
-+-- lib                   # shared: third party libraries preconfigured for this app, cn helper
-|   +-- auth              # sign-in (Better Auth), server instance and browser client
-|   +-- form              # schemas, field configs and helpers of forms
-|   +-- db                # database client and schema (Drizzle, Neon PostgreSQL)
++-- components            # shared: only .tsx UI, grouped by what it is for
+|   +-- form              # everything typed into and the form engine pieces: input, field, input-field, text-field, FormBuilder...
+|   +-- feedback          # tells the state of something: alert, badge, empty-state
+|   +-- display           # shows data: card, table, avatar
+|   +-- overlay           # opens over the page: dropdown-menu (later dialog, popover)
+|   +-- layout            # application shell: page frame, auth page, sidebar, mobile tab bar, mobile menu
+|   +-- button.tsx, logo.tsx, reveal.tsx   # single components used everywhere
++-- config                # shared: fixed data and settings - env, navigation, form fields
++-- hooks                 # shared: hooks - form engine (use-app-form), sidebar mode, generic ones
++-- schemas               # shared: Zod schemas used by several forms and server functions
++-- server                # shared: code that runs only on the server - Better Auth, database client and tables
++-- services              # shared: clients of outside services used in the browser - Better Auth client
 +-- types                 # shared: types used across the application
-+-- utils                 # shared: generic utility functions
++-- utils                 # shared: pure functions, one file per subject - cn, form, request, navigation
 ```
 
 - `app`
@@ -88,7 +88,7 @@ src
   - a file in `routes` that starts with `-` is not a route, it holds helpers of the routes next to it
   - every screen is wrapped in `Page` from `#/components/layout/page`, which gives the page gutter, the title row and the spacing between blocks
   - a screen outside the shell (sign-in, sign-up) is wrapped in `AuthPage` from `#/components/layout/auth-page/auth-page` instead - the form on the left, the green panel on the right from `lg`
-  - a new section is added to the navigation in `#/components/layout/navigation/constants.ts`, the sidebar, the tab bar and the mobile menu all read from it
+  - a new section is added to the navigation in `#/config/navigation.ts`, the sidebar, the tab bar and the mobile menu all read from it
   - can import from `features` (only through the feature `index.ts`) and from shared code
 - shared code (every `src` folder other than `app` and `features`)
   - holds code that is not tied to one feature and is used by `app` or by at least two features
@@ -104,8 +104,8 @@ src
   - a feature with several flows is split into parts, one folder per flow (`auth/sign-in`, later `auth/sign-up`), and each part holds everything of that flow - its UI and its logic are never mixed with another part
   - a part with a single hook or config keeps it as a file next to `components` (`use-sign-in-form.ts`), more of the same kind go into a folder of that kind (`hooks/`, `api/`)
 - a `components` folder - in a feature or in shared code - holds only `.tsx` UI components, never logic: hooks, configs, schemas, constants and utilities live outside it
-- imports between sections use the `#/` alias (`#/components/ui/button`, `#/lib/utils`, `#/features/parcels`), relative imports only point into the same folder or below it (`./sidebar-link`, `./navigation/utils`), never up with `../` - the one exception is inside a feature, where a file may go up within its own feature (`../use-sign-in-form` from `components/`), never out of it
-- folders are created when the first file needs them - `features`, `config`, `hooks`, `types` and `utils` do not exist until then
+- imports between sections use the `#/` alias (`#/components/button`, `#/utils/cn`, `#/features/auth`), relative imports only point into the same folder or below it (`./sidebar-link`), never up with `../` - the one exception is inside a feature, where a file may go up within its own feature (`../use-sign-in-form` from `components/`), never out of it
+- folders are created when the first file needs them, no empty folders are kept for later
 - these rules are enforced by Biome (`noRestrictedImports` overrides in `biome.json`), `pnpm check` fails when a boundary is crossed
 
 ## Writting commit text messages

@@ -2,8 +2,8 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth } from "better-auth/minimal";
 import { tanstackStartCookies } from "better-auth/tanstack-start";
 import { getServerEnv } from "#/config/env.server";
-import { getDb } from "#/lib/db/client.server";
-import * as schema from "#/lib/db/schema/auth";
+import { getDb } from "#/server/db/client.server";
+import * as schema from "#/server/db/schema/auth";
 
 const env = getServerEnv();
 

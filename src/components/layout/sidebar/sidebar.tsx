@@ -1,5 +1,5 @@
-import type { ShellUser } from "#/components/layout/types";
-import { cn } from "#/lib/utils";
+import type { ShellUser } from "#/types/user";
+import { cn } from "#/utils/cn";
 import { SidebarBrand } from "./sidebar-brand";
 import { SidebarNav } from "./sidebar-nav";
 import { SidebarToggle } from "./sidebar-toggle";

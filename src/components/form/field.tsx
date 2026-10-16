@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import { cn } from "#/lib/utils";
+import { Reveal } from "#/components/reveal";
+import { cn } from "#/utils/cn";
 import { FieldMessage } from "./field-message";
-import { Reveal } from "./reveal";
 
 type FieldProps = {
 	label: string;

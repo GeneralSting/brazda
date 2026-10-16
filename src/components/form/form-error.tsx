@@ -1,5 +1,5 @@
-import { FieldMessage } from "#/components/ui/field-message";
-import { Reveal } from "#/components/ui/reveal";
+import { Reveal } from "#/components/reveal";
+import { FieldMessage } from "./field-message";
 
 /**
  * Error of the whole form, not of one field (wrong email and password together, no

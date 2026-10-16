@@ -1,8 +1,8 @@
 import { useSelector } from "@tanstack/react-form";
 import type { ReactNode } from "react";
-import { Button } from "#/components/ui/button";
+import { Button } from "#/components/button";
 import { useFormContext } from "#/hooks/use-form-context";
-import { cn } from "#/lib/utils";
+import { cn } from "#/utils/cn";
 
 type SubmitButtonProps = {
 	children: ReactNode;

@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
+import { Sidebar } from "#/components/layout/sidebar/sidebar";
+import { useSidebarMode } from "#/hooks/use-sidebar-mode";
+import type { ShellUser } from "#/types/user";
 import { MobileTabs } from "./mobile-tabs";
-import { Sidebar } from "./sidebar/sidebar";
-import { useSidebarMode } from "./sidebar/use-sidebar-mode";
-import type { ShellUser } from "./types";
 
 type AppShellProps = {
 	user: ShellUser;

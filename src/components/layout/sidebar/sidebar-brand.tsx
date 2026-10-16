@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Logo } from "#/components/logo";
-import { LABEL_CLASSES } from "./constants";
+import { LABEL_CLASSES } from "#/config/sidebar";
 
 // logo at the top that leads home, in the rail only the sign stays
 export const SidebarBrand = () => (

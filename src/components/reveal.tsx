@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { useLastDefined } from "#/hooks/use-last-defined";
-import { cn } from "#/lib/utils";
+import { cn } from "#/utils/cn";
 
 type RevealProps = {
 	open: boolean;

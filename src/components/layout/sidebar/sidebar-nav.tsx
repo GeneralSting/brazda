@@ -1,9 +1,6 @@
 import { useLocation } from "@tanstack/react-router";
-import { MAIN_NAV } from "#/components/layout/navigation/constants";
-import {
-	isNavItemActive,
-	selectPathname,
-} from "#/components/layout/navigation/utils";
+import { MAIN_NAV } from "#/config/navigation";
+import { isNavItemActive, selectPathname } from "#/utils/navigation";
 import { SidebarLink } from "./sidebar-link";
 
 // every section of the application, the one that is open is marked

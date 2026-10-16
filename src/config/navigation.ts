@@ -12,7 +12,7 @@ import {
 	Users,
 	Wallet,
 } from "lucide-react";
-import type { NavItem, UpcomingNavItem } from "./types";
+import type { NavItem, UpcomingNavItem } from "#/types/navigation";
 
 const HOME: NavItem = { to: "/", label: "Početna", icon: House, exact: true };
 const PARCELS: NavItem = { to: "/parcele", label: "Parcele", icon: MapIcon };

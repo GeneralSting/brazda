@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { auth } from "#/lib/auth/auth.server";
+import { auth } from "#/server/auth.server";
 
 // Better Auth answers every request under /api/auth itself
 const handleAuthRequest = ({ request }: { request: Request }) =>

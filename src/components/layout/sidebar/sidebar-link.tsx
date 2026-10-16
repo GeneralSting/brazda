@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import type { NavItem } from "#/components/layout/navigation/types";
-import { cn } from "#/lib/utils";
-import { LABEL_CLASSES, ROW_CLASSES } from "./constants";
+import { LABEL_CLASSES, ROW_CLASSES } from "#/config/sidebar";
+import type { NavItem } from "#/types/navigation";
+import { cn } from "#/utils/cn";
 
 type SidebarLinkProps = {
 	item: NavItem;

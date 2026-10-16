@@ -57,12 +57,17 @@ paths:
   - content that appears under other content (a message under a field) opens with `Reveal`, which grows its height while fading, so what is below slides down
   - reduced motion is handled once in `styles.css` for the whole application, components do not repeat it
 - keyboard focus is styled globally in `styles.css`, buttons and fields draw their own ring - focus styles are never removed without a replacement
-- base components live in `src/components/ui` and are written by hand after the design (arrow functions, `cva` variants, `cn` from `#/lib/utils`) - button, input, field, badge, card, table, alert (error and warning tone), empty-state, dropdown-menu, avatar, password-input, input-field, field-message, reveal, plus `src/components/logo.tsx`
+- base components are written by hand after the design (arrow functions, `cva` variants, `cn` from `#/utils/cn`) and grouped in `src/components` by what they are for, there is no `ui` folder:
+  - `form` - input, password-input, field, field-message, input-field and the form engine pieces
+  - `feedback` - alert (error and warning tone), badge, empty-state
+  - `display` - card, table, avatar
+  - `overlay` - dropdown-menu
+  - at the root - button, reveal, logo
   - a component with behaviour that is hard to get right by hand (menu, dialog, select - keyboard, focus, position on the screen) takes that behaviour from Base UI (`@base-ui/react`) and only its look from us, `dropdown-menu.tsx` is the reference
   - a new screen is built from these first, a new base component is added only when the design shows one that is missing
   - `components.json` points the shadcn CLI to the same folders, so a missing component can be pulled with `pnpm dlx shadcn@latest add <name>` and then adjusted to the tokens
   - shadcn offers to overwrite existing files such as `button.tsx` when the new component depends on them - that is always declined
-- a text field in a form is always `InputField` - label, field and the message under it as one component, so every label has the same font and the same distance to its field - whatever sits in the label row (a badge, "Zaboravili ste?") gets the label's 16px type; `Field` alone is only for a control that is not a text field
+- a text field in a form is always `field.TextField`, which is `InputField` bound to the form - label, field and the message under it as one component, so every label has the same font and the same distance to its field - whatever sits in the label row (a badge, "Zaboravili ste?") gets the label's 16px type; `Field` alone is only for a control that is not a text field
 - sizes from the design - main button 56px (`size="lg"`), other buttons 48px, fields always 48px with no exception, table row 52px, radius 10px for buttons and fields (`rounded-control`) and 12px for cards (`rounded-xl`)
 - green is reserved for actions and the selected state, red for urgent and errors, amber for soon and values to check - colour is never the only signal, an icon and a word always go with it
 - icons come from `lucide-react`

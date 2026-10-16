@@ -1,5 +1,5 @@
 import { CalendarClock, ClipboardList, MapIcon } from "lucide-react";
-import { cn } from "#/lib/utils";
+import { cn } from "#/utils/cn";
 
 const FEATURES = [
 	{ icon: MapIcon, label: "Parcele iz ARKOD-a na karti" },

@@ -1,6 +1,6 @@
 import { CircleAlert } from "lucide-react";
 import type { ReactNode } from "react";
-import { cn } from "#/lib/utils";
+import { cn } from "#/utils/cn";
 
 type FieldMessageProps = {
 	tone: "error" | "warning" | "hint";

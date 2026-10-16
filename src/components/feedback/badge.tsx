@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
-import { cn } from "#/lib/utils";
+import { cn } from "#/utils/cn";
 
 /* Status badge. Colour is never the only signal, so a badge always carries
    a word and, at the default size, an icon passed as a child. */
