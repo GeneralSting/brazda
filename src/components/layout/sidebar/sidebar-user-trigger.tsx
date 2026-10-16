@@ -2,11 +2,11 @@ import { ChevronsUpDown } from "lucide-react";
 import { Avatar } from "#/components/display/avatar";
 import { DropdownMenuTrigger } from "#/components/overlay/dropdown-menu";
 import { LABEL_CLASSES, ROW_CLASSES } from "#/config/sidebar";
-import type { ShellUser } from "#/types/user";
+import type { SessionUser } from "#/types/user";
 import { cn } from "#/utils/cn";
 
 type SidebarUserTriggerProps = {
-	user: ShellUser;
+	user: SessionUser;
 	// one of the user's own pages is open
 	active: boolean;
 };
@@ -17,7 +17,7 @@ export const SidebarUserTrigger = ({
 	active,
 }: SidebarUserTriggerProps) => (
 	<DropdownMenuTrigger
-		title={`${user.name}, ${user.holdingName}`}
+		title={`${user.name}, ${user.email}`}
 		className={cn(
 			ROW_CLASSES,
 			// 6px of padding centres the 36px circle in the 48px row of the rail
@@ -29,7 +29,7 @@ export const SidebarUserTrigger = ({
 		<span className={cn("flex min-w-0 flex-1 flex-col", LABEL_CLASSES)}>
 			<span className="truncate font-semibold text-base">{user.name}</span>
 			<span className="truncate text-muted-foreground text-sm">
-				{user.holdingName}
+				{user.email}
 			</span>
 		</span>
 		<ChevronsUpDown

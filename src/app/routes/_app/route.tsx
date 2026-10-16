@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { AppShell } from "#/components/layout/app-shell";
+import { useSignOut } from "#/features/auth";
 import { getSessionUser } from "#/server/session";
-import { PLACEHOLDER_USER, placeholderSignOut } from "./-placeholder-session";
 
 // no screen of the shell opens without a session, the visitor is sent to sign in
 const requireSignIn = async () => {
@@ -14,11 +14,16 @@ const requireSignIn = async () => {
 };
 
 // every route in this folder is rendered inside the application shell
-const AppLayout = () => (
-	<AppShell user={PLACEHOLDER_USER} onSignOut={placeholderSignOut}>
-		<Outlet />
-	</AppShell>
-);
+const AppLayout = () => {
+	const { user } = Route.useRouteContext();
+	const signOut = useSignOut();
+
+	return (
+		<AppShell user={user} onSignOut={signOut}>
+			<Outlet />
+		</AppShell>
+	);
+};
 
 export const Route = createFileRoute("/_app")({
 	beforeLoad: requireSignIn,

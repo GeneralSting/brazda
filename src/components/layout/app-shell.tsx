@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
 import { Sidebar } from "#/components/layout/sidebar/sidebar";
 import { useSidebarMode } from "#/hooks/use-sidebar-mode";
-import type { ShellUser } from "#/types/user";
+import type { SessionUser } from "#/types/user";
 import { MobileTabs } from "./mobile-tabs";
 
 type AppShellProps = {
-	user: ShellUser;
+	user: SessionUser;
 	onSignOut: () => void;
 	children: ReactNode;
 };

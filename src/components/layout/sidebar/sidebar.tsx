@@ -1,4 +1,4 @@
-import type { ShellUser } from "#/types/user";
+import type { SessionUser } from "#/types/user";
 import { cn } from "#/utils/cn";
 import { SidebarBrand } from "./sidebar-brand";
 import { SidebarNav } from "./sidebar-nav";
@@ -7,7 +7,7 @@ import { SidebarUpcoming } from "./sidebar-upcoming";
 import { SidebarUserMenu } from "./sidebar-user-menu";
 
 type SidebarProps = {
-	user: ShellUser;
+	user: SessionUser;
 	// switches between the full sidebar and the rail of icons
 	onToggle: () => void;
 	onSignOut: () => void;

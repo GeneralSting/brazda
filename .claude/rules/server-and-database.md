@@ -16,5 +16,6 @@ paths:
   - the running application connects with `DATABASE_URL_POOLED` through `getDb` from `#/server/db/client.server`
   - drizzle-kit (`pnpm db:generate`, `pnpm db:migrate`, `pnpm db:studio`) uses the direct `DATABASE_URL`, migrations are generated into `drizzle/` and committed
 - every timestamp column is `timestamp(..., { withTimezone: true })`, so a moment means the same whatever the time zone of the server
+- the signed-in person is read through `getSessionUser` from `#/server/session`, signing out is `authClient.signOut` - the server deletes the session and expires the cookie in one answer, the cookie even when the database does not respond, so the screen never waits for it and `/prijava` checks the session only on a server render
 - the browser talks to it through `authClient` from `#/services/auth-client`
 - sign-in is Better Auth, `auth` from `#/server/auth.server`, its tables are generated into `src/server/db/schema/auth.ts` with `pnpm dlx auth@latest generate --config src/server/auth.server.ts --output src/server/db/schema/auth.ts`, then a migration is generated from them like for any other table

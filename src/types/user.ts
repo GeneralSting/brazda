@@ -1,6 +1,6 @@
-// the signed-in person as the shell shows them
-export type ShellUser = {
+// the signed-in person as the server sends them to the browser
+export type SessionUser = {
+	id: string;
 	name: string;
-	// name of the holding the user works on, e.g. "OPG Horvat"
-	holdingName: string;
+	email: string;
 };

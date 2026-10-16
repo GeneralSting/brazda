@@ -9,7 +9,7 @@ import {
 	UPCOMING_NAV,
 } from "#/config/navigation";
 import type { NavItem } from "#/types/navigation";
-import type { ShellUser } from "#/types/user";
+import type { SessionUser } from "#/types/user";
 import { cn } from "#/utils/cn";
 
 const ROW_CLASSES =
@@ -30,7 +30,7 @@ const MenuLink = ({ item }: { item: NavItem }) => (
 );
 
 type MobileMenuProps = {
-	user: ShellUser;
+	user: SessionUser;
 	onSignOut: () => void;
 };
 
@@ -46,7 +46,7 @@ export const MobileMenu = ({ user, onSignOut }: MobileMenuProps) => (
 				<span className="flex min-w-0 flex-1 flex-col">
 					<span className="type-body truncate font-bold">{user.name}</span>
 					<span className="truncate text-muted-foreground text-sm">
-						{user.holdingName}
+						{user.email}
 					</span>
 				</span>
 				<ChevronRight

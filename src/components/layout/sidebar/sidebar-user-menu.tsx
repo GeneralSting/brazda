@@ -7,7 +7,7 @@ import {
 	DropdownMenuSeparator,
 } from "#/components/overlay/dropdown-menu";
 import { USER_MENU_NAV } from "#/config/navigation";
-import type { ShellUser } from "#/types/user";
+import type { SessionUser } from "#/types/user";
 import {
 	isNavItemActive,
 	isUserMenuActive,
@@ -17,7 +17,7 @@ import { SidebarUserMenuLink } from "./sidebar-user-menu-link";
 import { SidebarUserTrigger } from "./sidebar-user-trigger";
 
 type SidebarUserMenuProps = {
-	user: ShellUser;
+	user: SessionUser;
 	onSignOut: () => void;
 };
 

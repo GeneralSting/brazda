@@ -53,7 +53,7 @@ export const useSignInForm = () => {
 			setFormError(message);
 			return;
 		}
-		await navigate({ to: "/" });
+		await navigate({ to: "/", replace: true }); // the back button does not return to the sign-in page
 	};
 
 	const handleInvalidSubmit = () => {
