@@ -4,7 +4,7 @@
 - web only and online only - no offline mode and no native app, phones use it through the browser
 - the interface is in Croatian, code, comments and commit messages are in English
 - farming-domain decisions come from the farmer the owner works with, they are never guessed
-- stack: TanStack Start (React 19, React Compiler, TypeScript, Vite), Tailwind CSS 4, Base UI, Biome, Drizzle ORM on Neon PostgreSQL (PostGIS available for parcels), Better Auth
+- stack: TanStack Start (React 19, React Compiler, TypeScript, Vite), Tailwind CSS 4, Base UI, TanStack Form with Zod, Biome, Drizzle ORM on Neon PostgreSQL (PostGIS available for parcels), Better Auth
 - commands: `pnpm dev`, `pnpm check` (Biome), `pnpm typecheck`, `pnpm build`, `pnpm db:generate`, `pnpm db:migrate`, `pnpm db:studio`
 
 ## Rules by area
@@ -13,6 +13,7 @@ Rules for one part of the code live in `.claude/rules/` and load on their own wh
 
 - `design-system.md` - tokens, type and spacing scale, motion, base components; for `src/**/*.tsx` and `styles.css`
 - `server-and-database.md` - server-only files, environment variables, database; for `*.server.ts`, `src/lib/db`, `drizzle`
+- `forms.md` - how every form is built (schema, field config, form config, hook, UI) and how errors are shown; for `src/components/form`, `src/lib/form` and form files of features
 
 ## Project engineering guide
 
@@ -55,23 +56,25 @@ src
 |   +-- styles.css        # global styles and design tokens
 |
 +-- features              # biggest section, one folder per feature
-|   +-- parcels           # example feature
+|   +-- auth              # example feature, split into parts
 |       +-- index.ts      # public API of the feature, the only file other sections import
-|       +-- api           # server functions and data fetching of the feature
-|       +-- components    # components scoped to the feature
-|       +-- hooks         # hooks scoped to the feature
-|       +-- types         # types used within the feature
-|       +-- utils         # utility functions of the feature
+|       +-- sign-in       # one part of the feature, everything about signing in
+|           +-- components            # only .tsx UI of the part (sign-in-form.tsx...)
+|           +-- sign-in-form-config.ts  # logic sits next to components, never inside it
+|           +-- use-sign-in-form.ts
+|           +-- api, types, utils...  # created when the part needs them
 |
 +-- components            # shared: components used across the application
 |   +-- layout            # application shell: page frame, mobile tab bar, mobile menu
 |   |   +-- navigation    # destinations of the sidebar, tab bar and menus - types, constants, utils
 |   |   +-- sidebar       # collapsible sidebar, one file per part
+|   +-- form              # form pieces (TanStack Form): field components, submit button, FormBuilder
 |   +-- ui                # base components of the design system (button, input, card...)
 +-- config                # shared: global configuration, env variables
 +-- hooks                 # shared: generic hooks
 +-- lib                   # shared: third party libraries preconfigured for this app, cn helper
-|   +-- auth              # sign-in (Better Auth), server instance
+|   +-- auth              # sign-in (Better Auth), server instance and browser client
+|   +-- form              # schemas, field configs and helpers of forms
 |   +-- db                # database client and schema (Drizzle, Neon PostgreSQL)
 +-- types                 # shared: types used across the application
 +-- utils                 # shared: generic utility functions
@@ -98,7 +101,10 @@ src
   - never imports another feature and never imports `app` - when two features need the same thing it is moved to shared code, when one screen needs two features they are composed in an `app` route
   - exposes only what is listed in its `index.ts`, with explicit named exports (no `export *`), everything else is private to the feature
   - only the needed inner folders are created, not all of them for every feature
-- imports between sections use the `#/` alias (`#/components/ui/button`, `#/lib/utils`, `#/features/parcels`), relative imports only point into the same folder or below it (`./sidebar-link`, `./navigation/utils`), never up with `../`
+  - a feature with several flows is split into parts, one folder per flow (`auth/sign-in`, later `auth/sign-up`), and each part holds everything of that flow - its UI and its logic are never mixed with another part
+  - a part with a single hook or config keeps it as a file next to `components` (`use-sign-in-form.ts`), more of the same kind go into a folder of that kind (`hooks/`, `api/`)
+- a `components` folder - in a feature or in shared code - holds only `.tsx` UI components, never logic: hooks, configs, schemas, constants and utilities live outside it
+- imports between sections use the `#/` alias (`#/components/ui/button`, `#/lib/utils`, `#/features/parcels`), relative imports only point into the same folder or below it (`./sidebar-link`, `./navigation/utils`), never up with `../` - the one exception is inside a feature, where a file may go up within its own feature (`../use-sign-in-form` from `components/`), never out of it
 - folders are created when the first file needs them - `features`, `config`, `hooks`, `types` and `utils` do not exist until then
 - these rules are enforced by Biome (`noRestrictedImports` overrides in `biome.json`), `pnpm check` fails when a boundary is crossed
 

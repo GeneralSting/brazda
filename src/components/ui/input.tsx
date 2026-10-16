@@ -30,7 +30,7 @@ export const Input = ({
 	>
 		<input
 			type={type}
-			className="h-full min-w-0 flex-1 bg-transparent outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed"
+			className="h-full min-w-0 flex-1 bg-transparent outline-none placeholder:text-disabled-foreground disabled:cursor-not-allowed"
 			{...props}
 		/>
 		{suffix ? (

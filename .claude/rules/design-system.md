@@ -54,9 +54,10 @@ paths:
   - hover, selection and open/close use a transition of colour, opacity, width or transform - `transition-colors`, `transition-opacity`, `transition-[width]`, `transition-transform`
   - one duration everywhere, `duration-200`, with `ease-out` for changes of size
   - elements are faded or clipped during a change instead of being added and removed, so nothing jumps - the sidebar is the reference: only its width animates, rows keep their icon in place and clip their label
+  - content that appears under other content (a message under a field) opens with `Reveal`, which grows its height while fading, so what is below slides down
   - reduced motion is handled once in `styles.css` for the whole application, components do not repeat it
 - keyboard focus is styled globally in `styles.css`, buttons and fields draw their own ring - focus styles are never removed without a replacement
-- base components live in `src/components/ui` and are written by hand after the design (arrow functions, `cva` variants, `cn` from `#/lib/utils`) - button, input, field, badge, card, table, alert (error and warning tone), empty-state, dropdown-menu, avatar, password-input, input-field, plus `src/components/logo.tsx`
+- base components live in `src/components/ui` and are written by hand after the design (arrow functions, `cva` variants, `cn` from `#/lib/utils`) - button, input, field, badge, card, table, alert (error and warning tone), empty-state, dropdown-menu, avatar, password-input, input-field, field-message, reveal, plus `src/components/logo.tsx`
   - a component with behaviour that is hard to get right by hand (menu, dialog, select - keyboard, focus, position on the screen) takes that behaviour from Base UI (`@base-ui/react`) and only its look from us, `dropdown-menu.tsx` is the reference
   - a new screen is built from these first, a new base component is added only when the design shows one that is missing
   - `components.json` points the shadcn CLI to the same folders, so a missing component can be pulled with `pnpm dlx shadcn@latest add <name>` and then adjusted to the tokens

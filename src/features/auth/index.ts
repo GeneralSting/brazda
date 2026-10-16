@@ -1,1 +1,1 @@
-export { SignInForm } from "./components/sign-in-form/sign-in-form";
+export { SignInForm } from "./sign-in/components/sign-in-form";

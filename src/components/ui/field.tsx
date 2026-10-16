@@ -1,6 +1,7 @@
-import { CircleAlert } from "lucide-react";
 import type { ReactNode } from "react";
 import { cn } from "#/lib/utils";
+import { FieldMessage } from "./field-message";
+import { Reveal } from "./reveal";
 
 type FieldProps = {
 	label: string;
@@ -20,7 +21,7 @@ type FieldProps = {
 	children: ReactNode;
 };
 
-// label, control and the message under it
+// label, control and the message under it, the message slides in instead of jumping
 export const Field = ({
 	label,
 	htmlFor,
@@ -32,9 +33,9 @@ export const Field = ({
 	className,
 	children,
 }: FieldProps) => (
-	<div className={cn("flex flex-col gap-2", className)}>
+	<div className={cn("flex flex-col", className)}>
 		{/* fixed at one line, so a taller addon or action never moves the control down */}
-		<div className="flex h-6 items-center gap-2">
+		<div className="mb-2 flex h-6 items-center gap-2">
 			<label htmlFor={htmlFor} className="type-label">
 				{label}
 			</label>
@@ -45,24 +46,16 @@ export const Field = ({
 			) : null}
 		</div>
 		{children}
-		{error ? (
-			<p
-				id={`${htmlFor}-message`}
-				className="type-small flex items-center gap-1.5 font-semibold text-destructive"
-			>
-				<CircleAlert className="size-4 shrink-0" aria-hidden="true" />
-				{error}
-			</p>
-		) : hint ? (
-			<p
-				id={`${htmlFor}-message`}
-				className={cn(
-					"type-small",
-					warning ? "text-warning" : "text-muted-foreground",
-				)}
-			>
-				{hint}
-			</p>
-		) : null}
+		{/* the space above the message belongs to it, so a closed message leaves no gap */}
+		<Reveal open={Boolean(error || hint)}>
+			<div className="pt-2">
+				<FieldMessage
+					id={`${htmlFor}-message`}
+					tone={error ? "error" : warning ? "warning" : "hint"}
+				>
+					{error ?? hint}
+				</FieldMessage>
+			</div>
+		</Reveal>
 	</div>
 );
