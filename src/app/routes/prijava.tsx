@@ -1,6 +1,14 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { AuthPage } from "#/components/layout/auth-page/auth-page";
 import { SignInForm } from "#/features/auth";
+import { getSessionUser } from "#/server/session";
+
+// someone already signed in has nothing to do here and goes to the start page
+const skipWhenSignedIn = async () => {
+	if (await getSessionUser()) {
+		throw redirect({ to: "/" });
+	}
+};
 
 // the way to a new account, under the form
 const SignUpPrompt = () => (
@@ -24,5 +32,6 @@ const SignInPage = () => (
 
 export const Route = createFileRoute("/prijava")({
 	head: () => ({ meta: [{ title: "Prijava · Brazda" }] }),
+	beforeLoad: skipWhenSignedIn,
 	component: SignInPage,
 });

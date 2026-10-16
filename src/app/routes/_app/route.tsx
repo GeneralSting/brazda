@@ -1,6 +1,17 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { AppShell } from "#/components/layout/app-shell";
+import { getSessionUser } from "#/server/session";
 import { PLACEHOLDER_USER, placeholderSignOut } from "./-placeholder-session";
+
+// no screen of the shell opens without a session, the visitor is sent to sign in
+const requireSignIn = async () => {
+	const user = await getSessionUser();
+
+	if (!user) {
+		throw redirect({ to: "/prijava" });
+	}
+	return { user };
+};
 
 // every route in this folder is rendered inside the application shell
 const AppLayout = () => (
@@ -9,4 +20,7 @@ const AppLayout = () => (
 	</AppShell>
 );
 
-export const Route = createFileRoute("/_app")({ component: AppLayout });
+export const Route = createFileRoute("/_app")({
+	beforeLoad: requireSignIn,
+	component: AppLayout,
+});
