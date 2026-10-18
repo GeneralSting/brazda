@@ -20,3 +20,18 @@ export const createFormConfig = <TFields extends Record<string, FieldConfig>>(
 		) as FormDefaultValues<TFields>,
 	};
 };
+
+// the first message of a schema issue or a plain string, whatever the validator returned
+export const getErrorMessage = (errors: unknown[]) => {
+	const [first] = errors;
+
+	if (typeof first === "string") {
+		return first;
+	}
+
+	if (first && typeof first === "object" && "message" in first) {
+		return String(first.message);
+	}
+
+	return undefined;
+};

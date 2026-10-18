@@ -20,8 +20,8 @@ export const Input = ({
 	<div
 		data-warning={warning || undefined}
 		className={cn(
-			"flex h-12 items-center gap-2 rounded-control border border-input bg-card px-3.5 text-lg transition-shadow",
-			"focus-within:border-primary focus-within:inset-ring-1 focus-within:inset-ring-primary focus-within:ring-4 focus-within:ring-ring",
+			"flex h-12 items-center gap-2 rounded-control border border-input bg-card px-3.5 text-lg transition-[border-color,box-shadow] duration-200",
+			"focus-within:border-primary focus-within:inset-ring-1 focus-within:inset-ring-primary",
 			"has-aria-invalid:border-destructive has-aria-invalid:inset-ring-1 has-aria-invalid:inset-ring-destructive",
 			"data-warning:border-warning-strong data-warning:bg-warning-field data-warning:inset-ring-1 data-warning:inset-ring-warning-strong",
 			"has-disabled:bg-muted has-disabled:text-disabled-foreground",

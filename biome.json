@@ -76,7 +76,7 @@
 									},
 									{
 										"group": ["#/features", "#/features/**"],
-										"message": "Features must not import each other. Use relative imports inside a feature and move code used by several features out of src/features (src/components, src/utils, ...)."
+										"message": "Features must not import each other, also not inside a group folder such as auth. Use relative imports inside a feature and move code used by several features out of src/features (src/components, src/utils, ...)."
 									}
 								]
 							}
@@ -95,8 +95,8 @@
 							"options": {
 								"patterns": [
 									{
-										"group": ["#/features/*/**"],
-										"message": "Import a feature only through its index.ts, e.g. #/features/parcels."
+										"group": ["#/features/*/**", "!#/features/auth/*"],
+										"message": "Import a feature only through its index.ts, e.g. #/features/parcels or #/features/auth/sign-in inside a group folder."
 									}
 								]
 							}

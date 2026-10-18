@@ -1,7 +1,7 @@
+import { EmailDivider } from "#/components/auth/email-divider";
+import { GoogleButton } from "#/components/auth/google-button";
 import { FormBuilder } from "#/components/form/form-builder";
 import { useSignInForm } from "../use-sign-in-form";
-import { SignInFormDivider } from "./sign-in-form-divider";
-import { SignInFormGoogle } from "./sign-in-form-google";
 
 // Google first, then email and password, put together from the form engine's pieces
 export const SignInForm = () => {
@@ -9,8 +9,8 @@ export const SignInForm = () => {
 
 	return (
 		<div className="flex flex-col gap-5">
-			<SignInFormGoogle />
-			<SignInFormDivider />
+			<GoogleButton />
+			<EmailDivider />
 			<FormBuilder form={signInForm} submitText="Prijavi se" error={formError}>
 				<signInForm.AppField name="email">
 					{(field) => (

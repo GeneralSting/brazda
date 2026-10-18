@@ -24,7 +24,8 @@ const signIn = async (values: SignInValues) => {
 		const { data, error } = await authClient.signIn.email(values);
 
 		if (error) {
-			return error.code === "INVALID_EMAIL_OR_PASSWORD"
+			return error.code ===
+				authClient.$ERROR_CODES.INVALID_EMAIL_OR_PASSWORD.code
 				? CREDENTIALS_MISMATCH
 				: getRequestErrorMessage(error);
 		}

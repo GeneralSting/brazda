@@ -22,8 +22,8 @@ const GoogleLogo = () => (
 	</svg>
 );
 
-// sign-in with a Google account, offered first because it needs no password
-export const SignInFormGoogle = () => (
+// sign-in or sign-up with a Google account, offered first because it needs no password
+export const GoogleButton = () => (
 	<Button type="button" variant="outline" size="lg" className="w-full">
 		<GoogleLogo />
 		Nastavi s Google računom

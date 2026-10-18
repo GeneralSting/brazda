@@ -1,21 +1,14 @@
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { AppShell } from "#/components/layout/app-shell";
-import { useSignOut } from "#/features/auth";
-import { getSessionUser } from "#/server/session";
+import { useSignOut } from "#/features/auth/sign-out";
+import { requireSignIn } from "#/utils/session";
 import { readSidebarMode } from "#/utils/sidebar-mode";
 
-/**
- * No screen of the shell opens without a session, the visitor is sent to sign in.
- * The stored width of the sidebar is read here too, before anything renders
- */
-const requireSignIn = async () => {
-	const user = await getSessionUser();
-
-	if (!user) {
-		throw redirect({ to: "/prijava" });
-	}
-	return { user, sidebarMode: readSidebarMode() };
-};
+// the signed-in user and the stored sidebar width, both ready before anything renders
+const loadShellContext = async () => ({
+	user: await requireSignIn(),
+	sidebarMode: readSidebarMode(),
+});
 
 // every route in this folder is rendered inside the application shell
 const AppLayout = () => {
@@ -30,6 +23,6 @@ const AppLayout = () => {
 };
 
 export const Route = createFileRoute("/aplikacija")({
-	beforeLoad: requireSignIn,
+	beforeLoad: loadShellContext,
 	component: AppLayout,
 });

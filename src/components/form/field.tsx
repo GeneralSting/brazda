@@ -29,7 +29,7 @@ export const Field = ({
 }: FieldProps) => (
 	<div className={cn("flex flex-col", className)}>
 		{/* fixed at one line, so a taller addon or action never moves the control down */}
-		<div className="mb-2 flex h-6 items-center gap-2">
+		<div className="mb-1 flex h-6 items-center gap-2">
 			<label htmlFor={htmlFor} className="type-label">
 				{label}
 			</label>

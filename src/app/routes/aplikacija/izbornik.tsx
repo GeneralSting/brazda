@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MobileMenu } from "#/components/layout/mobile-menu/mobile-menu";
 import { Page } from "#/components/layout/page";
-import { useSignOut } from "#/features/auth";
+import { useSignOut } from "#/features/auth/sign-out";
 
 // the "Izbornik" tab of the mobile tab bar, the user comes from the session of the shell
 const MenuPage = () => {

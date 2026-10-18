@@ -59,15 +59,18 @@ src
 |   +-- styles.css        # global styles and design tokens
 |
 +-- features              # biggest section, one folder per feature
-|   +-- auth              # example feature, split into parts
-|       +-- index.ts      # public API of the feature, the only file other sections import
-|       +-- sign-in       # one part of the feature, everything about signing in
-|           +-- components            # only .tsx UI of the part (sign-in-form.tsx...)
+|   +-- auth              # group folder - only keeps related features together, holds no code of its own
+|       +-- sign-up       # a feature, built the same way as sign-in
+|       +-- sign-out      # a feature with a single hook
+|       +-- sign-in       # a feature, everything about signing in
+|           +-- index.ts              # public API of the feature, the only file other sections import
+|           +-- components            # only .tsx UI of the feature (sign-in-form.tsx...)
 |           +-- sign-in-form-config.ts  # logic sits next to components, never inside it
 |           +-- use-sign-in-form.ts
-|           +-- api, types, utils...  # created when the part needs them
+|           +-- api, types, utils...  # created when the feature needs them
 |
 +-- components            # shared: only .tsx UI, grouped by what it is for
+|   +-- auth              # pieces of the sign-in and sign-up screens: google-button, email-divider
 |   +-- form              # everything typed into and the form engine pieces: input, field, input-field, text-field, FormBuilder...
 |   +-- feedback          # tells the state of something: alert, badge, empty-state
 |   +-- display           # shows data: card, table, avatar
@@ -80,20 +83,19 @@ src
 +-- server                # shared: code that runs only on the server - Better Auth, database client and tables
 +-- services              # shared: clients of outside services used in the browser - Better Auth client
 +-- types                 # shared: types used across the application
-+-- utils                 # shared: pure functions, one file per subject - cn, form, request, navigation
++-- utils                 # shared: helpers, one file per subject - cn, form, request, navigation, session (route guards), sidebar-mode
 ```
 
 - `app`
   - holds what is global and what connects the features: routes, router, providers, global styles
   - TanStack Start `srcDirectory` is set to `src/app` in `vite.config.ts`, so framework entry files live here
-  - routes stay thin - they read params/loaders and compose features, feature logic does not live in a route file
-  - `/` (the public page about Brazda) and the auth screens (`/prijava`, later `/registracija`) are public routes at the top of `routes`
+  - routes stay thin - a route file holds only the route: its options (head, beforeLoad), its layout or page component, composed from features and shared code - guards, loaders and every other helper live in shared code (`requireSignIn` and `skipWhenSignedIn` in `#/utils/session`), feature logic in the feature
+  - `/` (the public page about Brazda) and the auth screens (`/prijava`, `/registracija`) are public routes at the top of `routes`
   - every screen of the signed-in application is a route inside `routes/aplikacija` (URL `/aplikacija/...`) - its `route.tsx` is the layout that lets in only a signed-in user and renders the shell around the screen
-  - a file in `routes` that starts with `-` is not a route, it holds helpers of the routes next to it
   - every screen is wrapped in `Page` from `#/components/layout/page`, which gives the page gutter, the title row and the spacing between blocks
   - a screen outside the shell (sign-in, sign-up) is wrapped in `AuthPage` from `#/components/layout/auth-page/auth-page` instead - the form on the left, the green panel on the right from `lg`
   - a new section is added to the navigation in `#/config/navigation.ts`, the sidebar, the tab bar and the mobile menu all read from it
-  - can import from `features` (only through the feature `index.ts`) and from shared code
+  - can import from `features` (only through the feature `index.ts`, `#/features/auth/sign-in`) and from shared code
 - shared code (every `src` folder other than `app` and `features`)
   - holds code that is not tied to one feature and is used by `app` or by at least two features
   - never imports from `features` or `app`
@@ -105,12 +107,13 @@ src
   - never imports another feature and never imports `app` - when two features need the same thing it is moved to shared code, when one screen needs two features they are composed in an `app` route
   - exposes only what is listed in its `index.ts`, with explicit named exports (no `export *`), everything else is private to the feature
   - only the needed inner folders are created, not all of them for every feature
-  - a feature with several flows is split into parts, one folder per flow (`auth/sign-in`, later `auth/sign-up`), and each part holds everything of that flow - its UI and its logic are never mixed with another part
-  - a part with a single hook or config keeps it as a file next to `components` (`use-sign-in-form.ts`), more of the same kind go into a folder of that kind (`hooks/`, `api/`)
+  - related features can be kept together in a group folder (`auth/sign-in`, `auth/sign-up`, `auth/sign-out`) - the group holds no code, no `index.ts` and no shared folder, every feature in it is as separate as any other and has its own `index.ts`
+  - a feature with a single hook or config keeps it as a file next to `components` (`use-sign-in-form.ts`), more of the same kind go into a folder of that kind (`hooks/`, `api/`)
+  - what two features need, also two features of one group, is shared code - it moves out of `features` into the folder of its kind (`#/components/auth/google-button`)
 - a `components` folder - in a feature or in shared code - holds only `.tsx` UI components, never logic: hooks, configs, schemas, constants and utilities live outside it
-- imports between sections use the `#/` alias (`#/components/button`, `#/utils/cn`, `#/features/auth`), relative imports only point into the same folder or below it (`./sidebar-link`), never up with `../` - the one exception is inside a feature, where a file may go up within its own feature (`../use-sign-in-form` from `components/`), never out of it
+- imports between sections use the `#/` alias (`#/components/button`, `#/utils/cn`, `#/features/auth/sign-in`), relative imports only point into the same folder or below it (`./sidebar-link`), never up with `../` - the one exception is inside a feature, where a file may go up within its own feature (`../use-sign-in-form` from `components/`), never out of it
 - folders are created when the first file needs them, no empty folders are kept for later
-- these rules are enforced by Biome (`noRestrictedImports` overrides in `biome.json`), `pnpm check` fails when a boundary is crossed
+- these rules are enforced by Biome (`noRestrictedImports` overrides in `biome.json`), `pnpm check` fails when a boundary is crossed - a new group folder in `features` gets its exception (`!#/features/<group>/*`) in the `src/app` override, so app can import the features in it through their `index.ts`
 
 ## Writting commit text messages
 
