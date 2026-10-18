@@ -5,11 +5,9 @@ import type { LucideIcon } from "lucide-react";
 export type NavItem = {
 	to: NonNullable<LinkProps["to"]>;
 	label: string;
-	// shorter label for the mobile tab bar, where the full one does not fit
-	shortLabel?: string;
 	icon: LucideIcon;
-	// active only on this exact path, needed for the home page at "/"
-	exact?: boolean;
+	shortLabel?: string; // shorter label for the mobile tab bar, where the full one does not fit
+	exact?: boolean; // active only on this exact path, needed for the home page at "/aplikacija"
 };
 
 // a module that is planned but not built, shown locked and leading nowhere

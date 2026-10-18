@@ -2,14 +2,14 @@ import type { ComponentProps, ReactNode } from "react";
 import { cn } from "#/utils/cn";
 
 type InputProps = ComponentProps<"input"> & {
-	// unit or icon shown at the end of the field, e.g. "kg/ha"
-	suffix?: ReactNode;
-	// amber state for a value the user should double check, e.g. uncertain OCR result
-	warning?: boolean;
+	suffix?: ReactNode; // unit or icon shown at the end of the field (e.g. "kg/ha")
+	warning?: boolean; // amber state for a value the user should double check (e.g. uncertain OCR result)
 };
 
-/* The border lives on the wrapper so the suffix sits inside the field.
-   Error state is driven by aria-invalid, the same attribute screen readers use. */
+/**
+ * The border lives on the wrapper so the suffix sits inside the field.
+ * Error state is driven by aria-invalid, the same attribute screen readers use
+ */
 export const Input = ({
 	className,
 	suffix,

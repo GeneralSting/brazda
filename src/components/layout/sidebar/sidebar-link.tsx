@@ -12,6 +12,7 @@ type SidebarLinkProps = {
 export const SidebarLink = ({ item, active }: SidebarLinkProps) => (
 	<Link
 		to={item.to}
+		activeOptions={{ exact: item.exact }} // the router marks the same link as current as the active prop does
 		// as a rail the label is not visible, so the browser shows it on hover
 		title={item.label}
 		aria-current={active ? "page" : undefined}

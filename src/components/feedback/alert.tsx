@@ -6,10 +6,8 @@ import { cn } from "#/utils/cn";
 const alertVariants = cva("flex items-start gap-3 rounded-xl border p-4", {
 	variants: {
 		tone: {
-			// something failed, with what happened and what the user can do
-			destructive: "border-destructive-border bg-destructive-soft",
-			// something waits for the user to check it
-			warning: "border-warning-border bg-warning-soft",
+			destructive: "border-destructive-border bg-destructive-soft", // something failed, with what happened and what the user can do
+			warning: "border-warning-border bg-warning-soft", // something waits for the user to check it
 		},
 	},
 	defaultVariants: {
@@ -38,10 +36,8 @@ const TONE_ICONS = {
 type AlertProps = VariantProps<typeof alertVariants> & {
 	title: string;
 	children?: ReactNode;
-	// replaces the default icon of the tone
-	icon?: ReactNode;
-	// button offered next to the message, e.g. "Pokušaj ponovno"
-	action?: ReactNode;
+	icon?: ReactNode; // replaces the default icon of the tone
+	action?: ReactNode; // button offered next to the message (e.g. "Pokušaj ponovno")
 	className?: string;
 };
 

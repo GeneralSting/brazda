@@ -12,7 +12,7 @@ const DeadlinesPage = () => (
 	</Page>
 );
 
-export const Route = createFileRoute("/_app/rokovi")({
+export const Route = createFileRoute("/aplikacija/rokovi")({
 	head: () => ({ meta: [{ title: "Rokovi i obveze · Brazda" }] }),
 	component: DeadlinesPage,
 });

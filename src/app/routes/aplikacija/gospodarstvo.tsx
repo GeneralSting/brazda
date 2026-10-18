@@ -12,7 +12,7 @@ const HoldingPage = () => (
 	</Page>
 );
 
-export const Route = createFileRoute("/_app/gospodarstvo")({
+export const Route = createFileRoute("/aplikacija/gospodarstvo")({
 	head: () => ({ meta: [{ title: "Gospodarstvo · Brazda" }] }),
 	component: HoldingPage,
 });

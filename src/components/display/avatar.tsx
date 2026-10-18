@@ -6,15 +6,12 @@ const avatarVariants = cva(
 	{
 		variants: {
 			size: {
-				// rows of the sidebar, 36px
-				default: "size-9 text-sm",
-				// cards on mobile, 44px
-				lg: "size-11 text-base",
+				default: "size-9 text-sm", // rows of the sidebar, 36px
+				lg: "size-11 text-base", // cards on mobile, 44px
 			},
 			tone: {
 				default: "bg-accent",
-				// on a green row the circle turns white, or it would vanish into the green
-				raised: "bg-card",
+				raised: "bg-card", // on a green row the circle turns white, or it would vanish into the green
 			},
 		},
 		defaultVariants: {

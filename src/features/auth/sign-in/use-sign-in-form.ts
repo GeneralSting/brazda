@@ -32,7 +32,7 @@ const signIn = async (values: SignInValues) => {
 			? null
 			: REQUEST_MESSAGES.unexpected;
 	} catch {
-		return REQUEST_MESSAGES.noResponse; // the request never reached the server or got not answer
+		return REQUEST_MESSAGES.noResponse; // the request never reached the server or got no answer
 	}
 };
 
@@ -53,7 +53,7 @@ export const useSignInForm = () => {
 			setFormError(message);
 			return;
 		}
-		await navigate({ to: "/", replace: true }); // the back button does not return to the sign-in page
+		await navigate({ to: "/aplikacija", replace: true }); // the back button does not return to the sign-in page
 	};
 
 	const handleInvalidSubmit = () => {

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { DropdownMenuLinkItem } from "#/components/overlay/dropdown-menu";
+import { DropdownMenuLinkItem } from "#/components/overlay/dropdown-menu-item";
 import type { NavItem } from "#/types/navigation";
 
 type SidebarUserMenuLinkProps = {

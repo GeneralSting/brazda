@@ -1,20 +1,29 @@
 import type { ReactNode } from "react";
 import { Sidebar } from "#/components/layout/sidebar/sidebar";
 import { useSidebarMode } from "#/hooks/use-sidebar-mode";
+import type { SidebarMode } from "#/types/sidebar";
 import type { SessionUser } from "#/types/user";
-import { MobileTabs } from "./mobile-tabs";
+import { MobileTabs } from "./mobile-tabs/mobile-tabs";
 
 type AppShellProps = {
 	user: SessionUser;
-	onSignOut: () => void;
+	sidebarMode: SidebarMode; // the width stored by the user, read by the route before the first render
 	children: ReactNode;
+	onSignOut: () => void;
 };
 
-/* Frame around every screen of the application: tab bar at the bottom on phones,
-   sidebar from the md breakpoint. The sidebar mode is set on the root, where the
-   rail variant of styles.css reads it. */
-export const AppShell = ({ user, onSignOut, children }: AppShellProps) => {
-	const { sidebarMode, toggleSidebar } = useSidebarMode();
+/**
+ * Frame around every screen of the application: tab bar at the bottom on phones,
+ * sidebar from the md breakpoint. The sidebar mode is set on the root, where
+ * the rail variant of styles.css reads it.
+ */
+export const AppShell = ({
+	user,
+	sidebarMode: storedSidebarMode,
+	children,
+	onSignOut,
+}: AppShellProps) => {
+	const { sidebarMode, toggleSidebar } = useSidebarMode(storedSidebarMode);
 
 	return (
 		<div data-sidebar={sidebarMode} className="flex min-h-dvh">

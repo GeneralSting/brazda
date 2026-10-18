@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { MobileMenu } from "#/components/layout/mobile-menu";
+import { MobileMenu } from "#/components/layout/mobile-menu/mobile-menu";
 import { Page } from "#/components/layout/page";
 import { useSignOut } from "#/features/auth";
 
@@ -15,7 +15,7 @@ const MenuPage = () => {
 	);
 };
 
-export const Route = createFileRoute("/_app/izbornik")({
+export const Route = createFileRoute("/aplikacija/izbornik")({
 	head: () => ({ meta: [{ title: "Izbornik · Brazda" }] }),
 	component: MenuPage,
 });

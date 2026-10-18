@@ -12,7 +12,7 @@ const DocumentsPage = () => (
 	</Page>
 );
 
-export const Route = createFileRoute("/_app/dokumenti")({
+export const Route = createFileRoute("/aplikacija/dokumenti")({
 	head: () => ({ meta: [{ title: "Dokumenti · Brazda" }] }),
 	component: DocumentsPage,
 });

@@ -30,4 +30,4 @@ const HomePage = () => (
 	</Page>
 );
 
-export const Route = createFileRoute("/_app/")({ component: HomePage });
+export const Route = createFileRoute("/aplikacija/")({ component: HomePage });

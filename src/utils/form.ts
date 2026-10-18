@@ -1,13 +1,5 @@
 import { z } from "zod";
-import type { FieldConfig } from "#/types/form";
-
-type FormSchema<TFields extends Record<string, FieldConfig>> = z.ZodObject<{
-	[K in keyof TFields]: TFields[K]["schema"];
-}>;
-
-type FormDefaultValues<TFields extends Record<string, FieldConfig>> = {
-	[K in keyof TFields]: z.input<TFields[K]["schema"]>;
-};
+import type { FieldConfig, FormDefaultValues, FormSchema } from "#/types/form";
 
 /**
  * Joins field configs into one form: the schema of the whole form and its starting
@@ -22,6 +14,7 @@ export const createFormConfig = <TFields extends Record<string, FieldConfig>>(
 		schema: z.object(
 			Object.fromEntries(entries.map(([name, field]) => [name, field.schema])),
 		) as FormSchema<TFields>,
+
 		defaultValues: Object.fromEntries(
 			entries.map(([name, field]) => [name, field.defaultValue]),
 		) as FormDefaultValues<TFields>,

@@ -6,7 +6,7 @@ import { PagePlaceholder } from "#/components/layout/page-placeholder";
 const NewWorkPage = () => (
 	<div className="flex min-h-dvh flex-col">
 		<Link
-			to="/"
+			to="/aplikacija"
 			className="page-gutter flex h-13 items-center gap-2 font-semibold text-foreground hover:text-foreground"
 		>
 			<ArrowLeft className="size-6" aria-hidden="true" />
@@ -21,7 +21,7 @@ const NewWorkPage = () => (
 	</div>
 );
 
-export const Route = createFileRoute("/_app/unos-rada")({
+export const Route = createFileRoute("/aplikacija/unos-rada")({
 	head: () => ({ meta: [{ title: "Unos rada · Brazda" }] }),
 	component: NewWorkPage,
 });

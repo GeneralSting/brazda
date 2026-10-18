@@ -3,12 +3,14 @@ import { AuthPage } from "#/components/layout/auth-page/auth-page";
 import { SignInForm } from "#/features/auth";
 import { getSessionUser } from "#/server/session";
 
-/* Someone already signed in has nothing to do here and goes to the start page.
-   Only a visit rendered by the server is checked - inside the application the one
-   way here with a session is signing out, whose request may still be on its way. */
+/**
+ * Someone already signed in has nothing to do here and goes to the start page.
+ * Only a visit rendered by the server is checked - inside the application the one
+ * way here with a session is signing out, whose request may still be on its way
+ */
 const skipWhenSignedIn = async () => {
 	if (import.meta.env.SSR && (await getSessionUser())) {
-		throw redirect({ to: "/" });
+		throw redirect({ to: "/aplikacija" });
 	}
 };
 

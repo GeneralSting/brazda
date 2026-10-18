@@ -21,7 +21,8 @@ Rules for one part of the code live in `.claude/rules/` and load on their own wh
 
 ## Writing comments
 
-- for single line comment use the inline commenting `// for JS`, for the multiple lines comment use the multi lines commeting sytnax `/* ... */`
+- a comment of one line uses `//` - a comment about one prop, variant or value sits at the end of its line (`suffix?: ReactNode; // unit or icon shown at the end of the field`), above it only when the line would get too long, a comment about a whole block sits above the block
+- a comment of more lines is a JSDoc block, `/**` on its own line, every line of text starting with ` * ` and ` */` closing it - never `/* ... */`, except inside JSX, where `{/* ... */}` is the only form
 
 ## Related to the frontend
 
@@ -35,7 +36,9 @@ Rules for one part of the code live in `.claude/rules/` and load on their own wh
 - a component made of several parts gets a folder named after it - the main file has the name of the folder and every part is a file prefixed with it (`sidebar/sidebar.tsx`, `sidebar/sidebar-link.tsx`), `src/components/layout/sidebar` is the reference
 - state and effects of a component live in a `use-*.ts` hook, never in the component file, the component only renders - a shared hook in `src/hooks` (`use-sidebar-mode.ts`), a hook of a feature in its part, next to `components` (`use-sign-in-form.ts`)
 - code that is not a component is split by kind and never mixed in one file - shared code sits at the top of `src` in a folder of its kind (`types`, `config`, `utils`, `schemas`, `hooks`) with one file per subject: `config/navigation.ts` holds the destinations, `types/navigation.ts` their types, `utils/navigation.ts` the functions over them
-  - a type, constant or helper used by one file only stays in that file, it moves to the folder of its kind when a second file needs it
+  - the props type of a component stays in the component file, it is almost always used only there
+  - every other type lives in `src/types` in the file of its subject (`types/form.ts` holds every type about forms), even when only one file uses it yet, so all types of a subject are found in one place
+  - a constant or helper used by one file only stays in that file, it moves to the folder of its kind when a second file needs it
 - files are imported directly (`#/utils/navigation`), shared code has no `index.ts` barrel files - `index.ts` is only the public API of a feature. Routes pages can also be entry points to the feature specific logic/UI - it must be inside the routes folder because it is route/page but the specific logic and layout, UI is taken from the feature folder.
 - files and folders are named in kebab-case after what they hold
 
@@ -50,7 +53,7 @@ src
 |
 +-- app                   # application (core) layer, wires everything together
 |   +-- routes            # file-based routes (TanStack Router), __root.tsx is the document shell
-|   |   +-- _app          # routes rendered inside the application shell (sidebar / tab bar)
+|   |   +-- aplikacija    # the signed-in application under /aplikacija, rendered inside the shell (sidebar / tab bar)
 |   +-- router.tsx        # router configuration
 |   +-- routeTree.gen.ts  # generated, never edited by hand
 |   +-- styles.css        # global styles and design tokens
@@ -84,7 +87,8 @@ src
   - holds what is global and what connects the features: routes, router, providers, global styles
   - TanStack Start `srcDirectory` is set to `src/app` in `vite.config.ts`, so framework entry files live here
   - routes stay thin - they read params/loaders and compose features, feature logic does not live in a route file
-  - a screen that shows the sidebar / tab bar is a route inside `routes/_app`, only a screen that has to hide the shell is a route outside of it
+  - `/` (the public page about Brazda) and the auth screens (`/prijava`, later `/registracija`) are public routes at the top of `routes`
+  - every screen of the signed-in application is a route inside `routes/aplikacija` (URL `/aplikacija/...`) - its `route.tsx` is the layout that lets in only a signed-in user and renders the shell around the screen
   - a file in `routes` that starts with `-` is not a route, it holds helpers of the routes next to it
   - every screen is wrapped in `Page` from `#/components/layout/page`, which gives the page gutter, the title row and the spacing between blocks
   - a screen outside the shell (sign-in, sign-up) is wrapped in `AuthPage` from `#/components/layout/auth-page/auth-page` instead - the form on the left, the green panel on the right from `lg`

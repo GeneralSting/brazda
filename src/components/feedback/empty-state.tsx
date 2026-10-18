@@ -5,8 +5,7 @@ type EmptyStateProps = {
 	icon: ReactNode;
 	title: string;
 	description?: ReactNode;
-	// the first step the user can take from here
-	action?: ReactNode;
+	action?: ReactNode; // the first step the user can take from here
 	className?: string;
 };
 

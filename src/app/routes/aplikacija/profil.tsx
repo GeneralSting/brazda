@@ -13,7 +13,7 @@ const ProfilePage = () => (
 	</Page>
 );
 
-export const Route = createFileRoute("/_app/profil")({
+export const Route = createFileRoute("/aplikacija/profil")({
 	head: () => ({ meta: [{ title: "Profil · Brazda" }] }),
 	component: ProfilePage,
 });

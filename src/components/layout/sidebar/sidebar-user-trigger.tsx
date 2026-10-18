@@ -7,8 +7,7 @@ import { cn } from "#/utils/cn";
 
 type SidebarUserTriggerProps = {
 	user: SessionUser;
-	// one of the user's own pages is open
-	active: boolean;
+	active: boolean; // one of the user's own pages is open
 };
 
 // row with the signed-in person that opens the user menu

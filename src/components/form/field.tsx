@@ -5,18 +5,12 @@ import { FieldMessage } from "./field-message";
 
 type FieldProps = {
 	label: string;
-	// id of the control, connects the label with it
-	htmlFor: string;
-	// shown next to the label, e.g. a "Provjerite" badge
-	labelAddon?: ReactNode;
-	// at the right end of the label row, e.g. a "Zaboravili ste?" link
-	labelAction?: ReactNode;
-	// helper text under the control
-	hint?: ReactNode;
-	// error text under the control, replaces the hint
-	error?: ReactNode;
-	// renders the hint in the warning colour
-	warning?: boolean;
+	htmlFor: string; // ID of the control, connects the label with it
+	labelAddon?: ReactNode; // shown next to the label (e.g. "Provjerite" badge)
+	labelAction?: ReactNode; // at the right end of the label row (e.g. a "Zaboravili ste?" link)
+	hint?: ReactNode; // helper text under the control
+	error?: ReactNode; // error text under the control, replaces the hint
+	warning?: boolean; // renders the hint in the warning color
 	className?: string;
 	children: ReactNode;
 };

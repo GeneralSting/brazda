@@ -18,12 +18,9 @@ export const buttonVariants = cva(
 					"border border-destructive bg-card font-bold text-destructive hover:bg-destructive-soft",
 			},
 			size: {
-				// main action of a screen, 56px
-				lg: "h-14 gap-2.5 px-6 text-lg [&_svg]:size-5.5",
-				// every other button, 48px
-				default: "h-12 gap-2 px-5 text-base [&_svg]:size-4.5",
-				// only inside alerts and other dense spots, 40px
-				sm: "h-10 gap-2 px-3.5 text-sm [&_svg]:size-4",
+				lg: "h-14 gap-2.5 px-6 text-lg [&_svg]:size-5.5", // main action of a screen, 56px
+				default: "h-12 gap-2 px-5 text-base [&_svg]:size-4.5", // every other button, 48px
+				sm: "h-10 gap-2 px-3.5 text-sm [&_svg]:size-4", // only inside alerts and other dense spots, 40px
 			},
 		},
 		defaultVariants: {

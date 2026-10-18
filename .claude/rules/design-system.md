@@ -46,7 +46,7 @@ paths:
   - the in-between even steps (`0.5`, `1.5`, `2.5`, `3.5`) are for the inside of small components only
   - the page edge is always the `page-gutter` utility, never a hand written padding
   - two breakpoints carry the layout - below `md` (768px) the mobile tab bar, from `md` the sidebar; text sizes and the page gutter switch to their desktop values at `lg` (1024px)
-  - the sidebar has two widths, full and a rail of icons - the rail is the default between `md` and `lg`, the user can switch at any width with the row at the bottom of the sidebar and the choice is remembered on the device
+  - the sidebar has two widths, full and a rail of icons - the rail is the default between `md` and `lg`, the user can switch at any width with the row at the bottom of the sidebar and the choice is remembered in a cookie, which the route reads before the first render, so the chosen width shows at once and never changes after the page appears
   - styles that depend on the sidebar width use the `rail:` variant from `styles.css` (`rail:hidden`, `rail:w-18`), never JavaScript, so the server renders the same markup for every screen
 
 - shadows are used only on menus, popovers and dialogs, through `shadow-popover`
@@ -61,9 +61,9 @@ paths:
   - `form` - input, password-input, field, field-message, input-field and the form engine pieces
   - `feedback` - alert (error and warning tone), badge, empty-state
   - `display` - card, table, avatar
-  - `overlay` - dropdown-menu
+  - `overlay` - dropdown-menu, one file per part directly in the folder: `dropdown-menu.tsx` (menu and trigger), `dropdown-menu-content.tsx`, `dropdown-menu-item.tsx`, `dropdown-menu-separator.tsx`
   - at the root - button, reveal, logo
-  - a component with behaviour that is hard to get right by hand (menu, dialog, select - keyboard, focus, position on the screen) takes that behaviour from Base UI (`@base-ui/react`) and only its look from us, `dropdown-menu.tsx` is the reference
+  - a component with behaviour that is hard to get right by hand (menu, dialog, select - keyboard, focus, position on the screen) takes that behaviour from Base UI (`@base-ui/react`) and only its look from us, the `overlay/dropdown-menu*.tsx` files are the reference
   - a new screen is built from these first, a new base component is added only when the design shows one that is missing
   - `components.json` points the shadcn CLI to the same folders, so a missing component can be pulled with `pnpm dlx shadcn@latest add <name>` and then adjusted to the tokens
   - shadcn offers to overwrite existing files such as `button.tsx` when the new component depends on them - that is always declined

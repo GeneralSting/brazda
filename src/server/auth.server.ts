@@ -16,7 +16,7 @@ export const auth = betterAuth({
 	appName: "Brazda",
 	secret: env.BETTER_AUTH_SECRET,
 	baseURL: env.BETTER_AUTH_URL,
-	database: drizzleAdapter(getDb(), { provider: "pg", schema }),
 	emailAndPassword: { enabled: true },
 	plugins: [tanstackStartCookies()], // lets sign-in from a server function set its cookie, has to stay the last plugin
+	database: drizzleAdapter(getDb(), { provider: "pg", schema }),
 });

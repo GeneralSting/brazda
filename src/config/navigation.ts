@@ -14,32 +14,45 @@ import {
 } from "lucide-react";
 import type { NavItem, UpcomingNavItem } from "#/types/navigation";
 
-const HOME: NavItem = { to: "/", label: "Početna", icon: House, exact: true };
-const PARCELS: NavItem = { to: "/parcele", label: "Parcele", icon: MapIcon };
+const HOME: NavItem = {
+	to: "/aplikacija",
+	label: "Početna",
+	icon: House,
+	exact: true,
+};
+const PARCELS: NavItem = {
+	to: "/aplikacija/parcele",
+	label: "Parcele",
+	icon: MapIcon,
+};
 const WORK_RECORDS: NavItem = {
-	to: "/radovi",
+	to: "/aplikacija/radovi",
 	label: "Evidencija radova",
 	icon: ClipboardList,
 };
 const DEADLINES: NavItem = {
-	to: "/rokovi",
+	to: "/aplikacija/rokovi",
 	label: "Rokovi i obveze",
 	shortLabel: "Rokovi",
 	icon: CalendarClock,
 };
 const DOCUMENTS: NavItem = {
-	to: "/dokumenti",
+	to: "/aplikacija/dokumenti",
 	label: "Dokumenti",
 	icon: FileText,
 };
 const HOLDING: NavItem = {
-	to: "/gospodarstvo",
+	to: "/aplikacija/gospodarstvo",
 	label: "Gospodarstvo",
 	icon: Users,
 };
-const PROFILE: NavItem = { to: "/profil", label: "Profil", icon: UserRound };
+const PROFILE: NavItem = {
+	to: "/aplikacija/profil",
+	label: "Profil",
+	icon: UserRound,
+};
 const SUBSCRIPTION: NavItem = {
-	to: "/pretplata",
+	to: "/aplikacija/pretplata",
 	label: "Pretplata",
 	icon: CreditCard,
 };
@@ -61,8 +74,10 @@ export const MOBILE_TAB_AFTER_ACTION: NavItem = DEADLINES;
 // sections that do not fit in the tab bar, reached on mobile through the menu page
 export const MOBILE_MENU_NAV: NavItem[] = [WORK_RECORDS, DOCUMENTS, HOLDING];
 
-/* pages about the signed-in person, opened from the user row of the sidebar
-   and from the mobile menu, where signing out sits below them */
+/**
+ * pages about the signed-in person, opened from the user row of the sidebar
+ * and from the mobile menu, where signing out sits below them
+ */
 export const USER_MENU_NAV: NavItem[] = [PROFILE, SUBSCRIPTION];
 // on mobile the profile is opened from the user card, the rest from a list
 export const MOBILE_ACCOUNT_NAV: NavItem[] = [SUBSCRIPTION];
@@ -76,6 +91,6 @@ export const UPCOMING_NAV: UpcomingNavItem[] = [
 ];
 
 export const PROFILE_PATH = PROFILE.to;
-export const MOBILE_MENU_PATH = "/izbornik" satisfies NavItem["to"];
+export const MOBILE_MENU_PATH = "/aplikacija/izbornik" satisfies NavItem["to"];
 // the work entry flow, the main action of the application
-export const NEW_WORK_PATH = "/unos-rada" satisfies NavItem["to"];
+export const NEW_WORK_PATH = "/aplikacija/unos-rada" satisfies NavItem["to"];

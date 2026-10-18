@@ -9,22 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AppRouteRouteImport } from './routes/_app/route'
+import { Route as AplikacijaRouteRouteImport } from './routes/aplikacija/route'
 import { Route as PrijavaRouteImport } from './routes/prijava'
-import { Route as AppIndexRouteImport } from './routes/_app/index'
-import { Route as AppDokumentiRouteImport } from './routes/_app/dokumenti'
-import { Route as AppGospodarstvoRouteImport } from './routes/_app/gospodarstvo'
-import { Route as AppIzbornikRouteImport } from './routes/_app/izbornik'
-import { Route as AppParceleRouteImport } from './routes/_app/parcele'
-import { Route as AppPretplataRouteImport } from './routes/_app/pretplata'
-import { Route as AppProfilRouteImport } from './routes/_app/profil'
-import { Route as AppRadoviRouteImport } from './routes/_app/radovi'
-import { Route as AppRokoviRouteImport } from './routes/_app/rokovi'
-import { Route as AppUnosRadaRouteImport } from './routes/_app/unos-rada'
+import { Route as AplikacijaIndexRouteImport } from './routes/aplikacija/index'
+import { Route as AplikacijaDokumentiRouteImport } from './routes/aplikacija/dokumenti'
+import { Route as AplikacijaGospodarstvoRouteImport } from './routes/aplikacija/gospodarstvo'
+import { Route as AplikacijaIzbornikRouteImport } from './routes/aplikacija/izbornik'
+import { Route as AplikacijaParceleRouteImport } from './routes/aplikacija/parcele'
+import { Route as AplikacijaPretplataRouteImport } from './routes/aplikacija/pretplata'
+import { Route as AplikacijaProfilRouteImport } from './routes/aplikacija/profil'
+import { Route as AplikacijaRadoviRouteImport } from './routes/aplikacija/radovi'
+import { Route as AplikacijaRokoviRouteImport } from './routes/aplikacija/rokovi'
+import { Route as AplikacijaUnosRadaRouteImport } from './routes/aplikacija/unos-rada'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
-const AppRouteRoute = AppRouteRouteImport.update({
-  id: '/_app',
+const AplikacijaRouteRoute = AplikacijaRouteRouteImport.update({
+  id: '/aplikacija',
+  path: '/aplikacija',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrijavaRoute = PrijavaRouteImport.update({
@@ -32,55 +33,55 @@ const PrijavaRoute = PrijavaRouteImport.update({
   path: '/prijava',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppIndexRoute = AppIndexRouteImport.update({
+const AplikacijaIndexRoute = AplikacijaIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AppRouteRoute,
+  getParentRoute: () => AplikacijaRouteRoute,
 } as any)
-const AppDokumentiRoute = AppDokumentiRouteImport.update({
+const AplikacijaDokumentiRoute = AplikacijaDokumentiRouteImport.update({
   id: '/dokumenti',
   path: '/dokumenti',
-  getParentRoute: () => AppRouteRoute,
+  getParentRoute: () => AplikacijaRouteRoute,
 } as any)
-const AppGospodarstvoRoute = AppGospodarstvoRouteImport.update({
+const AplikacijaGospodarstvoRoute = AplikacijaGospodarstvoRouteImport.update({
   id: '/gospodarstvo',
   path: '/gospodarstvo',
-  getParentRoute: () => AppRouteRoute,
+  getParentRoute: () => AplikacijaRouteRoute,
 } as any)
-const AppIzbornikRoute = AppIzbornikRouteImport.update({
+const AplikacijaIzbornikRoute = AplikacijaIzbornikRouteImport.update({
   id: '/izbornik',
   path: '/izbornik',
-  getParentRoute: () => AppRouteRoute,
+  getParentRoute: () => AplikacijaRouteRoute,
 } as any)
-const AppParceleRoute = AppParceleRouteImport.update({
+const AplikacijaParceleRoute = AplikacijaParceleRouteImport.update({
   id: '/parcele',
   path: '/parcele',
-  getParentRoute: () => AppRouteRoute,
+  getParentRoute: () => AplikacijaRouteRoute,
 } as any)
-const AppPretplataRoute = AppPretplataRouteImport.update({
+const AplikacijaPretplataRoute = AplikacijaPretplataRouteImport.update({
   id: '/pretplata',
   path: '/pretplata',
-  getParentRoute: () => AppRouteRoute,
+  getParentRoute: () => AplikacijaRouteRoute,
 } as any)
-const AppProfilRoute = AppProfilRouteImport.update({
+const AplikacijaProfilRoute = AplikacijaProfilRouteImport.update({
   id: '/profil',
   path: '/profil',
-  getParentRoute: () => AppRouteRoute,
+  getParentRoute: () => AplikacijaRouteRoute,
 } as any)
-const AppRadoviRoute = AppRadoviRouteImport.update({
+const AplikacijaRadoviRoute = AplikacijaRadoviRouteImport.update({
   id: '/radovi',
   path: '/radovi',
-  getParentRoute: () => AppRouteRoute,
+  getParentRoute: () => AplikacijaRouteRoute,
 } as any)
-const AppRokoviRoute = AppRokoviRouteImport.update({
+const AplikacijaRokoviRoute = AplikacijaRokoviRouteImport.update({
   id: '/rokovi',
   path: '/rokovi',
-  getParentRoute: () => AppRouteRoute,
+  getParentRoute: () => AplikacijaRouteRoute,
 } as any)
-const AppUnosRadaRoute = AppUnosRadaRouteImport.update({
+const AplikacijaUnosRadaRoute = AplikacijaUnosRadaRouteImport.update({
   id: '/unos-rada',
   path: '/unos-rada',
-  getParentRoute: () => AppRouteRoute,
+  getParentRoute: () => AplikacijaRouteRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
@@ -89,108 +90,110 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof AppIndexRoute
+  '/aplikacija': typeof AplikacijaRouteRouteWithChildren
   '/prijava': typeof PrijavaRoute
-  '/dokumenti': typeof AppDokumentiRoute
-  '/gospodarstvo': typeof AppGospodarstvoRoute
-  '/izbornik': typeof AppIzbornikRoute
-  '/parcele': typeof AppParceleRoute
-  '/pretplata': typeof AppPretplataRoute
-  '/profil': typeof AppProfilRoute
-  '/radovi': typeof AppRadoviRoute
-  '/rokovi': typeof AppRokoviRoute
-  '/unos-rada': typeof AppUnosRadaRoute
+  '/aplikacija/dokumenti': typeof AplikacijaDokumentiRoute
+  '/aplikacija/gospodarstvo': typeof AplikacijaGospodarstvoRoute
+  '/aplikacija/izbornik': typeof AplikacijaIzbornikRoute
+  '/aplikacija/parcele': typeof AplikacijaParceleRoute
+  '/aplikacija/pretplata': typeof AplikacijaPretplataRoute
+  '/aplikacija/profil': typeof AplikacijaProfilRoute
+  '/aplikacija/radovi': typeof AplikacijaRadoviRoute
+  '/aplikacija/rokovi': typeof AplikacijaRokoviRoute
+  '/aplikacija/unos-rada': typeof AplikacijaUnosRadaRoute
+  '/aplikacija/': typeof AplikacijaIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/prijava': typeof PrijavaRoute
-  '/dokumenti': typeof AppDokumentiRoute
-  '/gospodarstvo': typeof AppGospodarstvoRoute
-  '/izbornik': typeof AppIzbornikRoute
-  '/parcele': typeof AppParceleRoute
-  '/pretplata': typeof AppPretplataRoute
-  '/profil': typeof AppProfilRoute
-  '/radovi': typeof AppRadoviRoute
-  '/rokovi': typeof AppRokoviRoute
-  '/unos-rada': typeof AppUnosRadaRoute
-  '/': typeof AppIndexRoute
+  '/aplikacija/dokumenti': typeof AplikacijaDokumentiRoute
+  '/aplikacija/gospodarstvo': typeof AplikacijaGospodarstvoRoute
+  '/aplikacija/izbornik': typeof AplikacijaIzbornikRoute
+  '/aplikacija/parcele': typeof AplikacijaParceleRoute
+  '/aplikacija/pretplata': typeof AplikacijaPretplataRoute
+  '/aplikacija/profil': typeof AplikacijaProfilRoute
+  '/aplikacija/radovi': typeof AplikacijaRadoviRoute
+  '/aplikacija/rokovi': typeof AplikacijaRokoviRoute
+  '/aplikacija/unos-rada': typeof AplikacijaUnosRadaRoute
+  '/aplikacija': typeof AplikacijaIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_app': typeof AppRouteRouteWithChildren
+  '/aplikacija': typeof AplikacijaRouteRouteWithChildren
   '/prijava': typeof PrijavaRoute
-  '/_app/dokumenti': typeof AppDokumentiRoute
-  '/_app/gospodarstvo': typeof AppGospodarstvoRoute
-  '/_app/izbornik': typeof AppIzbornikRoute
-  '/_app/parcele': typeof AppParceleRoute
-  '/_app/pretplata': typeof AppPretplataRoute
-  '/_app/profil': typeof AppProfilRoute
-  '/_app/radovi': typeof AppRadoviRoute
-  '/_app/rokovi': typeof AppRokoviRoute
-  '/_app/unos-rada': typeof AppUnosRadaRoute
-  '/_app/': typeof AppIndexRoute
+  '/aplikacija/dokumenti': typeof AplikacijaDokumentiRoute
+  '/aplikacija/gospodarstvo': typeof AplikacijaGospodarstvoRoute
+  '/aplikacija/izbornik': typeof AplikacijaIzbornikRoute
+  '/aplikacija/parcele': typeof AplikacijaParceleRoute
+  '/aplikacija/pretplata': typeof AplikacijaPretplataRoute
+  '/aplikacija/profil': typeof AplikacijaProfilRoute
+  '/aplikacija/radovi': typeof AplikacijaRadoviRoute
+  '/aplikacija/rokovi': typeof AplikacijaRokoviRoute
+  '/aplikacija/unos-rada': typeof AplikacijaUnosRadaRoute
+  '/aplikacija/': typeof AplikacijaIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
+    | '/aplikacija'
     | '/prijava'
-    | '/dokumenti'
-    | '/gospodarstvo'
-    | '/izbornik'
-    | '/parcele'
-    | '/pretplata'
-    | '/profil'
-    | '/radovi'
-    | '/rokovi'
-    | '/unos-rada'
+    | '/aplikacija/dokumenti'
+    | '/aplikacija/gospodarstvo'
+    | '/aplikacija/izbornik'
+    | '/aplikacija/parcele'
+    | '/aplikacija/pretplata'
+    | '/aplikacija/profil'
+    | '/aplikacija/radovi'
+    | '/aplikacija/rokovi'
+    | '/aplikacija/unos-rada'
+    | '/aplikacija/'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/prijava'
-    | '/dokumenti'
-    | '/gospodarstvo'
-    | '/izbornik'
-    | '/parcele'
-    | '/pretplata'
-    | '/profil'
-    | '/radovi'
-    | '/rokovi'
-    | '/unos-rada'
-    | '/'
+    | '/aplikacija/dokumenti'
+    | '/aplikacija/gospodarstvo'
+    | '/aplikacija/izbornik'
+    | '/aplikacija/parcele'
+    | '/aplikacija/pretplata'
+    | '/aplikacija/profil'
+    | '/aplikacija/radovi'
+    | '/aplikacija/rokovi'
+    | '/aplikacija/unos-rada'
+    | '/aplikacija'
     | '/api/auth/$'
   id:
     | '__root__'
-    | '/_app'
+    | '/aplikacija'
     | '/prijava'
-    | '/_app/dokumenti'
-    | '/_app/gospodarstvo'
-    | '/_app/izbornik'
-    | '/_app/parcele'
-    | '/_app/pretplata'
-    | '/_app/profil'
-    | '/_app/radovi'
-    | '/_app/rokovi'
-    | '/_app/unos-rada'
-    | '/_app/'
+    | '/aplikacija/dokumenti'
+    | '/aplikacija/gospodarstvo'
+    | '/aplikacija/izbornik'
+    | '/aplikacija/parcele'
+    | '/aplikacija/pretplata'
+    | '/aplikacija/profil'
+    | '/aplikacija/radovi'
+    | '/aplikacija/rokovi'
+    | '/aplikacija/unos-rada'
+    | '/aplikacija/'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  AppRouteRoute: typeof AppRouteRouteWithChildren
+  AplikacijaRouteRoute: typeof AplikacijaRouteRouteWithChildren
   PrijavaRoute: typeof PrijavaRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_app': {
-      id: '/_app'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AppRouteRouteImport
+    '/aplikacija': {
+      id: '/aplikacija'
+      path: '/aplikacija'
+      fullPath: '/aplikacija'
+      preLoaderRoute: typeof AplikacijaRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/prijava': {
@@ -200,75 +203,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrijavaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/': {
-      id: '/_app/'
+    '/aplikacija/': {
+      id: '/aplikacija/'
       path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof AppIndexRouteImport
-      parentRoute: typeof AppRouteRoute
+      fullPath: '/aplikacija/'
+      preLoaderRoute: typeof AplikacijaIndexRouteImport
+      parentRoute: typeof AplikacijaRouteRoute
     }
-    '/_app/dokumenti': {
-      id: '/_app/dokumenti'
+    '/aplikacija/dokumenti': {
+      id: '/aplikacija/dokumenti'
       path: '/dokumenti'
-      fullPath: '/dokumenti'
-      preLoaderRoute: typeof AppDokumentiRouteImport
-      parentRoute: typeof AppRouteRoute
+      fullPath: '/aplikacija/dokumenti'
+      preLoaderRoute: typeof AplikacijaDokumentiRouteImport
+      parentRoute: typeof AplikacijaRouteRoute
     }
-    '/_app/gospodarstvo': {
-      id: '/_app/gospodarstvo'
+    '/aplikacija/gospodarstvo': {
+      id: '/aplikacija/gospodarstvo'
       path: '/gospodarstvo'
-      fullPath: '/gospodarstvo'
-      preLoaderRoute: typeof AppGospodarstvoRouteImport
-      parentRoute: typeof AppRouteRoute
+      fullPath: '/aplikacija/gospodarstvo'
+      preLoaderRoute: typeof AplikacijaGospodarstvoRouteImport
+      parentRoute: typeof AplikacijaRouteRoute
     }
-    '/_app/izbornik': {
-      id: '/_app/izbornik'
+    '/aplikacija/izbornik': {
+      id: '/aplikacija/izbornik'
       path: '/izbornik'
-      fullPath: '/izbornik'
-      preLoaderRoute: typeof AppIzbornikRouteImport
-      parentRoute: typeof AppRouteRoute
+      fullPath: '/aplikacija/izbornik'
+      preLoaderRoute: typeof AplikacijaIzbornikRouteImport
+      parentRoute: typeof AplikacijaRouteRoute
     }
-    '/_app/parcele': {
-      id: '/_app/parcele'
+    '/aplikacija/parcele': {
+      id: '/aplikacija/parcele'
       path: '/parcele'
-      fullPath: '/parcele'
-      preLoaderRoute: typeof AppParceleRouteImport
-      parentRoute: typeof AppRouteRoute
+      fullPath: '/aplikacija/parcele'
+      preLoaderRoute: typeof AplikacijaParceleRouteImport
+      parentRoute: typeof AplikacijaRouteRoute
     }
-    '/_app/pretplata': {
-      id: '/_app/pretplata'
+    '/aplikacija/pretplata': {
+      id: '/aplikacija/pretplata'
       path: '/pretplata'
-      fullPath: '/pretplata'
-      preLoaderRoute: typeof AppPretplataRouteImport
-      parentRoute: typeof AppRouteRoute
+      fullPath: '/aplikacija/pretplata'
+      preLoaderRoute: typeof AplikacijaPretplataRouteImport
+      parentRoute: typeof AplikacijaRouteRoute
     }
-    '/_app/profil': {
-      id: '/_app/profil'
+    '/aplikacija/profil': {
+      id: '/aplikacija/profil'
       path: '/profil'
-      fullPath: '/profil'
-      preLoaderRoute: typeof AppProfilRouteImport
-      parentRoute: typeof AppRouteRoute
+      fullPath: '/aplikacija/profil'
+      preLoaderRoute: typeof AplikacijaProfilRouteImport
+      parentRoute: typeof AplikacijaRouteRoute
     }
-    '/_app/radovi': {
-      id: '/_app/radovi'
+    '/aplikacija/radovi': {
+      id: '/aplikacija/radovi'
       path: '/radovi'
-      fullPath: '/radovi'
-      preLoaderRoute: typeof AppRadoviRouteImport
-      parentRoute: typeof AppRouteRoute
+      fullPath: '/aplikacija/radovi'
+      preLoaderRoute: typeof AplikacijaRadoviRouteImport
+      parentRoute: typeof AplikacijaRouteRoute
     }
-    '/_app/rokovi': {
-      id: '/_app/rokovi'
+    '/aplikacija/rokovi': {
+      id: '/aplikacija/rokovi'
       path: '/rokovi'
-      fullPath: '/rokovi'
-      preLoaderRoute: typeof AppRokoviRouteImport
-      parentRoute: typeof AppRouteRoute
+      fullPath: '/aplikacija/rokovi'
+      preLoaderRoute: typeof AplikacijaRokoviRouteImport
+      parentRoute: typeof AplikacijaRouteRoute
     }
-    '/_app/unos-rada': {
-      id: '/_app/unos-rada'
+    '/aplikacija/unos-rada': {
+      id: '/aplikacija/unos-rada'
       path: '/unos-rada'
-      fullPath: '/unos-rada'
-      preLoaderRoute: typeof AppUnosRadaRouteImport
-      parentRoute: typeof AppRouteRoute
+      fullPath: '/aplikacija/unos-rada'
+      preLoaderRoute: typeof AplikacijaUnosRadaRouteImport
+      parentRoute: typeof AplikacijaRouteRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -280,38 +283,38 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AppRouteRouteChildren {
-  AppDokumentiRoute: typeof AppDokumentiRoute
-  AppGospodarstvoRoute: typeof AppGospodarstvoRoute
-  AppIzbornikRoute: typeof AppIzbornikRoute
-  AppParceleRoute: typeof AppParceleRoute
-  AppPretplataRoute: typeof AppPretplataRoute
-  AppProfilRoute: typeof AppProfilRoute
-  AppRadoviRoute: typeof AppRadoviRoute
-  AppRokoviRoute: typeof AppRokoviRoute
-  AppUnosRadaRoute: typeof AppUnosRadaRoute
-  AppIndexRoute: typeof AppIndexRoute
+interface AplikacijaRouteRouteChildren {
+  AplikacijaDokumentiRoute: typeof AplikacijaDokumentiRoute
+  AplikacijaGospodarstvoRoute: typeof AplikacijaGospodarstvoRoute
+  AplikacijaIzbornikRoute: typeof AplikacijaIzbornikRoute
+  AplikacijaParceleRoute: typeof AplikacijaParceleRoute
+  AplikacijaPretplataRoute: typeof AplikacijaPretplataRoute
+  AplikacijaProfilRoute: typeof AplikacijaProfilRoute
+  AplikacijaRadoviRoute: typeof AplikacijaRadoviRoute
+  AplikacijaRokoviRoute: typeof AplikacijaRokoviRoute
+  AplikacijaUnosRadaRoute: typeof AplikacijaUnosRadaRoute
+  AplikacijaIndexRoute: typeof AplikacijaIndexRoute
 }
 
-const AppRouteRouteChildren: AppRouteRouteChildren = {
-  AppDokumentiRoute: AppDokumentiRoute,
-  AppGospodarstvoRoute: AppGospodarstvoRoute,
-  AppIzbornikRoute: AppIzbornikRoute,
-  AppParceleRoute: AppParceleRoute,
-  AppPretplataRoute: AppPretplataRoute,
-  AppProfilRoute: AppProfilRoute,
-  AppRadoviRoute: AppRadoviRoute,
-  AppRokoviRoute: AppRokoviRoute,
-  AppUnosRadaRoute: AppUnosRadaRoute,
-  AppIndexRoute: AppIndexRoute,
+const AplikacijaRouteRouteChildren: AplikacijaRouteRouteChildren = {
+  AplikacijaDokumentiRoute: AplikacijaDokumentiRoute,
+  AplikacijaGospodarstvoRoute: AplikacijaGospodarstvoRoute,
+  AplikacijaIzbornikRoute: AplikacijaIzbornikRoute,
+  AplikacijaParceleRoute: AplikacijaParceleRoute,
+  AplikacijaPretplataRoute: AplikacijaPretplataRoute,
+  AplikacijaProfilRoute: AplikacijaProfilRoute,
+  AplikacijaRadoviRoute: AplikacijaRadoviRoute,
+  AplikacijaRokoviRoute: AplikacijaRokoviRoute,
+  AplikacijaUnosRadaRoute: AplikacijaUnosRadaRoute,
+  AplikacijaIndexRoute: AplikacijaIndexRoute,
 }
 
-const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
-  AppRouteRouteChildren,
+const AplikacijaRouteRouteWithChildren = AplikacijaRouteRoute._addFileChildren(
+  AplikacijaRouteRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  AppRouteRoute: AppRouteRouteWithChildren,
+  AplikacijaRouteRoute: AplikacijaRouteRouteWithChildren,
   PrijavaRoute: PrijavaRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }

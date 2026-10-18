@@ -5,3 +5,12 @@ export type FieldConfig<TSchema extends z.ZodType = z.ZodType> = {
 	schema: TSchema;
 	defaultValue: z.input<TSchema>;
 };
+
+export type FormSchema<TFields extends Record<string, FieldConfig>> =
+	z.ZodObject<{
+		[K in keyof TFields]: TFields[K]["schema"];
+	}>;
+
+export type FormDefaultValues<TFields extends Record<string, FieldConfig>> = {
+	[K in keyof TFields]: z.input<TFields[K]["schema"]>;
+};

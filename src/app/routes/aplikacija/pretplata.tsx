@@ -13,7 +13,7 @@ const SubscriptionPage = () => (
 	</Page>
 );
 
-export const Route = createFileRoute("/_app/pretplata")({
+export const Route = createFileRoute("/aplikacija/pretplata")({
 	head: () => ({ meta: [{ title: "Pretplata · Brazda" }] }),
 	component: SubscriptionPage,
 });

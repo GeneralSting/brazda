@@ -2,32 +2,16 @@ import { Link } from "@tanstack/react-router";
 import { ChevronRight, Lock, LogOut } from "lucide-react";
 import { Avatar } from "#/components/display/avatar";
 import { Card } from "#/components/display/card";
+import { MOBILE_MENU_ROW_CLASSES } from "#/config/mobile-menu";
 import {
 	MOBILE_ACCOUNT_NAV,
 	MOBILE_MENU_NAV,
 	PROFILE_PATH,
 	UPCOMING_NAV,
 } from "#/config/navigation";
-import type { NavItem } from "#/types/navigation";
 import type { SessionUser } from "#/types/user";
 import { cn } from "#/utils/cn";
-
-const ROW_CLASSES =
-	"type-body flex h-14 items-center gap-3.5 border-border-subtle border-t px-4 font-semibold first:border-t-0";
-
-const MenuLink = ({ item }: { item: NavItem }) => (
-	<Link
-		to={item.to}
-		className={cn(ROW_CLASSES, "text-foreground hover:text-foreground")}
-	>
-		<item.icon className="size-5.5 shrink-0 text-primary" aria-hidden="true" />
-		<span className="flex-1">{item.label}</span>
-		<ChevronRight
-			className="size-5 shrink-0 text-muted-foreground"
-			aria-hidden="true"
-		/>
-	</Link>
-);
+import { MobileMenuLink } from "./mobile-menu-link";
 
 type MobileMenuProps = {
 	user: SessionUser;
@@ -58,7 +42,7 @@ export const MobileMenu = ({ user, onSignOut }: MobileMenuProps) => (
 
 		<Card className="flex flex-col">
 			{MOBILE_MENU_NAV.map((item) => (
-				<MenuLink key={item.to} item={item} />
+				<MobileMenuLink key={item.to} item={item} />
 			))}
 		</Card>
 
@@ -79,12 +63,15 @@ export const MobileMenu = ({ user, onSignOut }: MobileMenuProps) => (
 		{/* same two parts as the user menu of the sidebar: pages, then signing out */}
 		<Card className="flex flex-col">
 			{MOBILE_ACCOUNT_NAV.map((item) => (
-				<MenuLink key={item.to} item={item} />
+				<MobileMenuLink key={item.to} item={item} />
 			))}
 			<button
 				type="button"
 				onClick={onSignOut}
-				className={cn(ROW_CLASSES, "cursor-pointer text-destructive")}
+				className={cn(
+					MOBILE_MENU_ROW_CLASSES,
+					"cursor-pointer text-destructive",
+				)}
 			>
 				<LogOut className="size-5.5 shrink-0" aria-hidden="true" />
 				Odjava
