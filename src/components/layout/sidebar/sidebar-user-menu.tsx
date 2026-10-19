@@ -1,23 +1,21 @@
 import { useLocation } from "@tanstack/react-router";
 import { LogOut } from "lucide-react";
-import { USER_MENU_NAV } from "#/components/layout/navigation/constants";
+import { DropdownMenu } from "#/components/overlay/dropdown-menu";
+import { DropdownMenuContent } from "#/components/overlay/dropdown-menu-content";
+import { DropdownMenuItem } from "#/components/overlay/dropdown-menu-item";
+import { DropdownMenuSeparator } from "#/components/overlay/dropdown-menu-separator";
+import { USER_MENU_NAV } from "#/config/navigation";
+import type { SessionUser } from "#/types/user";
 import {
 	isNavItemActive,
 	isUserMenuActive,
 	selectPathname,
-} from "#/components/layout/navigation/utils";
-import type { ShellUser } from "#/components/layout/types";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuSeparator,
-} from "#/components/ui/dropdown-menu";
+} from "#/utils/navigation";
 import { SidebarUserMenuLink } from "./sidebar-user-menu-link";
 import { SidebarUserTrigger } from "./sidebar-user-trigger";
 
 type SidebarUserMenuProps = {
-	user: ShellUser;
+	user: SessionUser;
 	onSignOut: () => void;
 };
 

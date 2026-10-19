@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import type { NavItem } from "#/components/layout/navigation/types";
-import { cn } from "#/lib/utils";
-import { LABEL_CLASSES, ROW_CLASSES } from "./constants";
+import { LABEL_CLASSES, ROW_CLASSES } from "#/config/sidebar";
+import type { NavItem } from "#/types/navigation";
+import { cn } from "#/utils/cn";
 
 type SidebarLinkProps = {
 	item: NavItem;
@@ -12,6 +12,7 @@ type SidebarLinkProps = {
 export const SidebarLink = ({ item, active }: SidebarLinkProps) => (
 	<Link
 		to={item.to}
+		activeOptions={{ exact: item.exact }} // the router marks the same link as current as the active prop does
 		// as a rail the label is not visible, so the browser shows it on hover
 		title={item.label}
 		aria-current={active ? "page" : undefined}

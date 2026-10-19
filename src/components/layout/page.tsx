@@ -1,12 +1,10 @@
 import type { ReactNode } from "react";
-import { cn } from "#/lib/utils";
+import { cn } from "#/utils/cn";
 
 type PageProps = {
 	title: string;
-	// line above the title, e.g. the date on the home page
-	eyebrow?: ReactNode;
-	// buttons at the end of the title row
-	actions?: ReactNode;
+	eyebrow?: ReactNode; // line above the title (e.g. the date on the home page)
+	actions?: ReactNode; // buttons at the end of the title row
 	className?: string;
 	children: ReactNode;
 };

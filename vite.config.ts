@@ -8,7 +8,10 @@ import { defineConfig } from "vite";
 const config = defineConfig({
 	resolve: { tsconfigPaths: true },
 	plugins: [
-		devtools(),
+		devtools({
+			// piping echoes one console.error between the browser and the terminal without end
+			consolePiping: { enabled: false },
+		}),
 		tailwindcss(),
 		tanstackStart({ srcDirectory: "src/app" }),
 		viteReact(),

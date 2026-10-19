@@ -43,7 +43,6 @@
 	--border: #d9d6cc;
 	--border-subtle: #eceae3;
 	--input: #b9b5a8;
-	--ring: #cfe0d4;
 
 	/* used only inside the logo, never on buttons, badges or text */
 	--brand-gold: #b08a3e;
@@ -86,7 +85,6 @@
 	--color-border: var(--border);
 	--color-border-subtle: var(--border-subtle);
 	--color-input: var(--input);
-	--color-ring: var(--ring);
 	--color-brand-gold: var(--brand-gold);
 
 	/* 10px for buttons and fields; cards use the default rounded-xl (12px) */
@@ -109,6 +107,7 @@
 	&:where([data-sidebar="collapsed"] *) {
 		@slot;
 	}
+
 	@media (width < 64rem) {
 		&:where([data-sidebar="auto"] *) {
 			@slot;

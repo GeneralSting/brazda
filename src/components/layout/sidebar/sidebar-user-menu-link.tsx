@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import type { NavItem } from "#/components/layout/navigation/types";
-import { DropdownMenuLinkItem } from "#/components/ui/dropdown-menu";
+import { DropdownMenuLinkItem } from "#/components/overlay/dropdown-menu-item";
+import type { NavItem } from "#/types/navigation";
 
 type SidebarUserMenuLinkProps = {
 	item: NavItem;

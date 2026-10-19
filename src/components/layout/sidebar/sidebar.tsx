@@ -1,5 +1,5 @@
-import type { ShellUser } from "#/components/layout/types";
-import { cn } from "#/lib/utils";
+import type { SessionUser } from "#/types/user";
+import { cn } from "#/utils/cn";
 import { SidebarBrand } from "./sidebar-brand";
 import { SidebarNav } from "./sidebar-nav";
 import { SidebarToggle } from "./sidebar-toggle";
@@ -7,16 +7,17 @@ import { SidebarUpcoming } from "./sidebar-upcoming";
 import { SidebarUserMenu } from "./sidebar-user-menu";
 
 type SidebarProps = {
-	user: ShellUser;
-	// switches between the full sidebar and the rail of icons
-	onToggle: () => void;
+	user: SessionUser;
+	onToggle: () => void; // switches between the full sidebar and the rail of icons
 	onSignOut: () => void;
 	className?: string;
 };
 
-/* Desktop navigation on the left edge. It has two widths, the full sidebar and
-   a rail of icons; which one shows is decided in CSS by the rail variant, so the
-   markup is the same in both and the server can render it without knowing the screen. */
+/**
+ * Desktop navigation on the left edge. It has two widths, the full sidebar and
+ * a rail of icons - which one shows is decided in CSS by the rail variant, so the
+ * markup is the same in both and the server can render it without knowing the screen
+ */
 export const Sidebar = ({
 	user,
 	onToggle,

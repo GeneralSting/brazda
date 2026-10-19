@@ -1,14 +1,13 @@
 import { ChevronsUpDown } from "lucide-react";
-import type { ShellUser } from "#/components/layout/types";
-import { Avatar } from "#/components/ui/avatar";
-import { DropdownMenuTrigger } from "#/components/ui/dropdown-menu";
-import { cn } from "#/lib/utils";
-import { LABEL_CLASSES, ROW_CLASSES } from "./constants";
+import { Avatar } from "#/components/display/avatar";
+import { DropdownMenuTrigger } from "#/components/overlay/dropdown-menu";
+import { LABEL_CLASSES, ROW_CLASSES } from "#/config/sidebar";
+import type { SessionUser } from "#/types/user";
+import { cn } from "#/utils/cn";
 
 type SidebarUserTriggerProps = {
-	user: ShellUser;
-	// one of the user's own pages is open
-	active: boolean;
+	user: SessionUser;
+	active: boolean; // one of the user's own pages is open
 };
 
 // row with the signed-in person that opens the user menu
@@ -17,7 +16,7 @@ export const SidebarUserTrigger = ({
 	active,
 }: SidebarUserTriggerProps) => (
 	<DropdownMenuTrigger
-		title={`${user.name}, ${user.holdingName}`}
+		title={`${user.name}, ${user.email}`}
 		className={cn(
 			ROW_CLASSES,
 			// 6px of padding centres the 36px circle in the 48px row of the rail
@@ -29,7 +28,7 @@ export const SidebarUserTrigger = ({
 		<span className={cn("flex min-w-0 flex-1 flex-col", LABEL_CLASSES)}>
 			<span className="truncate font-semibold text-base">{user.name}</span>
 			<span className="truncate text-muted-foreground text-sm">
-				{user.holdingName}
+				{user.email}
 			</span>
 		</span>
 		<ChevronsUpDown
