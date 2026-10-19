@@ -1,6 +1,7 @@
 import { revalidateLogic } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { BETTER_AUTH_ERROR_CODES } from "#/config/auth";
 import { useAppForm } from "#/hooks/use-app-form";
 import { authClient } from "#/services/auth-client";
 import {
@@ -24,8 +25,7 @@ const signIn = async (values: SignInValues) => {
 		const { data, error } = await authClient.signIn.email(values);
 
 		if (error) {
-			return error.code ===
-				authClient.$ERROR_CODES.INVALID_EMAIL_OR_PASSWORD.code
+			return error.code === BETTER_AUTH_ERROR_CODES.invalidCredentials
 				? CREDENTIALS_MISMATCH
 				: getRequestErrorMessage(error);
 		}

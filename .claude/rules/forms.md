@@ -29,7 +29,7 @@ Every form is built the same way, from the same pieces, with TanStack Form and Z
 - errors
   - a field error is about that field only and stands under it
   - an error of the whole form (email and password do not match, no answer, server error, unexpected answer) stands between the last field and the submit button, at the same distance from both
-  - a failed request is turned into a message with `getRequestErrorMessage` from `#/utils/request`, a form adds only its own reasons (e.g. `INVALID_EMAIL_OR_PASSWORD`)
+  - a failed request is turned into a message with `getRequestErrorMessage` from `#/utils/request`, a form adds only its own reasons, by the error codes in `#/config/auth` - `BETTER_AUTH_ERROR_CODES` are checked against the types of Better Auth, `authClient.$ERROR_CODES` is never read, it exists only as a type and is a proxy at runtime
   - every successful answer is checked with `parseResponse` against the expected schema - a different shape is logged for us and shown to the user as an unexpected error, never trusted
   - a request that throws (no network, no answer) is caught and reported as no answer
 - a new kind of field is a new field component in `src/components/form` (e.g. `SelectField`), registered in `fieldComponents` of `#/hooks/use-app-form`; it reads its field with `useFieldContext` and shows only its own error

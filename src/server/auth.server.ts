@@ -4,6 +4,10 @@ import { tanstackStartCookies } from "better-auth/tanstack-start";
 import { getServerEnv } from "#/config/env.server";
 import { getDb } from "#/server/db/client.server";
 import * as schema from "#/server/db/schema/auth";
+import {
+	requireAcceptedTerms,
+	stampTermsAcceptance,
+} from "#/server/terms-consent.server";
 
 const env = getServerEnv();
 
@@ -17,6 +21,18 @@ export const auth = betterAuth({
 	secret: env.BETTER_AUTH_SECRET,
 	baseURL: env.BETTER_AUTH_URL,
 	emailAndPassword: { enabled: true },
+	user: {
+		additionalFields: {
+			// set only by the server when the terms are accepted, a request cannot send it
+			termsAcceptedAt: {
+				type: "date",
+				required: false,
+				input: false,
+			},
+		},
+	},
+	hooks: { before: requireAcceptedTerms },
+	databaseHooks: { user: { create: { before: stampTermsAcceptance } } },
 	plugins: [tanstackStartCookies()], // lets sign-in from a server function set its cookie, has to stay the last plugin
 	database: drizzleAdapter(getDb(), { provider: "pg", schema }),
 });

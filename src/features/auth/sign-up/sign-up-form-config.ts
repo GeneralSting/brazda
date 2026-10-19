@@ -41,6 +41,9 @@ export const SIGN_UP_RESPONSE_SCHEMA = z.object({
 	user: z.object({ id: z.string().min(1), email: z.email() }),
 });
 
+// the reason given when the server refuses the sign-up because the terms were not accepted
+export const TERMS_REFUSED = MESSAGES.termsRequired;
+
 // the reason given when an account with the email already exists
 export const EMAIL_TAKEN =
 	"Račun s ovom e-poštom već postoji. Prijavite se ili upišite drugu e-poštu.";

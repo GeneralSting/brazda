@@ -1,6 +1,7 @@
 import { revalidateLogic } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { AUTH_ERROR_CODES, BETTER_AUTH_ERROR_CODES } from "#/config/auth";
 import { useAppForm } from "#/hooks/use-app-form";
 import { authClient } from "#/services/auth-client";
 import {
@@ -13,26 +14,32 @@ import {
 	SIGN_UP_FORM,
 	SIGN_UP_RESPONSE_SCHEMA,
 	type SignUpValues,
+	TERMS_REFUSED,
 } from "./sign-up-form-config";
+
+// our own reasons for a failed sign-up, by the code of the error, anything else is a request error
+const SIGN_UP_ERRORS: Record<string, string> = {
+	[BETTER_AUTH_ERROR_CODES.emailTaken]: EMAIL_TAKEN,
+	[AUTH_ERROR_CODES.termsNotAccepted]: TERMS_REFUSED,
+};
 
 /**
  * Creates the account and turns every outcome into null (signed up and signed in)
- * or the error of the whole form. The accepted terms stay in the form, the server
- * gets only what the account is made of
+ * or the error of the whole form. The accepted terms go along, the server checks
+ * them again and records the moment of the consent
  */
-const signUp = async ({ name, email, password }: SignUpValues) => {
+const signUp = async ({ name, email, password, acceptTerms }: SignUpValues) => {
+	// acceptTerms is no field of the account (Better Auth), so the typed body of the client does not list it
+	const body = { name, email, password, acceptTerms };
+
 	try {
-		const { data, error } = await authClient.signUp.email({
-			name,
-			email,
-			password,
-		});
+		const { data, error } = await authClient.signUp.email(body);
 
 		if (error) {
-			return error.code ===
-				authClient.$ERROR_CODES.USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL.code
-				? EMAIL_TAKEN
-				: getRequestErrorMessage(error);
+			return (
+				(error.code && SIGN_UP_ERRORS[error.code]) ??
+				getRequestErrorMessage(error)
+			);
 		}
 
 		return parseResponse(SIGN_UP_RESPONSE_SCHEMA, data)

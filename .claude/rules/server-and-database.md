@@ -17,5 +17,7 @@ paths:
   - drizzle-kit (`pnpm db:generate`, `pnpm db:migrate`, `pnpm db:studio`) uses the direct `DATABASE_URL`, migrations are generated into `drizzle/` and committed
 - every timestamp column is `timestamp(..., { withTimezone: true })`, so a moment means the same whatever the time zone of the server
 - the signed-in person is read through `getSessionUser` from `#/server/session`, signing out is `authClient.signOut` - the server deletes the session and expires the cookie in one answer, the cookie even when the database does not respond, so the screen never waits for it and `/prijava` checks the session only on a server render
+- a field the server owns is added to the user through `user.additionalFields` with `input: false`, so a request that sends it is refused - the column is added to `src/server/db/schema/auth.ts` with a migration, as the generator would write it
+- the email sign-up needs `acceptTerms: true` in its body, `requireAcceptedTerms` refuses it otherwise with `TERMS_NOT_ACCEPTED` and `stampTermsAcceptance` writes `termsAcceptedAt` from the server clock (`#/server/terms-consent.server`)
 - the browser talks to it through `authClient` from `#/services/auth-client`
 - sign-in is Better Auth, `auth` from `#/server/auth.server`, its tables are generated into `src/server/db/schema/auth.ts` with `pnpm dlx auth@latest generate --config src/server/auth.server.ts --output src/server/db/schema/auth.ts`, then a migration is generated from them like for any other table
