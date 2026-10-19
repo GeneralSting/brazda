@@ -5,6 +5,8 @@ const serverEnvSchema = z.object({
 	DATABASE_URL_POOLED: z.url(), // pooled connection to Neon, used by the running application
 	BETTER_AUTH_SECRET: z.string().min(32), // signs sessions and tokens, never shared or committed
 	BETTER_AUTH_URL: z.url(), // address the application is opened at, e.g. http://localhost:3000
+	RESEND_API_KEY: z.string().optional(), // sends the emails, without it they are only printed in development
+	EMAIL_FROM: z.string().default("Brazda <onboarding@resend.dev>"), // sender, an address of our own domain once it is verified at Resend
 	// headers the hosting puts the client IP in, comma separated - empty keeps x-forwarded-for
 	AUTH_IP_HEADERS: z
 		.string()

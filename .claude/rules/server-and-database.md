@@ -24,5 +24,9 @@ paths:
   - a window starts with the first request and the count goes back to zero when the whole window has passed - one statement counts and decides by the clock of the database, so parallel requests and several server instances get the same answer
   - a new window deletes the rows whose window ended longer ago than the longest rule, no cleanup job is needed for them
   - the limit is only as good as the client IP - `AUTH_IP_HEADERS` names the header the hosting puts it in, set when the hosting is chosen; a header with a chain of addresses and no trusted proxies gives no IP, and then every visitor shares one count
+- every email goes through `sendEmail` from `#/server/email.server`, which sends it with Resend - without `RESEND_API_KEY` it is printed in the terminal in development, so a link from it can be opened there, and refused in production
+  - until our domain is verified at Resend, its test sender reaches only the owner of the Resend account
+  - an email Better Auth asks for is not awaited (`sendPasswordResetEmail` in `#/server/password-reset.server`), an answer that waited for it would be slower for an address with an account - on serverless hosting it needs `advanced.backgroundTasks` with the `waitUntil` of the hosting, or the send may be cut off
+- the password reset gives the same answer for every address, its link is valid one hour and once, and a new password signs out every session (`revokeSessionsOnPasswordReset`)
 - the browser talks to it through `authClient` from `#/services/auth-client`
 - sign-in is Better Auth, `auth` from `#/server/auth.server`, its tables are generated into `src/server/db/schema/auth.ts` with `pnpm dlx auth@latest generate --config src/server/auth.server.ts --output src/server/db/schema/auth.ts`, then a migration is generated from them like for any other table

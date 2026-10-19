@@ -5,6 +5,7 @@ import { getServerEnv } from "#/config/env.server";
 import { RATE_LIMIT_DEFAULT, RATE_LIMIT_RULES } from "#/config/rate-limit";
 import { getDb } from "#/server/db/client.server";
 import * as schema from "#/server/db/schema/auth";
+import { sendPasswordResetEmail } from "#/server/password-reset.server";
 import { rateLimitStorage } from "#/server/rate-limit.server";
 import {
 	requireAcceptedTerms,
@@ -22,7 +23,11 @@ export const auth = betterAuth({
 	appName: "Brazda",
 	secret: env.BETTER_AUTH_SECRET,
 	baseURL: env.BETTER_AUTH_URL,
-	emailAndPassword: { enabled: true },
+	emailAndPassword: {
+		enabled: true,
+		sendResetPassword: sendPasswordResetEmail,
+		revokeSessionsOnPasswordReset: true, // a new password signs out every device, also the one of whoever took the old one
+	},
 	/**
 	 * Attempts are counted in our rate_limit table, so every server instance sees the
 	 * same count. On only in production, the limits per IP address are in config/rate-limit
