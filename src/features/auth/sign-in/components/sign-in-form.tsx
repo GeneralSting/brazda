@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { EmailDivider } from "#/components/auth/email-divider";
 import { GoogleButton } from "#/components/auth/google-button";
 import { FormBuilder } from "#/components/form/form-builder";
@@ -31,12 +32,12 @@ export const SignInForm = () => {
 							autoComplete="current-password"
 							placeholder="••••••••"
 							labelAction={
-								<button
-									type="button"
-									className="cursor-pointer py-1.5 text-primary hover:text-primary-hover"
+								<Link
+									to="/zaboravljena-lozinka"
+									className="py-1.5 text-primary hover:text-primary-hover"
 								>
 									Zaboravili ste?
-								</button>
+								</Link>
 							}
 						/>
 					)}

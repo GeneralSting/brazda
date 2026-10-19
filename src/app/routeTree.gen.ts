@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AplikacijaRouteRouteImport } from './routes/aplikacija/route'
 import { Route as PrijavaRouteImport } from './routes/prijava'
 import { Route as RegistracijaRouteImport } from './routes/registracija'
+import { Route as ZaboravljenaLozinkaRouteImport } from './routes/zaboravljena-lozinka'
 import { Route as AplikacijaIndexRouteImport } from './routes/aplikacija/index'
 import { Route as AplikacijaDokumentiRouteImport } from './routes/aplikacija/dokumenti'
 import { Route as AplikacijaGospodarstvoRouteImport } from './routes/aplikacija/gospodarstvo'
@@ -43,6 +44,11 @@ const PrijavaRoute = PrijavaRouteImport.update({
 const RegistracijaRoute = RegistracijaRouteImport.update({
   id: '/registracija',
   path: '/registracija',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZaboravljenaLozinkaRoute = ZaboravljenaLozinkaRouteImport.update({
+  id: '/zaboravljena-lozinka',
+  path: '/zaboravljena-lozinka',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AplikacijaIndexRoute = AplikacijaIndexRouteImport.update({
@@ -106,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/aplikacija': typeof AplikacijaRouteRouteWithChildren
   '/prijava': typeof PrijavaRoute
   '/registracija': typeof RegistracijaRoute
+  '/zaboravljena-lozinka': typeof ZaboravljenaLozinkaRoute
   '/aplikacija/dokumenti': typeof AplikacijaDokumentiRoute
   '/aplikacija/gospodarstvo': typeof AplikacijaGospodarstvoRoute
   '/aplikacija/izbornik': typeof AplikacijaIzbornikRoute
@@ -122,6 +129,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/prijava': typeof PrijavaRoute
   '/registracija': typeof RegistracijaRoute
+  '/zaboravljena-lozinka': typeof ZaboravljenaLozinkaRoute
   '/aplikacija/dokumenti': typeof AplikacijaDokumentiRoute
   '/aplikacija/gospodarstvo': typeof AplikacijaGospodarstvoRoute
   '/aplikacija/izbornik': typeof AplikacijaIzbornikRoute
@@ -140,6 +148,7 @@ export interface FileRoutesById {
   '/aplikacija': typeof AplikacijaRouteRouteWithChildren
   '/prijava': typeof PrijavaRoute
   '/registracija': typeof RegistracijaRoute
+  '/zaboravljena-lozinka': typeof ZaboravljenaLozinkaRoute
   '/aplikacija/dokumenti': typeof AplikacijaDokumentiRoute
   '/aplikacija/gospodarstvo': typeof AplikacijaGospodarstvoRoute
   '/aplikacija/izbornik': typeof AplikacijaIzbornikRoute
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/aplikacija'
     | '/prijava'
     | '/registracija'
+    | '/zaboravljena-lozinka'
     | '/aplikacija/dokumenti'
     | '/aplikacija/gospodarstvo'
     | '/aplikacija/izbornik'
@@ -175,6 +185,7 @@ export interface FileRouteTypes {
     | '/'
     | '/prijava'
     | '/registracija'
+    | '/zaboravljena-lozinka'
     | '/aplikacija/dokumenti'
     | '/aplikacija/gospodarstvo'
     | '/aplikacija/izbornik'
@@ -192,6 +203,7 @@ export interface FileRouteTypes {
     | '/aplikacija'
     | '/prijava'
     | '/registracija'
+    | '/zaboravljena-lozinka'
     | '/aplikacija/dokumenti'
     | '/aplikacija/gospodarstvo'
     | '/aplikacija/izbornik'
@@ -210,6 +222,7 @@ export interface RootRouteChildren {
   AplikacijaRouteRoute: typeof AplikacijaRouteRouteWithChildren
   PrijavaRoute: typeof PrijavaRoute
   RegistracijaRoute: typeof RegistracijaRoute
+  ZaboravljenaLozinkaRoute: typeof ZaboravljenaLozinkaRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -241,6 +254,13 @@ declare module '@tanstack/react-router' {
       path: '/registracija'
       fullPath: '/registracija'
       preLoaderRoute: typeof RegistracijaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zaboravljena-lozinka': {
+      id: '/zaboravljena-lozinka'
+      path: '/zaboravljena-lozinka'
+      fullPath: '/zaboravljena-lozinka'
+      preLoaderRoute: typeof ZaboravljenaLozinkaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/aplikacija/': {
@@ -358,6 +378,7 @@ const rootRouteChildren: RootRouteChildren = {
   AplikacijaRouteRoute: AplikacijaRouteRouteWithChildren,
   PrijavaRoute: PrijavaRoute,
   RegistracijaRoute: RegistracijaRoute,
+  ZaboravljenaLozinkaRoute: ZaboravljenaLozinkaRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

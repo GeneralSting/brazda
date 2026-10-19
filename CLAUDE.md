@@ -63,6 +63,7 @@ src
 |   +-- auth              # group folder - only keeps related features together, holds no code of its own
 |       +-- sign-up       # a feature, built the same way as sign-in
 |       +-- sign-out      # a feature with a single hook
+|       +-- forgot-password  # asks for the link to a new password, then shows where it went
 |       +-- sign-in       # a feature, everything about signing in
 |           +-- index.ts              # public API of the feature, the only file other sections import
 |           +-- components            # only .tsx UI of the feature (sign-in-form.tsx...)
@@ -91,7 +92,7 @@ src
   - holds what is global and what connects the features: routes, router, providers, global styles
   - TanStack Start `srcDirectory` is set to `src/app` in `vite.config.ts`, so framework entry files live here
   - routes stay thin - a route file holds only the route: its options (head, beforeLoad), its layout or page component, composed from features and shared code - guards, loaders and every other helper live in shared code (`requireSignIn` and `skipWhenSignedIn` in `#/utils/session`), feature logic in the feature
-  - `/` (the public page about Brazda) and the auth screens (`/prijava`, `/registracija`) are public routes at the top of `routes`
+  - `/` (the public page about Brazda) and the auth screens (`/prijava`, `/registracija`, `/zaboravljena-lozinka`) are public routes at the top of `routes`
   - every screen of the signed-in application is a route inside `routes/aplikacija` (URL `/aplikacija/...`) - its `route.tsx` is the layout that lets in only a signed-in user and renders the shell around the screen
   - every screen is wrapped in `Page` from `#/components/layout/page`, which gives the page gutter, the title row and the spacing between blocks
   - a screen outside the shell (sign-in, sign-up) is wrapped in `AuthPage` from `#/components/layout/auth-page/auth-page` instead - the form on the left, the green panel on the right from `lg`
