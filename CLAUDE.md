@@ -22,7 +22,7 @@ Rules for one part of the code live in `.claude/rules/` and load on their own wh
 ## Writing comments
 
 - a comment of one line uses `//` - a comment about one prop, variant or value sits at the end of its line (`suffix?: ReactNode; // unit or icon shown at the end of the field`), above it only when the line would get too long, a comment about a whole block sits above the block
-- a comment of more lines is a JSDoc block, `/**` on its own line, every line of text starting with ` * ` and ` */` closing it - never `/* ... */`, except inside JSX, where `{/* ... */}` is the only form
+- a comment of more lines is a JSDoc block, `/**` on its own line, every line of text starting with `*` and ` */` closing it - never `/* ... */`, except inside JSX, where `{/* ... */}` is the only form
 
 ## Related to the frontend
 
@@ -59,6 +59,7 @@ src
 |   +-- styles.css        # global styles and design tokens
 |
 +-- features              # biggest section, one folder per feature
+|   +-- landing           # the public page about Brazda at /
 |   +-- auth              # group folder - only keeps related features together, holds no code of its own
 |       +-- sign-up       # a feature, built the same way as sign-in
 |       +-- sign-out      # a feature with a single hook
@@ -77,7 +78,7 @@ src
 |   +-- overlay           # opens over the page: dropdown-menu (later dialog, popover)
 |   +-- layout            # application shell: page frame, auth page, sidebar, mobile tab bar, mobile menu
 |   +-- button.tsx, logo.tsx, reveal.tsx   # single components used everywhere
-+-- config                # shared: fixed data and settings - env, navigation, form fields
++-- config                 # shared: fixed data and settings - env, navigation, form fields, product texts
 +-- hooks                 # shared: hooks - form engine (use-app-form), sidebar mode, generic ones
 +-- schemas               # shared: Zod schemas used by several forms and server functions
 +-- server                # shared: code that runs only on the server - Better Auth, database client and tables

@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { Logo } from "#/components/logo";
 import { AuthPagePanel } from "./auth-page-panel";
@@ -16,7 +17,10 @@ type AuthPageProps = {
 export const AuthPage = ({ title, children, footer }: AuthPageProps) => (
 	<div className="grid min-h-dvh lg:grid-cols-[minmax(0,1fr)_32.5rem]">
 		<main className="page-gutter flex flex-col gap-8 pt-10 pb-6 lg:py-10">
-			<Logo size={40} />
+			{/* leads back to the public page */}
+			<Link to="/" className="self-start">
+				<Logo size={40} />
+			</Link>
 			<div className="flex w-full max-w-105 flex-1 flex-col gap-5 self-center lg:my-auto lg:flex-none">
 				<h1 className="type-page-title">{title}</h1>
 				{children}

@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as AplikacijaRouteRouteImport } from './routes/aplikacija/route'
 import { Route as PrijavaRouteImport } from './routes/prijava'
 import { Route as RegistracijaRouteImport } from './routes/registracija'
@@ -24,6 +25,11 @@ import { Route as AplikacijaRokoviRouteImport } from './routes/aplikacija/rokovi
 import { Route as AplikacijaUnosRadaRouteImport } from './routes/aplikacija/unos-rada'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AplikacijaRouteRoute = AplikacijaRouteRouteImport.update({
   id: '/aplikacija',
   path: '/aplikacija',
@@ -96,6 +102,7 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
   '/aplikacija': typeof AplikacijaRouteRouteWithChildren
   '/prijava': typeof PrijavaRoute
   '/registracija': typeof RegistracijaRoute
@@ -112,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
   '/prijava': typeof PrijavaRoute
   '/registracija': typeof RegistracijaRoute
   '/aplikacija/dokumenti': typeof AplikacijaDokumentiRoute
@@ -128,6 +136,7 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/aplikacija': typeof AplikacijaRouteRouteWithChildren
   '/prijava': typeof PrijavaRoute
   '/registracija': typeof RegistracijaRoute
@@ -146,6 +155,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/aplikacija'
     | '/prijava'
     | '/registracija'
@@ -162,6 +172,7 @@ export interface FileRouteTypes {
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | '/prijava'
     | '/registracija'
     | '/aplikacija/dokumenti'
@@ -177,6 +188,7 @@ export interface FileRouteTypes {
     | '/api/auth/$'
   id:
     | '__root__'
+    | '/'
     | '/aplikacija'
     | '/prijava'
     | '/registracija'
@@ -194,6 +206,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   AplikacijaRouteRoute: typeof AplikacijaRouteRouteWithChildren
   PrijavaRoute: typeof PrijavaRoute
   RegistracijaRoute: typeof RegistracijaRoute
@@ -202,6 +215,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/aplikacija': {
       id: '/aplikacija'
       path: '/aplikacija'
@@ -334,6 +354,7 @@ const AplikacijaRouteRouteWithChildren = AplikacijaRouteRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   AplikacijaRouteRoute: AplikacijaRouteRouteWithChildren,
   PrijavaRoute: PrijavaRoute,
   RegistracijaRoute: RegistracijaRoute,

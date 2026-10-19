@@ -24,3 +24,6 @@ export const skipWhenSignedIn = async () => {
 		throw redirect({ to: "/aplikacija" });
 	}
 };
+
+// the signed-in user or null, for a public page that only changes its links by it
+export const loadSessionUser = () => getSessionUser();
