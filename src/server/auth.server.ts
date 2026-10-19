@@ -2,8 +2,10 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth } from "better-auth/minimal";
 import { tanstackStartCookies } from "better-auth/tanstack-start";
 import { getServerEnv } from "#/config/env.server";
+import { RATE_LIMIT_DEFAULT, RATE_LIMIT_RULES } from "#/config/rate-limit";
 import { getDb } from "#/server/db/client.server";
 import * as schema from "#/server/db/schema/auth";
+import { rateLimitStorage } from "#/server/rate-limit.server";
 import {
 	requireAcceptedTerms,
 	stampTermsAcceptance,
@@ -21,6 +23,16 @@ export const auth = betterAuth({
 	secret: env.BETTER_AUTH_SECRET,
 	baseURL: env.BETTER_AUTH_URL,
 	emailAndPassword: { enabled: true },
+	/**
+	 * Attempts are counted in our rate_limit table, so every server instance sees the
+	 * same count. On only in production, the limits per IP address are in config/rate-limit
+	 */
+	rateLimit: {
+		customStorage: rateLimitStorage,
+		...RATE_LIMIT_DEFAULT,
+		customRules: RATE_LIMIT_RULES,
+	},
+	advanced: { ipAddress: { ipAddressHeaders: env.AUTH_IP_HEADERS } },
 	user: {
 		additionalFields: {
 			// set only by the server when the terms are accepted, a request cannot send it
