@@ -40,3 +40,13 @@ export const sendEmail = async (email: Email) => {
 		);
 	}
 };
+
+/**
+ * Sends without waiting for the answer. An answer that waited would be slower for an
+ * address with an account and give it away, so a failure is only logged
+ */
+export const sendEmailInBackground = (email: Email) => {
+	sendEmail(email).catch((error: unknown) => {
+		console.error(`"${email.subject}" was not sent`, error);
+	});
+};
