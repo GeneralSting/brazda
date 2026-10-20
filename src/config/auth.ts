@@ -9,6 +9,7 @@ import type { BetterAuthErrorCode } from "#/types/auth";
 export const BETTER_AUTH_ERROR_CODES = {
 	invalidCredentials: "INVALID_EMAIL_OR_PASSWORD",
 	emailTaken: "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL",
+	invalidToken: "INVALID_TOKEN", // the link for a new password expired or was already used
 } as const satisfies Record<string, BetterAuthErrorCode>;
 
 // codes of the errors our own sign-up rules answer with

@@ -1,5 +1,5 @@
 import { FormBuilder } from "#/components/form/form-builder";
-import type { useForgotPasswordForm } from "../use-forgot-password-form";
+import type { useForgotPasswordForm } from "../hooks/use-forgot-password-form";
 
 type ForgotPasswordFormProps = {
 	form: ReturnType<typeof useForgotPasswordForm>["forgotPasswordForm"];

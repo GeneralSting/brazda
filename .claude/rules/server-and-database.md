@@ -28,5 +28,8 @@ paths:
   - until our domain is verified at Resend, its test sender reaches only the owner of the Resend account
   - an email Better Auth asks for is not awaited (`sendPasswordResetEmail` in `#/server/password-reset.server`), an answer that waited for it would be slower for an address with an account - on serverless hosting it needs `advanced.backgroundTasks` with the `waitUntil` of the hosting, or the send may be cut off
 - the password reset gives the same answer for every address, its link is valid one hour and once, and a new password signs out every session (`revokeSessionsOnPasswordReset`)
+  - tokens of every verification are stored as a SHA-256 hash (`verification.storeIdentifier: "hashed"`), so the table alone resets no password
+  - the link in the email goes to Better Auth first, which checks the token and opens `/nova-lozinka` with it, or with `error=INVALID_TOKEN` for an expired, used or damaged one - the page then offers a new link, without either it asks to open the link from the email; the token stays in the address, so a refreshed page still works - it is single-use and valid one hour, so it is worth nothing once used
+  - the email has a button and, under it, the whole link to copy, so a link is rarely damaged
 - the browser talks to it through `authClient` from `#/services/auth-client`
 - sign-in is Better Auth, `auth` from `#/server/auth.server`, its tables are generated into `src/server/db/schema/auth.ts` with `pnpm dlx auth@latest generate --config src/server/auth.server.ts --output src/server/db/schema/auth.ts`, then a migration is generated from them like for any other table

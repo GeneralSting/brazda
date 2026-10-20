@@ -1,4 +1,4 @@
-import { useForgotPasswordForm } from "../use-forgot-password-form";
+import { useForgotPasswordForm } from "../hooks/use-forgot-password-form";
 import { ForgotPasswordForm } from "./forgot-password-form";
 import { ForgotPasswordSent } from "./forgot-password-sent";
 

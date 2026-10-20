@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AplikacijaRouteRouteImport } from './routes/aplikacija/route'
+import { Route as NovaLozinkaRouteImport } from './routes/nova-lozinka'
 import { Route as PrijavaRouteImport } from './routes/prijava'
 import { Route as RegistracijaRouteImport } from './routes/registracija'
 import { Route as ZaboravljenaLozinkaRouteImport } from './routes/zaboravljena-lozinka'
@@ -34,6 +35,11 @@ const IndexRoute = IndexRouteImport.update({
 const AplikacijaRouteRoute = AplikacijaRouteRouteImport.update({
   id: '/aplikacija',
   path: '/aplikacija',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaLozinkaRoute = NovaLozinkaRouteImport.update({
+  id: '/nova-lozinka',
+  path: '/nova-lozinka',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrijavaRoute = PrijavaRouteImport.update({
@@ -110,6 +116,7 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/aplikacija': typeof AplikacijaRouteRouteWithChildren
+  '/nova-lozinka': typeof NovaLozinkaRoute
   '/prijava': typeof PrijavaRoute
   '/registracija': typeof RegistracijaRoute
   '/zaboravljena-lozinka': typeof ZaboravljenaLozinkaRoute
@@ -127,6 +134,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/nova-lozinka': typeof NovaLozinkaRoute
   '/prijava': typeof PrijavaRoute
   '/registracija': typeof RegistracijaRoute
   '/zaboravljena-lozinka': typeof ZaboravljenaLozinkaRoute
@@ -146,6 +154,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/aplikacija': typeof AplikacijaRouteRouteWithChildren
+  '/nova-lozinka': typeof NovaLozinkaRoute
   '/prijava': typeof PrijavaRoute
   '/registracija': typeof RegistracijaRoute
   '/zaboravljena-lozinka': typeof ZaboravljenaLozinkaRoute
@@ -166,6 +175,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/aplikacija'
+    | '/nova-lozinka'
     | '/prijava'
     | '/registracija'
     | '/zaboravljena-lozinka'
@@ -183,6 +193,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/nova-lozinka'
     | '/prijava'
     | '/registracija'
     | '/zaboravljena-lozinka'
@@ -201,6 +212,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/aplikacija'
+    | '/nova-lozinka'
     | '/prijava'
     | '/registracija'
     | '/zaboravljena-lozinka'
@@ -220,6 +232,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AplikacijaRouteRoute: typeof AplikacijaRouteRouteWithChildren
+  NovaLozinkaRoute: typeof NovaLozinkaRoute
   PrijavaRoute: typeof PrijavaRoute
   RegistracijaRoute: typeof RegistracijaRoute
   ZaboravljenaLozinkaRoute: typeof ZaboravljenaLozinkaRoute
@@ -240,6 +253,13 @@ declare module '@tanstack/react-router' {
       path: '/aplikacija'
       fullPath: '/aplikacija'
       preLoaderRoute: typeof AplikacijaRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova-lozinka': {
+      id: '/nova-lozinka'
+      path: '/nova-lozinka'
+      fullPath: '/nova-lozinka'
+      preLoaderRoute: typeof NovaLozinkaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/prijava': {
@@ -376,6 +396,7 @@ const AplikacijaRouteRouteWithChildren = AplikacijaRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AplikacijaRouteRoute: AplikacijaRouteRouteWithChildren,
+  NovaLozinkaRoute: NovaLozinkaRoute,
   PrijavaRoute: PrijavaRoute,
   RegistracijaRoute: RegistracijaRoute,
   ZaboravljenaLozinkaRoute: ZaboravljenaLozinkaRoute,

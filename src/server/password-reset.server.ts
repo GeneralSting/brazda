@@ -5,7 +5,8 @@ const SUBJECT = "Nova lozinka za Brazdu";
 
 /**
  * Written by hand with inline styles, since email clients read no stylesheet and no
- * tokens - the colours are those of --primary and --foreground in styles.css
+ * tokens - the colours are those of --primary, --foreground and --muted-foreground in
+ * styles.css. The link is written out under the button for a client that blocks it
  */
 const buildHtml = (url: string) => `
 <div style="font-family: system-ui, sans-serif; color: #1d1c19; font-size: 16px; line-height: 24px">
@@ -15,6 +16,7 @@ const buildHtml = (url: string) => `
 	</p>
 	<p>Poveznica vrijedi sat vremena i može se iskoristiti samo jednom.</p>
 	<p>Ako niste vi zatražili novu lozinku, zanemarite ovu poruku, vaša lozinka se ne mijenja.</p>
+	<p style="color: #55524a; font-size: 14px; line-height: 20px">Ako gumb ne radi, kopirajte cijelu poveznicu u preglednik:<br><a href="${url}" style="color: #1e5a3c; word-break: break-all">${url}</a></p>
 </div>`;
 
 const buildText = (url: string) =>

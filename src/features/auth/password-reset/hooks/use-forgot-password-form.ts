@@ -9,11 +9,13 @@ import {
 } from "#/utils/request";
 import {
 	FORGOT_PASSWORD_FORM,
-	FORGOT_PASSWORD_RESPONSE_SCHEMA,
 	type ForgotPasswordValues,
-	NEW_PASSWORD_PATH,
 	TOO_MANY_REQUESTS,
-} from "./forgot-password-form-config";
+} from "../config/forgot-password-form-config";
+import {
+	NEW_PASSWORD_PATH,
+	PASSWORD_RESET_RESPONSE_SCHEMA,
+} from "../config/password-reset-config";
 
 /**
  * Asks for the link and turns every outcome into null (asked) or the error of the
@@ -32,7 +34,8 @@ const requestReset = async ({ email }: ForgotPasswordValues) => {
 				? TOO_MANY_REQUESTS
 				: getRequestErrorMessage(error);
 		}
-		return parseResponse(FORGOT_PASSWORD_RESPONSE_SCHEMA, data)
+
+		return parseResponse(PASSWORD_RESET_RESPONSE_SCHEMA, data)
 			? null
 			: REQUEST_MESSAGES.unexpected;
 	} catch {

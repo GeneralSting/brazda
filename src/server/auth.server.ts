@@ -28,6 +28,7 @@ export const auth = betterAuth({
 		sendResetPassword: sendPasswordResetEmail,
 		revokeSessionsOnPasswordReset: true, // a new password signs out every device, also the one of whoever took the old one
 	},
+	verification: { storeIdentifier: "hashed" }, // tokens of links kept as SHA-256, a copy of the database resets no password
 	/**
 	 * Attempts are counted in our rate_limit table, so every server instance sees the
 	 * same count. On only in production, the limits per IP address are in config/rate-limit
