@@ -11,10 +11,17 @@ import {
 } from "#/utils/request";
 import {
 	CREDENTIALS_MISMATCH,
+	EMAIL_NOT_CONFIRMED,
 	SIGN_IN_FORM,
 	SIGN_IN_RESPONSE_SCHEMA,
 	type SignInValues,
 } from "./sign-in-form-config";
+
+// our own reasons for a failed sign-in, by the code of the error, anything else is a request error
+const SIGN_IN_ERRORS: Record<string, string> = {
+	[BETTER_AUTH_ERROR_CODES.invalidCredentials]: CREDENTIALS_MISMATCH,
+	[BETTER_AUTH_ERROR_CODES.emailNotVerified]: EMAIL_NOT_CONFIRMED,
+};
 
 /**
  * Sends the sign-in and turns every outcome into null (signed in) or the error of the
@@ -25,9 +32,10 @@ const signIn = async (values: SignInValues) => {
 		const { data, error } = await authClient.signIn.email(values);
 
 		if (error) {
-			return error.code === BETTER_AUTH_ERROR_CODES.invalidCredentials
-				? CREDENTIALS_MISMATCH
-				: getRequestErrorMessage(error);
+			return (
+				(error.code && SIGN_IN_ERRORS[error.code]) ??
+				getRequestErrorMessage(error)
+			);
 		}
 		return parseResponse(SIGN_IN_RESPONSE_SCHEMA, data)
 			? null

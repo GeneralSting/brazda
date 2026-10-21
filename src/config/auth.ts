@@ -8,6 +8,7 @@ import type { BetterAuthErrorCode } from "#/types/auth";
  */
 export const BETTER_AUTH_ERROR_CODES = {
 	invalidCredentials: "INVALID_EMAIL_OR_PASSWORD",
+	emailNotVerified: "EMAIL_NOT_VERIFIED", // the right password, but the address waits for confirmation
 	invalidToken: "INVALID_TOKEN", // the link for a new password expired or was already used
 	tokenExpired: "TOKEN_EXPIRED", // the link that confirms an email is older than its 24 hours
 } as const satisfies Record<string, BetterAuthErrorCode>;

@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { Logo } from "#/components/logo";
+import { AuthPageFooter } from "./auth-page-footer";
 import { AuthPagePanel } from "./auth-page-panel";
 
 type AuthPageProps = {
@@ -24,11 +25,7 @@ export const AuthPage = ({ title, children, footer }: AuthPageProps) => (
 			<div className="flex w-full max-w-105 flex-1 flex-col gap-5 self-center lg:my-auto lg:flex-none">
 				<h1 className="type-page-title">{title}</h1>
 				{children}
-				{footer ? (
-					<div className="mt-auto pt-4 text-center lg:mt-0 lg:pt-0">
-						{footer}
-					</div>
-				) : null}
+				{footer ? <AuthPageFooter>{footer}</AuthPageFooter> : null}
 			</div>
 		</main>
 		<AuthPagePanel className="hidden lg:flex" />

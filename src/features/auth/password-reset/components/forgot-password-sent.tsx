@@ -23,6 +23,11 @@ export const ForgotPasswordSent = ({
 			Ne vidite e-poštu? Provjerite je li adresa točna i pogledajte mapu
 			neželjene pošte.
 		</p>
+		<p className="text-muted-foreground">
+			Poveznicu šaljemo samo za račun s potvrđenom e-poštom. Ako je još niste
+			potvrdili, ponovno se registrirajte istom adresom, potvrdite e-poštu pa
+			zatražite novu lozinku.
+		</p>
 		<Button variant="outline" onClick={onRetry}>
 			Upiši drugu adresu
 		</Button>

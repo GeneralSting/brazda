@@ -33,6 +33,7 @@ paths:
   - a sign-in with the right password before confirmation is refused with `EMAIL_NOT_VERIFIED` and sends a new link (`sendOnSignIn`), the only way to ask for one
   - the token of this link is a JWT signed with `BETTER_AUTH_SECRET`, not a row in the database, a second click only confirms again
 - the password reset gives the same answer for every address, its link is valid one hour and once, and a new password signs out every session (`revokeSessionsOnPasswordReset`)
+  - an address not confirmed yet gets no reset email at all - the page tells the way out: sign up again with the address, confirm it, then ask for a new password
   - tokens of every verification are stored as a SHA-256 hash (`verification.storeIdentifier: "hashed"`), so the table alone resets no password
   - the link in the email goes to Better Auth first, which checks the token and opens `/nova-lozinka` with it, or with `error=INVALID_TOKEN` for an expired, used or damaged one - the page then offers a new link, without either it asks to open the link from the email; the token stays in the address, so a refreshed page still works - it is single-use and valid one hour, so it is worth nothing once used
   - the email has a button and, under it, the whole link to copy, so a link is rarely damaged

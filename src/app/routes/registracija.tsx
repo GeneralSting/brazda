@@ -6,15 +6,14 @@ import { skipWhenSignedIn } from "#/utils/session";
 
 // the first step of a new account, the holding is added in a later step
 const SignUpPage = () => (
-	<AuthPage
-		title="Novi račun"
-		footer={
-			<AuthPagePrompt question="Već imate račun?" to="/prijava">
-				Prijavite se
-			</AuthPagePrompt>
-		}
-	>
-		<SignUp />
+	<AuthPage title="Novi račun">
+		<SignUp
+			footer={
+				<AuthPagePrompt question="Već imate račun?" to="/prijava">
+					Prijavite se
+				</AuthPagePrompt>
+			}
+		/>
 	</AuthPage>
 );
 

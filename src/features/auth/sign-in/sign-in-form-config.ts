@@ -19,3 +19,7 @@ export const SIGN_IN_RESPONSE_SCHEMA = z.object({
 // the reason given when the email and password do not belong together
 export const CREDENTIALS_MISMATCH =
 	"E-pošta i lozinka se ne podudaraju. Provjerite ih i pokušajte ponovno.";
+
+// the reason given for the right password on an address not confirmed yet, the sign-in itself sent a new link
+export const EMAIL_NOT_CONFIRMED =
+	"Prije prijave potvrdite e-poštu. Poslali smo vam novu poveznicu za potvrdu, vrijedi 24 sata.";
