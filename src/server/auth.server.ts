@@ -31,16 +31,16 @@ export const auth = betterAuth({
 	emailAndPassword: {
 		enabled: true,
 		requireEmailVerification: true, // no sign-in before the address is confirmed
+		revokeSessionsOnPasswordReset: true, // a new password signs out every device, also the one of whoever took the old one
 		onExistingUserSignUp: handleExistingSignUp,
 		sendResetPassword: sendPasswordResetEmail,
-		revokeSessionsOnPasswordReset: true, // a new password signs out every device, also the one of whoever took the old one
 	},
 	emailVerification: {
-		sendVerificationEmail,
 		sendOnSignUp: true,
 		sendOnSignIn: true, // a sign-in with the right password before confirmation sends a new link
 		autoSignInAfterVerification: false, // the user signs in on their own once the address is confirmed
 		expiresIn: EMAIL_VERIFICATION_EXPIRES_IN,
+		sendVerificationEmail,
 	},
 	verification: { storeIdentifier: "hashed" }, // tokens of links kept as SHA-256, a copy of the database resets no password
 	/**

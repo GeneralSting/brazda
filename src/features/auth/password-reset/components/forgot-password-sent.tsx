@@ -15,9 +15,9 @@ export const ForgotPasswordSent = ({
 }: ForgotPasswordSentProps) => (
 	<div role="status" className="flex flex-col gap-5">
 		<p>
-			Ako postoji račun za{" "}
-			<strong className="break-all font-bold">{email}</strong>, poslali smo
-			poveznicu za novu lozinku. Poveznica vrijedi sat vremena.
+			Poveznicu za novu lozinku poslali smo na:
+			<strong className="block font-bold wrap-anywhere">{email}</strong>
+			ako s njom postoji račun. Poveznica vrijedi sat vremena.
 		</p>
 		<p className="text-muted-foreground">
 			Ne vidite e-poštu? Provjerite je li adresa točna i pogledajte mapu

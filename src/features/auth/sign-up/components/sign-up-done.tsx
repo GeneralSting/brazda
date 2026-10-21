@@ -4,20 +4,21 @@ import { Alert } from "#/components/feedback/alert";
 import { cn } from "#/utils/cn";
 
 type SignUpDoneProps = {
-	email: string; // the address as typed, so a typo can be seen
+	email: string; // the address as typed, on a line of its own so a typo can be seen
 };
 
 /**
- * The account is made but waits for its address. Worded the same for an address that
- * already had an account, whose owner gets an email instead
+ * Worded to be true for a new address and for one that already has an account - the
+ * same for both, so it tells no one which addresses have one, and the email says the rest
  */
 export const SignUpDone = ({ email }: SignUpDoneProps) => (
 	<div className="flex flex-col gap-5">
-		<Alert tone="success" title="Registracija je uspješna">
-			Poslali smo poveznicu za potvrdu na{" "}
-			<strong className="break-all font-bold">{email}</strong>. Potvrdite
-			e-poštu pa se prijavite. Poveznica vrijedi 24 sata, a ako je ne vidite,
-			pogledajte mapu neželjene pošte.
+		<Alert tone="success" title="Još samo jedan korak: provjerite e-poštu">
+			Poslali smo e-mail na:
+			<strong className="block font-bold wrap-anywhere">{email}</strong>U njemu
+			je poveznica za potvrdu, nakon koje se možete prijaviti. Poveznica vrijedi
+			24 sata. Ako već imate račun s ovom adresom, u e-mailu piše kako se
+			prijaviti.
 		</Alert>
 		<Link
 			to="/prijava"

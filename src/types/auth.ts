@@ -19,6 +19,9 @@ export type ResetPasswordStep =
 	| "link-expired"
 	| "link-missing";
 
+// what the address of the forgotten password page may carry, the address to type in
+export type ForgotPasswordSearch = { email?: string };
+
 // what the address of the new password page carries, the token and the refusal of Better Auth
 export type NewPasswordSearch = { token?: string; error?: string };
 
@@ -31,6 +34,12 @@ export type SendVerificationEmail = NonNullable<
 export type OnExistingUserSignUp = NonNullable<
 	NonNullable<BetterAuthOptions["emailAndPassword"]>["onExistingUserSignUp"]
 >;
+
+// the part of a Better Auth request the terms consent reads, null when the server creates a user on its own
+export type SignUpContext = {
+	path?: string;
+	body?: { acceptTerms?: unknown };
+} | null;
 
 // what the page after the link that confirms an email shows
 export type EmailVerificationStep =

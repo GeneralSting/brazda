@@ -20,6 +20,13 @@ const buildVerifyUrl = (token: string) => {
 	return url.toString();
 };
 
+// the page of a forgotten password with the address already typed in, it is the one the email goes to
+const buildForgotPasswordUrl = (email: string) => {
+	const url = new URL("/zaboravljena-lozinka", getServerEnv().BETTER_AUTH_URL);
+	url.searchParams.set("email", email);
+	return url.toString();
+};
+
 const sendVerifyLink = (to: string, token: string) => {
 	sendEmailInBackground(
 		buildActionEmail({
@@ -41,15 +48,22 @@ const sendAccountExists = (to: string) => {
 			to,
 			subject: "Već imate račun u Brazdi",
 			intro: [
-				"Netko je pokušao napraviti novi račun u Brazdi s vašom e-poštom, a račun s njom već imate.",
+				"Zatražena je registracija u Brazdi s ovom e-poštom. Račun s njom već imate, pa novi nije napravljen.",
+				"Ako niste vi zatražili registraciju, zanemarite ovu poruku, s vašim računom se ništa ne mijenja.",
+				"Vaša e-pošta je već potvrđena, pa se možete odmah prijaviti.",
 			],
 			action: {
 				label: "Prijavi se",
 				url: new URL("/prijava", getServerEnv().BETTER_AUTH_URL).toString(),
 			},
 			outro: [
-				"Ako ste zaboravili lozinku, novu možete zatražiti na stranici za prijavu.",
-				"Ako to niste bili vi, zanemarite ovu poruku, s vašim računom se ništa ne mijenja.",
+				{
+					text: "Ako ste zaboravili lozinku, novu možete zatražiti ovdje:",
+					link: {
+						label: "Zatraži novu lozinku",
+						url: buildForgotPasswordUrl(to),
+					},
+				},
 			],
 		}),
 	);

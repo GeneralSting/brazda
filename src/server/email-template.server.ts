@@ -1,11 +1,25 @@
-import type { ActionEmail, Email } from "#/types/email";
+import type { ActionEmail, Email, EmailParagraph } from "#/types/email";
 
 // --primary, --foreground and --muted-foreground of styles.css, email clients read no tokens
 const COLORS = { primary: "#1e5a3c", text: "#1d1c19", muted: "#55524a" };
 
-// our own fixed texts only, nothing typed by a user goes in, so nothing needs escaping
-const toParagraphs = (lines: string[]) =>
-	lines.map((line) => `<p>${line}</p>`).join("\n\t");
+/**
+ * Our own fixed texts only, so nothing needs escaping - an address that goes into a
+ * link is encoded by URL before it gets here
+ */
+const toHtmlParagraph = (paragraph: EmailParagraph) =>
+	typeof paragraph === "string"
+		? `<p>${paragraph}</p>`
+		: `<p>${paragraph.text} <a href="${paragraph.link.url}" style="color: ${COLORS.primary}; font-weight: 600">${paragraph.link.label}</a></p>`;
+
+const toParagraphs = (paragraphs: EmailParagraph[]) =>
+	paragraphs.map(toHtmlParagraph).join("\n\t");
+
+// in plain text the sentence leads straight into the address, the label is for HTML
+const toTextParagraph = (paragraph: EmailParagraph) =>
+	typeof paragraph === "string"
+		? paragraph
+		: `${paragraph.text} ${paragraph.link.url}`;
 
 /**
  * Written by hand with inline styles, since email clients read no stylesheet. The link
@@ -22,7 +36,11 @@ const buildHtml = ({ intro, action, outro }: ActionEmail) => `
 </div>`;
 
 const buildText = ({ intro, action, outro }: ActionEmail) =>
-	[...intro, `${action.label}: ${action.url}`, ...outro].join("\n\n");
+	[
+		...intro.map(toTextParagraph),
+		`${action.label}: ${action.url}`,
+		...outro.map(toTextParagraph),
+	].join("\n\n");
 
 // one email of Brazda: the texts around a button, as HTML and as plain text
 export const buildActionEmail = (email: ActionEmail): Email => ({

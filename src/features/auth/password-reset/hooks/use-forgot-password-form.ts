@@ -44,11 +44,11 @@ const requestReset = async ({ email }: ForgotPasswordValues) => {
 };
 
 /**
- * The form that asks for a new password and the address it was sent to. The form
- * keeps its value while the sent message is shown, so going back shows the typed
- * address to fix
+ * The form that asks for a new password and the address it was sent to, starting
+ * with the address a link brought. The form keeps its value while the sent message
+ * is shown, so going back shows the typed address to fix
  */
-export const useForgotPasswordForm = () => {
+export const useForgotPasswordForm = (email: string | undefined) => {
 	const [formError, setFormError] = useState<string | null>(null);
 	const [sentTo, setSentTo] = useState<string | null>(null);
 
@@ -78,7 +78,9 @@ export const useForgotPasswordForm = () => {
 	};
 
 	const forgotPasswordForm = useAppForm({
-		defaultValues: FORGOT_PASSWORD_FORM.defaultValues,
+		defaultValues: {
+			email: email ?? FORGOT_PASSWORD_FORM.defaultValues.email,
+		},
 		validators: { onDynamic: FORGOT_PASSWORD_FORM.schema },
 		validationLogic: revalidateLogic(),
 		onSubmit: handleValidSubmit,

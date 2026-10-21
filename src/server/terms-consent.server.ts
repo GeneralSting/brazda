@@ -1,13 +1,9 @@
 import { APIError, createAuthMiddleware } from "better-auth/api";
 import { AUTH_ERROR_CODES } from "#/config/auth";
+import type { SignUpContext } from "#/types/auth";
 
 // the only way in that has the terms box, Google records its consent on its own later
 const EMAIL_SIGN_UP_PATH = "/sign-up/email";
-
-type SignUpContext = {
-	path?: string;
-	body?: { acceptTerms?: unknown };
-} | null;
 
 const hasAcceptedTerms = (context: SignUpContext) =>
 	context?.body?.acceptTerms === true;
