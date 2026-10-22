@@ -11,7 +11,10 @@ import {
 	handleExistingSignUp,
 	sendVerificationEmail,
 } from "#/server/email-verification.server";
-import { sendPasswordResetEmail } from "#/server/password-reset.server";
+import {
+	confirmAddressOnReset,
+	sendPasswordResetEmail,
+} from "#/server/password-reset.server";
 import { rateLimitStorage } from "#/server/rate-limit.server";
 import { stampTermsAcceptance } from "#/server/terms-consent.server";
 
@@ -32,6 +35,7 @@ export const auth = betterAuth({
 		revokeSessionsOnPasswordReset: true, // a new password signs out every device, also the one of whoever took the old one
 		onExistingUserSignUp: handleExistingSignUp,
 		sendResetPassword: sendPasswordResetEmail,
+		onPasswordReset: confirmAddressOnReset,
 	},
 	emailVerification: {
 		sendOnSignUp: true,

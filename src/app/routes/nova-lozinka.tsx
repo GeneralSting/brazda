@@ -14,7 +14,7 @@ const NewPasswordPage = () => {
 
 	return (
 		<AuthPage title="Nova lozinka">
-			<ResetPassword search={search} />
+			<ResetPassword search={search} purpose="reset" />
 		</AuthPage>
 	);
 };

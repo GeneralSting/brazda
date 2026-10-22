@@ -1,19 +1,18 @@
+import { eq } from "drizzle-orm";
+import { getDb } from "#/server/db/client.server";
+import { user as userTable } from "#/server/db/schema/auth";
 import { sendEmailInBackground } from "#/server/email.server";
 import { buildActionEmail } from "#/server/email-template.server";
-import type { SendResetPassword } from "#/types/auth";
+import type { OnPasswordReset, SendResetPassword } from "#/types/auth";
 
 /**
  * Sends the link for a new password, not awaited, so the answer is the same for every
- * address. An address not confirmed yet gets nothing, the account first has to prove
- * it - the page tells how, the answer stays the same
+ * address. An address not confirmed yet gets it too, saving through it confirms the address
  */
 export const sendPasswordResetEmail: SendResetPassword = async ({
 	user,
 	url,
 }) => {
-	if (!user.emailVerified) {
-		return;
-	}
 	sendEmailInBackground(
 		buildActionEmail({
 			to: user.email,
@@ -26,4 +25,18 @@ export const sendPasswordResetEmail: SendResetPassword = async ({
 			],
 		}),
 	);
+};
+
+/**
+ * The link reached the owner of the address, so a password saved through it confirms
+ * the address too - a new account gets its first password this way
+ */
+export const confirmAddressOnReset: OnPasswordReset = async ({ user }) => {
+	if (user.emailVerified) {
+		return;
+	}
+	await getDb()
+		.update(userTable)
+		.set({ emailVerified: true })
+		.where(eq(userTable.id, user.id));
 };
