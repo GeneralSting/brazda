@@ -4,14 +4,14 @@ import { Alert } from "#/components/feedback/alert";
 import type { PasswordLinkTexts } from "#/types/auth";
 import { cn } from "#/utils/cn";
 
-type ResetPasswordLinkExpiredProps = {
+type SavePasswordLinkExpiredProps = {
 	texts: PasswordLinkTexts;
 };
 
 // an expired or used link, the only way on is to ask for a new one
-export const ResetPasswordLinkExpired = ({
+export const SavePasswordLinkExpired = ({
 	texts,
-}: ResetPasswordLinkExpiredProps) => (
+}: SavePasswordLinkExpiredProps) => (
 	<div className="flex flex-col gap-5">
 		<Alert title="Poveznica više ne vrijedi">{texts.expiredText}</Alert>
 		<Link

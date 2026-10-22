@@ -4,7 +4,7 @@ import { AuthPagePrompt } from "#/components/layout/auth-page/auth-page-prompt";
 import {
 	FORGOT_PASSWORD_SEARCH_SCHEMA,
 	ForgotPassword,
-} from "#/features/auth/password-reset";
+} from "#/features/auth/password-link";
 import { skipWhenSignedIn } from "#/utils/session";
 
 /**

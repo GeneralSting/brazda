@@ -15,7 +15,7 @@ export const NEW_PASSWORD_SEARCH_SCHEMA = z.object({
 });
 
 // both steps answer only that the request went through, anything else is not trusted
-export const PASSWORD_RESET_RESPONSE_SCHEMA = z.object({
+export const PASSWORD_LINK_RESPONSE_SCHEMA = z.object({
 	status: z.literal(true),
 });
 

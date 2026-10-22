@@ -2,8 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AuthPage } from "#/components/layout/auth-page/auth-page";
 import {
 	NEW_PASSWORD_SEARCH_SCHEMA,
-	ResetPassword,
-} from "#/features/auth/password-reset";
+	SavePassword,
+} from "#/features/auth/password-link";
 
 /**
  * Opened from the link a sign-up sends, the first password of a new account, which
@@ -14,7 +14,7 @@ const SetPasswordPage = () => {
 
 	return (
 		<AuthPage title="Postavite lozinku">
-			<ResetPassword search={search} purpose="set" />
+			<SavePassword search={search} purpose="set" />
 		</AuthPage>
 	);
 };

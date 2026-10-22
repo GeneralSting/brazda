@@ -63,7 +63,7 @@ src
 |   +-- auth              # group folder - only keeps related features together, holds no code of its own
 |       +-- sign-up       # a feature, built the same way as sign-in
 |       +-- sign-out      # a feature with a single hook
-|       +-- password-reset  # a password saved through a link from an email: the new one of an account, the first one of a new account
+|       +-- password-link  # a password saved through a link from an email: the new one of an account, the first one of a new account
 |       +-- email-verification  # the page the link that confirms an email returns to
 |       +-- sign-in       # a feature, everything about signing in
 |           +-- index.ts              # public API of the feature, the only file other sections import

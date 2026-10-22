@@ -10,12 +10,12 @@ export type SendResetPassword = NonNullable<
 >;
 
 /**
- * What the page of a new password shows: the form, the new password saved, a link
+ * What the page of a password link shows: the form, the password saved, a link
  * Better Auth refused (expired, used or damaged), or a page opened without the link
  */
-export type ResetPasswordStep =
+export type SavePasswordStep =
 	| "form"
-	| "changed"
+	| "saved"
 	| "link-expired"
 	| "link-missing";
 

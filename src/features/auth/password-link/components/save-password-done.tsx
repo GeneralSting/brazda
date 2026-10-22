@@ -4,12 +4,12 @@ import { Alert } from "#/components/feedback/alert";
 import type { PasswordLinkTexts } from "#/types/auth";
 import { cn } from "#/utils/cn";
 
-type ResetPasswordChangedProps = {
+type SavePasswordDoneProps = {
 	texts: PasswordLinkTexts;
 };
 
 // the password is saved and the address confirmed, the user signs in with it
-export const ResetPasswordChanged = ({ texts }: ResetPasswordChangedProps) => (
+export const SavePasswordDone = ({ texts }: SavePasswordDoneProps) => (
 	<div className="flex flex-col gap-5">
 		<Alert tone="success" title={texts.savedTitle}>
 			{texts.savedText}

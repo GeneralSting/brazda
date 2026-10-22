@@ -1,18 +1,18 @@
 import { FormBuilder } from "#/components/form/form-builder";
 import type { PasswordLinkTexts } from "#/types/auth";
-import type { useResetPasswordForm } from "../hooks/use-reset-password-form";
+import type { useSavePasswordForm } from "../hooks/use-save-password-form";
 
-type ResetPasswordFormProps = {
-	form: ReturnType<typeof useResetPasswordForm>["resetPasswordForm"];
+type SavePasswordFormProps = {
+	form: ReturnType<typeof useSavePasswordForm>["savePasswordForm"];
 	error: string | null;
 	texts: PasswordLinkTexts;
 };
 
-export const ResetPasswordForm = ({
+export const SavePasswordForm = ({
 	form,
 	error,
 	texts,
-}: ResetPasswordFormProps) => (
+}: SavePasswordFormProps) => (
 	<div className="flex flex-col gap-5">
 		<p className="text-muted-foreground">{texts.intro}</p>
 		<FormBuilder form={form} submitText="Spremi lozinku" error={error}>
