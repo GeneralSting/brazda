@@ -35,12 +35,14 @@ export const SIGN_UP_FORM = createFormConfig({
 
 export type SignUpValues = z.output<typeof SIGN_UP_FORM.schema>;
 
-// a new account is signed in at once, so the answer carries the session token
+/**
+ * No session before the address is confirmed, so the answer carries no token. An
+ * address that has an account answers the same, the owner is told by email instead
+ */
 export const SIGN_UP_RESPONSE_SCHEMA = z.object({
-	token: z.string().min(1),
+	token: z.null(),
 	user: z.object({ id: z.string().min(1), email: z.email() }),
 });
 
-// the reason given when an account with the email already exists
-export const EMAIL_TAKEN =
-	"Račun s ovom e-poštom već postoji. Prijavite se ili upišite drugu e-poštu.";
+// the reason given when the server refuses the sign-up because the terms were not accepted
+export const TERMS_REFUSED = MESSAGES.termsRequired;

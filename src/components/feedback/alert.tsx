@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import { CircleAlert, Eye } from "lucide-react";
+import { CircleAlert, CircleCheck, Eye } from "lucide-react";
 import type { ReactNode } from "react";
 import { cn } from "#/utils/cn";
 
@@ -8,6 +8,7 @@ const alertVariants = cva("flex items-start gap-3 rounded-xl border p-4", {
 		tone: {
 			destructive: "border-destructive-border bg-destructive-soft", // something failed, with what happened and what the user can do
 			warning: "border-warning-border bg-warning-soft", // something waits for the user to check it
+			success: "border-accent-border bg-accent", // something the user did went through, with what follows from it
 		},
 	},
 	defaultVariants: {
@@ -26,11 +27,17 @@ const TONE_STYLES = {
 		title: "text-warning-text",
 		text: "text-warning-text",
 	},
+	success: {
+		icon: "text-primary",
+		title: "text-accent-foreground",
+		text: "text-accent-foreground",
+	},
 };
 
 const TONE_ICONS = {
 	destructive: <CircleAlert aria-hidden="true" />,
 	warning: <Eye aria-hidden="true" />,
+	success: <CircleCheck aria-hidden="true" />,
 };
 
 type AlertProps = VariantProps<typeof alertVariants> & {
@@ -55,7 +62,7 @@ export const Alert = ({
 
 	return (
 		<div
-			// only errors interrupt a screen reader, a warning is read in turn
+			// only errors interrupt a screen reader, a warning or a success is read in turn
 			role={resolvedTone === "destructive" ? "alert" : "status"}
 			className={cn(alertVariants({ tone }), className)}
 		>

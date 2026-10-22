@@ -1,6 +1,8 @@
 import { revalidateLogic } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { AUTH_ERROR_CODES, BETTER_AUTH_ERROR_CODES } from "#/config/auth";
+import { SIGN_IN_PER_ADDRESS } from "#/config/rate-limit";
 import { useAppForm } from "#/hooks/use-app-form";
 import { authClient } from "#/services/auth-client";
 import {
@@ -9,11 +11,30 @@ import {
 	REQUEST_MESSAGES,
 } from "#/utils/request";
 import {
+	buildTooManySignIns,
 	CREDENTIALS_MISMATCH,
+	EMAIL_NOT_CONFIRMED,
 	SIGN_IN_FORM,
+	SIGN_IN_LIMIT_SCHEMA,
 	SIGN_IN_RESPONSE_SCHEMA,
 	type SignInValues,
 } from "./sign-in-form-config";
+
+// our own reasons for a failed sign-in, by the code of the error, anything else is a request error
+const SIGN_IN_ERRORS: Record<string, string> = {
+	[BETTER_AUTH_ERROR_CODES.invalidCredentials]: CREDENTIALS_MISMATCH,
+	[BETTER_AUTH_ERROR_CODES.emailNotVerified]: EMAIL_NOT_CONFIRMED,
+};
+
+// how long the address waits, the whole window when the answer does not say
+const getSignInLimitMessage = (error: unknown) => {
+	const parsedLimitSchema = SIGN_IN_LIMIT_SCHEMA.safeParse(error);
+	return buildTooManySignIns(
+		parsedLimitSchema.success
+			? parsedLimitSchema.data.retryAfter
+			: SIGN_IN_PER_ADDRESS.window,
+	);
+};
 
 /**
  * Sends the sign-in and turns every outcome into null (signed in) or the error of the
@@ -23,11 +44,14 @@ const signIn = async (values: SignInValues) => {
 	try {
 		const { data, error } = await authClient.signIn.email(values);
 
+		if (error?.code === AUTH_ERROR_CODES.signInLimit) {
+			return getSignInLimitMessage(error);
+		}
 		if (error) {
-			return error.code ===
-				authClient.$ERROR_CODES.INVALID_EMAIL_OR_PASSWORD.code
-				? CREDENTIALS_MISMATCH
-				: getRequestErrorMessage(error);
+			return (
+				(error.code && SIGN_IN_ERRORS[error.code]) ??
+				getRequestErrorMessage(error)
+			);
 		}
 		return parseResponse(SIGN_IN_RESPONSE_SCHEMA, data)
 			? null

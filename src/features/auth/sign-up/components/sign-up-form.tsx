@@ -1,13 +1,16 @@
 import { EmailDivider } from "#/components/auth/email-divider";
 import { GoogleButton } from "#/components/auth/google-button";
 import { FormBuilder } from "#/components/form/form-builder";
-import { useSignUpForm } from "../use-sign-up-form";
+import type { useSignUpForm } from "../use-sign-up-form";
 import { SignUpFormTerms } from "./sign-up-form-terms";
 
-// Google first, then name, email, password and the consent, as on the sign-in screen
-export const SignUpForm = () => {
-	const { signUpForm, formError } = useSignUpForm();
+type SignUpFormProps = {
+	signUpForm: ReturnType<typeof useSignUpForm>["signUpForm"];
+	formError: string | null;
+};
 
+// Google first, then name, email, password and the consent, as on the sign-in screen
+export const SignUpForm = ({ signUpForm, formError }: SignUpFormProps) => {
 	return (
 		<div className="flex flex-col gap-5">
 			<GoogleButton />

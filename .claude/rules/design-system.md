@@ -62,7 +62,7 @@ paths:
   - focus styles are never removed without a replacement
 - base components are written by hand after the design (arrow functions, `cva` variants, `cn` from `#/utils/cn`) and grouped in `src/components` by what they are for, there is no `ui` folder:
   - `form` - input, password-input, checkbox, field, field-message, input-field and the form engine pieces
-  - `feedback` - alert (error and warning tone), badge, empty-state
+  - `feedback` - alert (error, warning and success tone), badge, empty-state
   - `display` - card, table, avatar
   - `overlay` - dropdown-menu, one file per part directly in the folder: `dropdown-menu.tsx` (menu and trigger), `dropdown-menu-content.tsx`, `dropdown-menu-item.tsx`, `dropdown-menu-separator.tsx`
   - at the root - button, reveal, logo
@@ -73,5 +73,5 @@ paths:
 - a text field in a form is always `field.TextField`, which is `InputField` bound to the form - label, field and the message under it as one component, so every label has the same font and the same distance to its field - whatever sits in the label row (a badge, "Zaboravili ste?") gets the label's 16px type; `Field` alone is only for a control that is not a text field
 - a checkbox in a form is always `field.CheckboxField` - the 22px box with its label on the right in `text-base`, the label may hold links, which open without checking the box, and the error stands under both
 - sizes from the design - main button 56px (`size="lg"`), other buttons 48px, fields always 48px with no exception, table row 52px, radius 10px for buttons and fields (`rounded-control`) and 12px for cards (`rounded-xl`)
-- green is reserved for actions and the selected state, red for urgent and errors, amber for soon and values to check - colour is never the only signal, an icon and a word always go with it
+- green is reserved for actions, the selected state and the confirmation that something went through (the success alert, on the soft `accent` tokens), red for urgent and errors, amber for soon and values to check - colour is never the only signal, an icon and a word always go with it
 - icons come from `lucide-react`
