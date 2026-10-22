@@ -8,9 +8,7 @@ import type { BetterAuthErrorCode } from "#/types/auth";
  */
 export const BETTER_AUTH_ERROR_CODES = {
 	invalidCredentials: "INVALID_EMAIL_OR_PASSWORD",
-	emailNotVerified: "EMAIL_NOT_VERIFIED", // the right password, but the address waits for confirmation
-	invalidToken: "INVALID_TOKEN", // the link for a new password expired or was already used
-	tokenExpired: "TOKEN_EXPIRED", // the link that confirms an email is older than its 24 hours
+	invalidToken: "INVALID_TOKEN", // the link for a password expired or was already used
 } as const satisfies Record<string, BetterAuthErrorCode>;
 
 // codes of the errors our own auth rules answer with
@@ -19,8 +17,8 @@ export const AUTH_ERROR_CODES = {
 	signInLimit: "SIGN_IN_LIMIT_REACHED", // too many sign-ins to one address, from whatever IP addresses
 } as const;
 
-// how long a link that confirms an email works, in seconds - the emails and the pages say 24 hours
-export const EMAIL_VERIFICATION_EXPIRES_IN = 24 * 60 * 60;
+// how long the link of a sign-up works, in seconds - the emails and the pages say 24 hours
+export const SET_PASSWORD_EXPIRES_IN = 24 * 60 * 60;
 
-// where Better Auth returns after confirming an email, it appends error= when that fails
-export const EMAIL_VERIFIED_CALLBACK = "/potvrda-e-poste?status=verified";
+// where the link of a sign-up opens, Better Auth checks its token on the way
+export const SET_PASSWORD_PATH = "/postavi-lozinku";

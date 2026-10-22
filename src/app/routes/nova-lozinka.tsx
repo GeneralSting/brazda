@@ -2,8 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AuthPage } from "#/components/layout/auth-page/auth-page";
 import {
 	NEW_PASSWORD_SEARCH_SCHEMA,
-	ResetPassword,
-} from "#/features/auth/password-reset";
+	SavePassword,
+} from "#/features/auth/password-link";
 
 /**
  * Opened from the link in the email. Not closed to a signed-in user, the link may be
@@ -14,7 +14,7 @@ const NewPasswordPage = () => {
 
 	return (
 		<AuthPage title="Nova lozinka">
-			<ResetPassword search={search} />
+			<SavePassword search={search} purpose="reset" />
 		</AuthPage>
 	);
 };

@@ -1,20 +1,24 @@
 import { Link } from "@tanstack/react-router";
 import { buttonVariants } from "#/components/button";
 import { Alert } from "#/components/feedback/alert";
+import type { PasswordLinkTexts } from "#/types/auth";
 import { cn } from "#/utils/cn";
 
+type SavePasswordLinkExpiredProps = {
+	texts: PasswordLinkTexts;
+};
+
 // an expired or used link, the only way on is to ask for a new one
-export const ResetPasswordLinkExpired = () => (
+export const SavePasswordLinkExpired = ({
+	texts,
+}: SavePasswordLinkExpiredProps) => (
 	<div className="flex flex-col gap-5">
-		<Alert title="Poveznica više ne vrijedi">
-			Poveznica za novu lozinku vrijedi sat vremena i može se iskoristiti samo
-			jednom. Zatražite novu.
-		</Alert>
+		<Alert title="Poveznica više ne vrijedi">{texts.expiredText}</Alert>
 		<Link
-			to="/zaboravljena-lozinka"
+			to={texts.retry.to}
 			className={cn(buttonVariants({ size: "lg" }), "w-full")}
 		>
-			Zatraži novu poveznicu
+			{texts.retry.label}
 		</Link>
 	</div>
 );

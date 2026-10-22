@@ -1,48 +1,35 @@
 import { z } from "zod";
-import { EMAIL_FIELD, PASSWORD_FIELD } from "#/config/form-fields";
+import { EMAIL_FIELD } from "#/config/form-fields";
 import type { FieldConfig } from "#/types/form";
 import { createFormConfig } from "#/utils/form";
 
-// what the user reads under a field of this form, written as an instruction
-const MESSAGES = {
-	nameRequired: "Upišite ime i prezime.",
-	termsRequired: "Prihvatite Uvjete korištenja i Politiku privatnosti.",
-} as const;
+// what the user reads under the box of the consent, written as an instruction
+const TERMS_REQUIRED = "Prihvatite Uvjete korištenja i Politiku privatnosti.";
 
-const nameSchema = z.string().trim().min(1, MESSAGES.nameRequired);
 // the form can be sent unchecked, it then fails with the message under the box
-const termsSchema = z
-	.boolean()
-	.refine((accepted) => accepted, MESSAGES.termsRequired);
-
-const NAME_FIELD = {
-	schema: nameSchema,
-	defaultValue: "",
-} satisfies FieldConfig<typeof nameSchema>;
+const termsSchema = z.boolean().refine((accepted) => accepted, TERMS_REQUIRED);
 
 const TERMS_FIELD = {
 	schema: termsSchema,
 	defaultValue: false,
 } satisfies FieldConfig<typeof termsSchema>;
 
-// the fields of the sign-up form, the names used in its UI come from here
+/**
+ * The fields of the sign-up form, the names used in its UI come from here. No
+ * password, it is set through the link in the email, and no name, the user sets it
+ * in the profile when they want
+ */
 export const SIGN_UP_FORM = createFormConfig({
-	name: NAME_FIELD,
 	email: EMAIL_FIELD,
-	password: PASSWORD_FIELD,
 	acceptTerms: TERMS_FIELD,
 });
 
 export type SignUpValues = z.output<typeof SIGN_UP_FORM.schema>;
 
-/**
- * No session before the address is confirmed, so the answer carries no token. An
- * address that has an account answers the same, the owner is told by email instead
- */
+// an address that has an account answers the same, the owner is told by email instead
 export const SIGN_UP_RESPONSE_SCHEMA = z.object({
-	token: z.null(),
-	user: z.object({ id: z.string().min(1), email: z.email() }),
+	status: z.literal(true),
 });
 
 // the reason given when the server refuses the sign-up because the terms were not accepted
-export const TERMS_REFUSED = MESSAGES.termsRequired;
+export const TERMS_REFUSED = TERMS_REQUIRED;

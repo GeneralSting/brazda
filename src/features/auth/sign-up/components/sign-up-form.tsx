@@ -9,7 +9,7 @@ type SignUpFormProps = {
 	formError: string | null;
 };
 
-// Google first, then name, email, password and the consent, as on the sign-in screen
+// Google first, then the email and the consent - the password comes through the link in the email
 export const SignUpForm = ({ signUpForm, formError }: SignUpFormProps) => {
 	return (
 		<div className="flex flex-col gap-5">
@@ -20,15 +20,6 @@ export const SignUpForm = ({ signUpForm, formError }: SignUpFormProps) => {
 				submitText="Napravi račun"
 				error={formError}
 			>
-				<signUpForm.AppField name="name">
-					{(field) => (
-						<field.TextField
-							label="Ime i prezime"
-							autoComplete="name"
-							placeholder="Marko Horvat"
-						/>
-					)}
-				</signUpForm.AppField>
 				<signUpForm.AppField name="email">
 					{(field) => (
 						<field.TextField
@@ -37,17 +28,6 @@ export const SignUpForm = ({ signUpForm, formError }: SignUpFormProps) => {
 							autoComplete="email"
 							inputMode="email"
 							placeholder="ime@primjer.hr"
-						/>
-					)}
-				</signUpForm.AppField>
-				<signUpForm.AppField name="password">
-					{(field) => (
-						<field.TextField
-							label="Lozinka"
-							type="password"
-							autoComplete="new-password"
-							placeholder="••••••••"
-							hint="Najmanje 8 znakova."
 						/>
 					)}
 				</signUpForm.AppField>

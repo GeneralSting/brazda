@@ -1,19 +1,17 @@
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { betterAuth } from "better-auth/minimal";
 import { tanstackStartCookies } from "better-auth/tanstack-start";
-import { EMAIL_VERIFICATION_EXPIRES_IN } from "#/config/auth";
 import { getServerEnv } from "#/config/env.server";
 import { RATE_LIMIT_DEFAULT, RATE_LIMIT_RULES } from "#/config/rate-limit";
 import { beforeAuthRequest } from "#/server/auth-hooks.server";
 import { getDb } from "#/server/db/client.server";
 import * as schema from "#/server/db/schema/auth";
 import {
-	handleExistingSignUp,
-	sendVerificationEmail,
-} from "#/server/email-verification.server";
-import { sendPasswordResetEmail } from "#/server/password-reset.server";
+	confirmAddressOnReset,
+	sendPasswordResetEmail,
+} from "#/server/password-reset.server";
 import { rateLimitStorage } from "#/server/rate-limit.server";
-import { stampTermsAcceptance } from "#/server/terms-consent.server";
+import { signUpWithoutPassword } from "#/server/sign-up.server";
 
 const env = getServerEnv();
 
@@ -28,17 +26,11 @@ export const auth = betterAuth({
 	baseURL: env.BETTER_AUTH_URL,
 	emailAndPassword: {
 		enabled: true,
+		disableSignUp: true, // a sign-up goes through /sign-up/request, which sets no password
 		requireEmailVerification: true, // no sign-in before the address is confirmed
 		revokeSessionsOnPasswordReset: true, // a new password signs out every device, also the one of whoever took the old one
-		onExistingUserSignUp: handleExistingSignUp,
 		sendResetPassword: sendPasswordResetEmail,
-	},
-	emailVerification: {
-		sendOnSignUp: true,
-		sendOnSignIn: true, // a sign-in with the right password before confirmation sends a new link
-		autoSignInAfterVerification: false, // the user signs in on their own once the address is confirmed
-		expiresIn: EMAIL_VERIFICATION_EXPIRES_IN,
-		sendVerificationEmail,
+		onPasswordReset: confirmAddressOnReset,
 	},
 	verification: { storeIdentifier: "hashed" }, // tokens of links kept as SHA-256, a copy of the database resets no password
 	/**
@@ -62,7 +54,6 @@ export const auth = betterAuth({
 		},
 	},
 	hooks: { before: beforeAuthRequest },
-	databaseHooks: { user: { create: { before: stampTermsAcceptance } } },
-	plugins: [tanstackStartCookies()], // lets sign-in from a server function set its cookie, has to stay the last plugin
+	plugins: [signUpWithoutPassword(), tanstackStartCookies()], // the cookie plugin lets sign-in from a server function set its cookie, has to stay the last plugin
 	database: drizzleAdapter(getDb(), { provider: "pg", schema }),
 });

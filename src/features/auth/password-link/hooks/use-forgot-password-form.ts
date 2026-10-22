@@ -14,8 +14,8 @@ import {
 } from "../config/forgot-password-form-config";
 import {
 	NEW_PASSWORD_PATH,
-	PASSWORD_RESET_RESPONSE_SCHEMA,
-} from "../config/password-reset-config";
+	PASSWORD_LINK_RESPONSE_SCHEMA,
+} from "../config/password-link-config";
 
 /**
  * Asks for the link and turns every outcome into null (asked) or the error of the
@@ -35,7 +35,7 @@ const requestReset = async ({ email }: ForgotPasswordValues) => {
 				: getRequestErrorMessage(error);
 		}
 
-		return parseResponse(PASSWORD_RESET_RESPONSE_SCHEMA, data)
+		return parseResponse(PASSWORD_LINK_RESPONSE_SCHEMA, data)
 			? null
 			: REQUEST_MESSAGES.unexpected;
 	} catch {

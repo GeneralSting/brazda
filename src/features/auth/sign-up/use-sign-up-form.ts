@@ -3,6 +3,7 @@ import { useState } from "react";
 import { AUTH_ERROR_CODES } from "#/config/auth";
 import { useAppForm } from "#/hooks/use-app-form";
 import { authClient } from "#/services/auth-client";
+import type { AuthRequestError } from "#/types/auth";
 import {
 	getRequestErrorMessage,
 	parseResponse,
@@ -20,17 +21,23 @@ const SIGN_UP_ERRORS: Record<string, string> = {
 	[AUTH_ERROR_CODES.termsNotAccepted]: TERMS_REFUSED,
 };
 
-/**
- * Creates the account and turns every outcome into null (signed up, the link to
- * confirm the address on its way) or the error of the whole form. The accepted terms go along, the server checks
- * them again and records the moment of the consent
- */
-const signUp = async ({ name, email, password, acceptTerms }: SignUpValues) => {
-	// acceptTerms is no field of the account (Better Auth), so the typed body of the client does not list it
-	const body = { name, email, password, acceptTerms };
+// our own endpoint, the client of Better Auth has no method for it
+const SIGN_UP_PATH = "/sign-up/request";
 
+/**
+ * Asks for the account and turns every outcome into null (the link to set the
+ * password on its way) or the error of the whole form. The accepted terms go along,
+ * the server checks them again and records the moment of the consent
+ */
+const signUp = async (body: SignUpValues) => {
 	try {
-		const { data, error } = await authClient.signUp.email(body);
+		const { data, error } = await authClient.$fetch<unknown, AuthRequestError>(
+			SIGN_UP_PATH,
+			{
+				method: "POST",
+				body,
+			},
+		);
 
 		if (error) {
 			return (

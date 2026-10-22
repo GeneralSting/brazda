@@ -7,10 +7,9 @@ export const MINUTE = 60;
  */
 export const RATE_LIMIT_RULES = {
 	"/sign-in/*": { window: MINUTE, max: 5 },
-	"/sign-up/*": { window: MINUTE, max: 5 },
 	// both send an email, so they are kept rare
+	"/sign-up/request": { window: 5 * MINUTE, max: 5 },
 	"/request-password-reset": { window: 5 * MINUTE, max: 5 },
-	"/send-verification-email": { window: 5 * MINUTE, max: 5 },
 };
 
 // every other auth endpoint (session, sign-out...), one request a second on average

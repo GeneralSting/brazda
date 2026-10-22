@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { getRequestHeaders } from "@tanstack/react-start/server";
+import { DEFAULT_USER_NAME } from "#/config/user";
 import { auth } from "#/server/auth.server";
 import type { SessionUser } from "#/types/user";
 
@@ -17,6 +18,6 @@ export const getSessionUser = createServerFn({ method: "GET" }).handler(
 		}
 
 		const { id, name, email } = session.user;
-		return { id, name, email };
+		return { id, name: name || DEFAULT_USER_NAME, email };
 	},
 );
