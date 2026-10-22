@@ -35,6 +35,13 @@ export type OnExistingUserSignUp = NonNullable<
 	NonNullable<BetterAuthOptions["emailAndPassword"]>["onExistingUserSignUp"]
 >;
 
+// the part of an email sign-in the limit per address reads, with the switch of rate limiting
+export type SignInContext = {
+	path?: string;
+	body?: { email?: unknown };
+	context: { rateLimit: { enabled: boolean } };
+};
+
 // the part of a Better Auth request the terms consent reads, null when the server creates a user on its own
 export type SignUpContext = {
 	path?: string;

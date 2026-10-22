@@ -13,9 +13,10 @@ export const BETTER_AUTH_ERROR_CODES = {
 	tokenExpired: "TOKEN_EXPIRED", // the link that confirms an email is older than its 24 hours
 } as const satisfies Record<string, BetterAuthErrorCode>;
 
-// codes of the errors our own sign-up rules answer with
+// codes of the errors our own auth rules answer with
 export const AUTH_ERROR_CODES = {
 	termsNotAccepted: "TERMS_NOT_ACCEPTED",
+	signInLimit: "SIGN_IN_LIMIT_REACHED", // too many sign-ins to one address, from whatever IP addresses
 } as const;
 
 // how long a link that confirms an email works, in seconds - the emails and the pages say 24 hours

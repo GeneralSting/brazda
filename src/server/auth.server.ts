@@ -4,6 +4,7 @@ import { tanstackStartCookies } from "better-auth/tanstack-start";
 import { EMAIL_VERIFICATION_EXPIRES_IN } from "#/config/auth";
 import { getServerEnv } from "#/config/env.server";
 import { RATE_LIMIT_DEFAULT, RATE_LIMIT_RULES } from "#/config/rate-limit";
+import { beforeAuthRequest } from "#/server/auth-hooks.server";
 import { getDb } from "#/server/db/client.server";
 import * as schema from "#/server/db/schema/auth";
 import {
@@ -12,10 +13,7 @@ import {
 } from "#/server/email-verification.server";
 import { sendPasswordResetEmail } from "#/server/password-reset.server";
 import { rateLimitStorage } from "#/server/rate-limit.server";
-import {
-	requireAcceptedTerms,
-	stampTermsAcceptance,
-} from "#/server/terms-consent.server";
+import { stampTermsAcceptance } from "#/server/terms-consent.server";
 
 const env = getServerEnv();
 
@@ -63,7 +61,7 @@ export const auth = betterAuth({
 			},
 		},
 	},
-	hooks: { before: requireAcceptedTerms },
+	hooks: { before: beforeAuthRequest },
 	databaseHooks: { user: { create: { before: stampTermsAcceptance } } },
 	plugins: [tanstackStartCookies()], // lets sign-in from a server function set its cookie, has to stay the last plugin
 	database: drizzleAdapter(getDb(), { provider: "pg", schema }),

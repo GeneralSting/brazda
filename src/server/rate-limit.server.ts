@@ -1,12 +1,17 @@
 import type { BetterAuthRateLimitStorage } from "better-auth";
 import { lt, sql } from "drizzle-orm";
-import { RATE_LIMIT_DEFAULT, RATE_LIMIT_RULES } from "#/config/rate-limit";
+import {
+	RATE_LIMIT_DEFAULT,
+	RATE_LIMIT_RULES,
+	SIGN_IN_PER_ADDRESS,
+} from "#/config/rate-limit";
 import { getDb } from "#/server/db/client.server";
 import { rateLimit } from "#/server/db/schema/rate-limit";
 
 // a row whose window started longer ago than this is of no use to any rule
 const LONGEST_WINDOW = Math.max(
 	RATE_LIMIT_DEFAULT.window,
+	SIGN_IN_PER_ADDRESS.window,
 	...Object.values(RATE_LIMIT_RULES).map((rule) => rule.window),
 );
 

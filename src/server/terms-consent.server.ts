@@ -1,4 +1,4 @@
-import { APIError, createAuthMiddleware } from "better-auth/api";
+import { APIError } from "better-auth/api";
 import { AUTH_ERROR_CODES } from "#/config/auth";
 import type { SignUpContext } from "#/types/auth";
 
@@ -12,8 +12,8 @@ const hasAcceptedTerms = (context: SignUpContext) =>
  * Refuses an email sign-up without accepted terms. The box of the form is only the
  * first check - a request sent straight to the API skips it and is stopped here
  */
-export const requireAcceptedTerms = createAuthMiddleware(async (context) => {
-	if (context.path !== EMAIL_SIGN_UP_PATH || hasAcceptedTerms(context)) {
+export const requireAcceptedTerms = (context: SignUpContext) => {
+	if (context?.path !== EMAIL_SIGN_UP_PATH || hasAcceptedTerms(context)) {
 		return;
 	}
 
@@ -21,7 +21,7 @@ export const requireAcceptedTerms = createAuthMiddleware(async (context) => {
 		code: AUTH_ERROR_CODES.termsNotAccepted,
 		message: "The terms of use and the privacy policy have to be accepted",
 	});
-});
+};
 
 /**
  * Stamps the moment of the consent on the new user, taken from the server clock and
