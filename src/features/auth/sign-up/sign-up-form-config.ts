@@ -16,8 +16,8 @@ const TERMS_FIELD = {
 
 /**
  * The fields of the sign-up form, the names used in its UI come from here. No
- * password, it is set through the link in the email, and no name, it is typed in
- * after the first sign-in
+ * password, it is set through the link in the email, and no name, the user sets it
+ * in the profile when they want
  */
 export const SIGN_UP_FORM = createFormConfig({
 	email: EMAIL_FIELD,

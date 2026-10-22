@@ -54,7 +54,7 @@ export const signUpWithoutPassword = () =>
 						return context.json({ status: true });
 					}
 
-					// the moment of the consent from the server clock, the name is typed in later
+					// the moment of the consent from the server clock, the name is set in the profile
 					const user =
 						found?.user ??
 						(await internalAdapter.createUser(
