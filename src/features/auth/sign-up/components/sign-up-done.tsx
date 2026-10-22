@@ -16,9 +16,9 @@ export const SignUpDone = ({ email }: SignUpDoneProps) => (
 		<Alert tone="success" title="Još samo jedan korak: provjerite e-poštu">
 			Poslali smo e-mail na:
 			<strong className="block font-bold wrap-anywhere">{email}</strong>U njemu
-			je poveznica za potvrdu, nakon koje se možete prijaviti. Poveznica vrijedi
-			24 sata. Ako već imate račun s ovom adresom, u e-mailu piše kako se
-			prijaviti.
+			je poveznica za postavljanje lozinke, nakon koje se možete prijaviti.
+			Poveznica vrijedi 24 sata. Ako već imate račun s ovom adresom, u e-mailu
+			piše kako se prijaviti.
 		</Alert>
 		<Link
 			to="/prijava"

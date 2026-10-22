@@ -44,7 +44,3 @@ export const buildTooManySignIns = (seconds: number) => {
 
 	return `Previše pokušaja prijave za ovu e-poštu. Pričekajte ${minutes} ${word} pa pokušajte ponovno.`;
 };
-
-// the reason given for the right password on an address not confirmed yet, the sign-in itself sent a new link
-export const EMAIL_NOT_CONFIRMED =
-	"Prije prijave potvrdite e-poštu. Poslali smo vam novu poveznicu za potvrdu, vrijedi 24 sata.";

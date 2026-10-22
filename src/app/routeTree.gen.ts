@@ -13,7 +13,6 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AplikacijaRouteRouteImport } from './routes/aplikacija/route'
 import { Route as NovaLozinkaRouteImport } from './routes/nova-lozinka'
 import { Route as PostaviLozinkuRouteImport } from './routes/postavi-lozinku'
-import { Route as PotvrdaEPosteRouteImport } from './routes/potvrda-e-poste'
 import { Route as PrijavaRouteImport } from './routes/prijava'
 import { Route as RegistracijaRouteImport } from './routes/registracija'
 import { Route as ZaboravljenaLozinkaRouteImport } from './routes/zaboravljena-lozinka'
@@ -47,11 +46,6 @@ const NovaLozinkaRoute = NovaLozinkaRouteImport.update({
 const PostaviLozinkuRoute = PostaviLozinkuRouteImport.update({
   id: '/postavi-lozinku',
   path: '/postavi-lozinku',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PotvrdaEPosteRoute = PotvrdaEPosteRouteImport.update({
-  id: '/potvrda-e-poste',
-  path: '/potvrda-e-poste',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrijavaRoute = PrijavaRouteImport.update({
@@ -130,7 +124,6 @@ export interface FileRoutesByFullPath {
   '/aplikacija': typeof AplikacijaRouteRouteWithChildren
   '/nova-lozinka': typeof NovaLozinkaRoute
   '/postavi-lozinku': typeof PostaviLozinkuRoute
-  '/potvrda-e-poste': typeof PotvrdaEPosteRoute
   '/prijava': typeof PrijavaRoute
   '/registracija': typeof RegistracijaRoute
   '/zaboravljena-lozinka': typeof ZaboravljenaLozinkaRoute
@@ -150,7 +143,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/nova-lozinka': typeof NovaLozinkaRoute
   '/postavi-lozinku': typeof PostaviLozinkuRoute
-  '/potvrda-e-poste': typeof PotvrdaEPosteRoute
   '/prijava': typeof PrijavaRoute
   '/registracija': typeof RegistracijaRoute
   '/zaboravljena-lozinka': typeof ZaboravljenaLozinkaRoute
@@ -172,7 +164,6 @@ export interface FileRoutesById {
   '/aplikacija': typeof AplikacijaRouteRouteWithChildren
   '/nova-lozinka': typeof NovaLozinkaRoute
   '/postavi-lozinku': typeof PostaviLozinkuRoute
-  '/potvrda-e-poste': typeof PotvrdaEPosteRoute
   '/prijava': typeof PrijavaRoute
   '/registracija': typeof RegistracijaRoute
   '/zaboravljena-lozinka': typeof ZaboravljenaLozinkaRoute
@@ -195,7 +186,6 @@ export interface FileRouteTypes {
     | '/aplikacija'
     | '/nova-lozinka'
     | '/postavi-lozinku'
-    | '/potvrda-e-poste'
     | '/prijava'
     | '/registracija'
     | '/zaboravljena-lozinka'
@@ -215,7 +205,6 @@ export interface FileRouteTypes {
     | '/'
     | '/nova-lozinka'
     | '/postavi-lozinku'
-    | '/potvrda-e-poste'
     | '/prijava'
     | '/registracija'
     | '/zaboravljena-lozinka'
@@ -236,7 +225,6 @@ export interface FileRouteTypes {
     | '/aplikacija'
     | '/nova-lozinka'
     | '/postavi-lozinku'
-    | '/potvrda-e-poste'
     | '/prijava'
     | '/registracija'
     | '/zaboravljena-lozinka'
@@ -258,7 +246,6 @@ export interface RootRouteChildren {
   AplikacijaRouteRoute: typeof AplikacijaRouteRouteWithChildren
   NovaLozinkaRoute: typeof NovaLozinkaRoute
   PostaviLozinkuRoute: typeof PostaviLozinkuRoute
-  PotvrdaEPosteRoute: typeof PotvrdaEPosteRoute
   PrijavaRoute: typeof PrijavaRoute
   RegistracijaRoute: typeof RegistracijaRoute
   ZaboravljenaLozinkaRoute: typeof ZaboravljenaLozinkaRoute
@@ -293,13 +280,6 @@ declare module '@tanstack/react-router' {
       path: '/postavi-lozinku'
       fullPath: '/postavi-lozinku'
       preLoaderRoute: typeof PostaviLozinkuRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/potvrda-e-poste': {
-      id: '/potvrda-e-poste'
-      path: '/potvrda-e-poste'
-      fullPath: '/potvrda-e-poste'
-      preLoaderRoute: typeof PotvrdaEPosteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/prijava': {
@@ -438,7 +418,6 @@ const rootRouteChildren: RootRouteChildren = {
   AplikacijaRouteRoute: AplikacijaRouteRouteWithChildren,
   NovaLozinkaRoute: NovaLozinkaRoute,
   PostaviLozinkuRoute: PostaviLozinkuRoute,
-  PotvrdaEPosteRoute: PotvrdaEPosteRoute,
   PrijavaRoute: PrijavaRoute,
   RegistracijaRoute: RegistracijaRoute,
   ZaboravljenaLozinkaRoute: ZaboravljenaLozinkaRoute,
