@@ -12,6 +12,7 @@ paths:
 - code that may run only on the server (database, secrets) lives in files ending in `.server.ts` - TanStack Start import protection then fails the build when client code imports one
 - a server function (`createServerFn`) that routes or the browser call sits in `src/server` without the `.server` suffix, its body runs on the server and only an RPC call reaches the client - it returns just the fields the screen needs, `getSessionUser` from `#/server/session` is the reference
 - environment variables are read only through `getServerEnv` from `#/config/env.server`, which validates them - `.env.example` lists every variable, the real values go into `.env.local`, which is never committed
+  - a variable is checked as strictly as its known format (`GOOGLE_CLIENT_ID` ends with `.apps.googleusercontent.com`, `GOOGLE_CLIENT_SECRET` starts with `GOCSPX-`), so a swapped or badly pasted value stops the server with its name - when a service changes the format of a value, the schema follows
 - the database is Neon PostgreSQL in Frankfurt (`aws-eu-central-1`), reached through Drizzle ORM and the Neon WebSocket driver, which supports transactions
   - the running application connects with `DATABASE_URL_POOLED` through `getDb` from `#/server/db/client.server`
   - drizzle-kit (`pnpm db:generate`, `pnpm db:migrate`, `pnpm db:studio`) uses the direct `DATABASE_URL`, migrations are generated into `drizzle/` and committed
@@ -34,6 +35,11 @@ paths:
   - a new address gets a user with no password and an empty name, the name is shown as `DEFAULT_USER_NAME` (`#/config/user`) until the user sets one in the profile, nothing asks for it before
   - the answer is the same for every address, the owner learns the rest by email (`#/server/sign-up-email.server`): a link to set the password while the address waits, every sign-up sends a new one, or that the account exists, with the way to sign in and to `/zaboravljena-lozinka?email=…`, which types the address in
   - the link is a token of the password reset of Better Auth, valid 24 hours (`SET_PASSWORD_EXPIRES_IN`) and once, it opens `/postavi-lozinku` - the password saved there confirms the address, and only then can the user sign in (`requireEmailVerification`)
+- Google is the recommended way in, on the sign-in and the sign-up page alike (`socialProviders.google`, `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` of the Google Cloud project, redirect URI `<BETTER_AUTH_URL>/api/auth/callback/google`) - the user picks the account every time (`prompt: "select_account"`)
+  - Google confirms the address, so it joins a confirmed account with the same address - `applyGoogleProfile` (`#/server/google-profile.server`) runs as `mapProfileToUser` before the account is looked up, only for an address Google has proven
+  - Better Auth joins only a confirmed account, the switch that turned this off (`requireLocalEmailVerified`) is deprecated and goes away - so an unfinished email sign-up of the address is confirmed first, one with no password, which no one else holds a way into; an unconfirmed account with a password keeps the guard
+  - the name and the picture from Google fill only what is empty - an empty name, no picture - and never replace what the user set (`updateUserInfoOnLink` stays off)
+  - the click is the consent, the text under the button says so on both pages, and `stampGoogleConsent` (`#/server/google-consent.server`) writes `termsAcceptedAt` from the server clock for a user Google makes
 - the password reset gives the same answer for every address, its link is valid one hour and once, and a new password signs out every session (`revokeSessionsOnPasswordReset`)
   - an address not confirmed yet gets the link too - the link reached the owner of the address, so a password saved through it also confirms the address (`confirmAddressOnReset`)
   - the same page serves the first password of a new account at `/postavi-lozinku`, only its texts differ (`PASSWORD_LINK_TEXTS`)

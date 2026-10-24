@@ -1,5 +1,5 @@
 import { EmailDivider } from "#/components/auth/email-divider";
-import { GoogleButton } from "#/components/auth/google-button";
+import { GoogleSignIn } from "#/components/auth/google-sign-in/google-sign-in";
 import { FormBuilder } from "#/components/form/form-builder";
 import type { useSignUpForm } from "../use-sign-up-form";
 import { SignUpFormTerms } from "./sign-up-form-terms";
@@ -13,7 +13,7 @@ type SignUpFormProps = {
 export const SignUpForm = ({ signUpForm, formError }: SignUpFormProps) => {
 	return (
 		<div className="flex flex-col gap-5">
-			<GoogleButton />
+			<GoogleSignIn />
 			<EmailDivider />
 			<FormBuilder
 				form={signUpForm}

@@ -53,3 +53,6 @@ export type SignInContext = {
 	body?: { email?: unknown };
 	context: { rateLimit: { enabled: boolean } };
 };
+
+// the part of a Better Auth request a database hook reads, null when the server writes on its own
+export type AuthHookContext = { path?: string } | null;

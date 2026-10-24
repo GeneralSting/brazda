@@ -28,6 +28,7 @@ Rules for one part of the code live in `.claude/rules/` and load on their own wh
 
 - use arrow functions when possible and where it is irrevelant and no downsides over using the normal function syntax
 - when giving function to the handler always create specific function in the logic - never create arrow/callback functions inside the handler because that function is re-created on every render
+- `useEffect` always comes last in a hook or component, right before the `return` - first the state, constants and derived values, then the logic and the handlers, and only then the effects, because an effect is a side effect of the module, a listener that depends on everything above it
 
 ## Size and responsibility of code
 
@@ -72,7 +73,7 @@ src
 |           +-- api, types, utils...  # created when the feature needs them
 |
 +-- components            # shared: only .tsx UI, grouped by what it is for
-|   +-- auth              # pieces of the sign-in and sign-up screens: google-button, email-divider
+|   +-- auth              # pieces of the sign-in and sign-up screens: google-sign-in, email-divider, legal-link
 |   +-- form              # everything typed into and the form engine pieces: input, field, input-field, text-field, FormBuilder...
 |   +-- feedback          # tells the state of something: alert, badge, empty-state
 |   +-- display           # shows data: card, table, avatar
@@ -111,7 +112,7 @@ src
   - only the needed inner folders are created, not all of them for every feature
   - related features can be kept together in a group folder (`auth/sign-in`, `auth/sign-up`, `auth/sign-out`) - the group holds no code, no `index.ts` and no shared folder, every feature in it is as separate as any other and has its own `index.ts`
   - a feature with a single hook or config keeps it as a file next to `components` (`use-sign-in-form.ts`), more of the same kind go into a folder of that kind (`hooks/`, `api/`)
-  - what two features need, also two features of one group, is shared code - it moves out of `features` into the folder of its kind (`#/components/auth/google-button`)
+  - what two features need, also two features of one group, is shared code - it moves out of `features` into the folder of its kind (`#/components/auth/google-sign-in/google-sign-in`)
 - a `components` folder - in a feature or in shared code - holds only `.tsx` UI components, never logic: hooks, configs, schemas, constants and utilities live outside it
 - imports between sections use the `#/` alias (`#/components/button`, `#/utils/cn`, `#/features/auth/sign-in`), relative imports only point into the same folder or below it (`./sidebar-link`), never up with `../` - the one exception is inside a feature, where a file may go up within its own feature (`../use-sign-in-form` from `components/`), never out of it
 - folders are created when the first file needs them, no empty folders are kept for later

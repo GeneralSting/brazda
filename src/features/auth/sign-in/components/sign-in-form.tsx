@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { EmailDivider } from "#/components/auth/email-divider";
-import { GoogleButton } from "#/components/auth/google-button";
+import { GoogleSignIn } from "#/components/auth/google-sign-in/google-sign-in";
 import { FormBuilder } from "#/components/form/form-builder";
 import { useSignInForm } from "../use-sign-in-form";
 
@@ -10,7 +10,7 @@ export const SignInForm = () => {
 
 	return (
 		<div className="flex flex-col gap-5">
-			<GoogleButton />
+			<GoogleSignIn />
 			<EmailDivider />
 			<FormBuilder form={signInForm} submitText="Prijavi se" error={formError}>
 				<signInForm.AppField name="email">

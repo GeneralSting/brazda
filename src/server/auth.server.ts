@@ -6,6 +6,8 @@ import { RATE_LIMIT_DEFAULT, RATE_LIMIT_RULES } from "#/config/rate-limit";
 import { beforeAuthRequest } from "#/server/auth-hooks.server";
 import { getDb } from "#/server/db/client.server";
 import * as schema from "#/server/db/schema/auth";
+import { stampGoogleConsent } from "#/server/google-consent.server";
+import { applyGoogleProfile } from "#/server/google-profile.server";
 import {
 	confirmAddressOnReset,
 	sendPasswordResetEmail,
@@ -32,6 +34,14 @@ export const auth = betterAuth({
 		sendResetPassword: sendPasswordResetEmail,
 		onPasswordReset: confirmAddressOnReset,
 	},
+	socialProviders: {
+		google: {
+			clientId: env.GOOGLE_CLIENT_ID,
+			clientSecret: env.GOOGLE_CLIENT_SECRET,
+			prompt: "select_account", // the user picks the account every time, never signed in with the first one unasked
+			mapProfileToUser: applyGoogleProfile, // takes over an unfinished email sign-up, fills only an empty name and picture
+		},
+	},
 	verification: { storeIdentifier: "hashed" }, // tokens of links kept as SHA-256, a copy of the database resets no password
 	/**
 	 * Attempts are counted in our rate_limit table, so every server instance sees the
@@ -54,6 +64,7 @@ export const auth = betterAuth({
 		},
 	},
 	hooks: { before: beforeAuthRequest },
+	databaseHooks: { user: { create: { before: stampGoogleConsent } } },
 	plugins: [signUpWithoutPassword(), tanstackStartCookies()], // the cookie plugin lets sign-in from a server function set its cookie, has to stay the last plugin
 	database: drizzleAdapter(getDb(), { provider: "pg", schema }),
 });
