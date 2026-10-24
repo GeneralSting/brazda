@@ -14,11 +14,10 @@ type SignUpDoneProps = {
 export const SignUpDone = ({ email }: SignUpDoneProps) => (
 	<div className="flex flex-col gap-5">
 		<Alert tone="success" title="Još samo jedan korak: provjerite e-poštu">
-			Poslali smo e-mail na:
-			<strong className="block font-bold wrap-anywhere">{email}</strong>U njemu
-			je poveznica za postavljanje lozinke, nakon koje se možete prijaviti.
-			Poveznica vrijedi 24 sata. Ako već imate račun s ovom adresom, u e-mailu
-			piše kako se prijaviti.
+			<strong className="block font-bold wrap-anywhere">{email}</strong>
+			Na ovu adresu poslali smo e-mail s poveznicom za postavljanje lozinke,
+			nakon koje se možete prijaviti. Poveznica vrijedi 24 sata. Ako već imate
+			račun s ovom adresom, u e-mailu piše kako se prijaviti.
 		</Alert>
 		<Link
 			to="/prijava"
