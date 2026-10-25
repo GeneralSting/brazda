@@ -1,4 +1,6 @@
 import { Button } from "#/components/button";
+import { useGoogleSignIn } from "#/hooks/use-google-sign-in";
+import type { GoogleSignInPage } from "#/types/auth";
 
 // the four-colour Google "G", drawn as Google publishes it, so its colours are not tokens
 const GoogleLogo = () => (
@@ -22,10 +24,25 @@ const GoogleLogo = () => (
 	</svg>
 );
 
-// sign-in or sign-up with a Google account, offered first because it needs no password
-export const GoogleButton = () => (
-	<Button type="button" variant="outline" size="lg" className="w-full">
-		<GoogleLogo />
-		Nastavi s Google računom
-	</Button>
-);
+type GoogleSignInButtonProps = {
+	page: GoogleSignInPage; // where Google returns when it fails
+};
+
+// sign-in or sign-up with a Google account, disabled while the browser is on its way to Google
+export const GoogleSignInButton = ({ page }: GoogleSignInButtonProps) => {
+	const { signInWithGoogle, pending } = useGoogleSignIn(page);
+
+	return (
+		<Button
+			type="button"
+			variant="outline"
+			size="lg"
+			className="w-full"
+			disabled={pending}
+			onClick={signInWithGoogle}
+		>
+			<GoogleLogo />
+			{pending ? "Otvaram Google..." : "Nastavi s Google računom"}
+		</Button>
+	);
+};

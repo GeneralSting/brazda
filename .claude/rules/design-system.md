@@ -62,7 +62,7 @@ paths:
   - focus styles are never removed without a replacement
 - base components are written by hand after the design (arrow functions, `cva` variants, `cn` from `#/utils/cn`) and grouped in `src/components` by what they are for, there is no `ui` folder:
   - `form` - input, password-input, checkbox, field, field-message, input-field and the form engine pieces
-  - `feedback` - alert (error, warning and success tone), badge, empty-state
+  - `feedback` - alert (error, warning and success tone, each with its own shape of icon: circle, triangle, check), badge, empty-state
   - `display` - card, table, avatar
   - `overlay` - dropdown-menu, one file per part directly in the folder: `dropdown-menu.tsx` (menu and trigger), `dropdown-menu-content.tsx`, `dropdown-menu-item.tsx`, `dropdown-menu-separator.tsx`
   - at the root - button, reveal, logo

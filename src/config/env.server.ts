@@ -7,6 +7,8 @@ const serverEnvSchema = z.object({
 	BETTER_AUTH_URL: z.url(), // address the application is opened at, e.g. http://localhost:3000
 	RESEND_API_KEY: z.string().optional(), // sends the emails, without it they are only printed in development
 	EMAIL_FROM: z.string().default("Brazda <onboarding@resend.dev>"), // sender, an address of our own domain once it is verified at Resend
+	GOOGLE_CLIENT_ID: z.string().endsWith(".apps.googleusercontent.com"), // OAuth client of the Google Cloud project, for the Google sign-in
+	GOOGLE_CLIENT_SECRET: z.string().startsWith("GOCSPX-"), // its secret, never shared or committed - the prefix of every client made since 2021
 	// headers the hosting puts the client IP in, comma separated - empty keeps x-forwarded-for
 	AUTH_IP_HEADERS: z
 		.string()

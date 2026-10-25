@@ -6,10 +6,11 @@ import { SignUpForm } from "./sign-up-form";
 
 type SignUpProps = {
 	footer: ReactNode; // the way to sign in instead, left out once the message has its own button
+	googleError?: string; // the code Google returned with, when the sign-up through it failed
 };
 
 // the form until the account is made, then the way on through the email
-export const SignUp = ({ footer }: SignUpProps) => {
+export const SignUp = ({ footer, googleError }: SignUpProps) => {
 	const { signUpForm, formError, signedUpAs } = useSignUpForm();
 
 	if (signedUpAs) {
@@ -18,7 +19,11 @@ export const SignUp = ({ footer }: SignUpProps) => {
 
 	return (
 		<>
-			<SignUpForm signUpForm={signUpForm} formError={formError} />
+			<SignUpForm
+				signUpForm={signUpForm}
+				formError={formError}
+				googleError={googleError}
+			/>
 			<AuthPageFooter>{footer}</AuthPageFooter>
 		</>
 	);

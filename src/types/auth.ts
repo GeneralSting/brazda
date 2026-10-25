@@ -53,3 +53,15 @@ export type SignInContext = {
 	body?: { email?: unknown };
 	context: { rateLimit: { enabled: boolean } };
 };
+
+// the part of a Better Auth request a database hook reads, null when the server writes on its own
+export type AuthHookContext = { path?: string } | null;
+
+// the auth page a Google sign-in starts on, Google returns there when it fails
+export type GoogleSignInPage = "/prijava" | "/registracija";
+
+// what went wrong on the way through Google: the user stopped, the attempt ran out, or anything else
+export type GoogleSignInProblem = "cancelled" | "expired" | "failed";
+
+// what an auth page reads from its address, the code Better Auth returns with from Google
+export type GoogleSignInSearch = { error?: string };
