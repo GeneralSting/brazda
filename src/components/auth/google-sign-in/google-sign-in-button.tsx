@@ -1,5 +1,6 @@
 import { Button } from "#/components/button";
 import { useGoogleSignIn } from "#/hooks/use-google-sign-in";
+import type { GoogleSignInPage } from "#/types/auth";
 
 // the four-colour Google "G", drawn as Google publishes it, so its colours are not tokens
 const GoogleLogo = () => (
@@ -23,9 +24,13 @@ const GoogleLogo = () => (
 	</svg>
 );
 
+type GoogleSignInButtonProps = {
+	page: GoogleSignInPage; // where Google returns when it fails
+};
+
 // sign-in or sign-up with a Google account, disabled while the browser is on its way to Google
-export const GoogleSignInButton = () => {
-	const { signInWithGoogle, pending } = useGoogleSignIn();
+export const GoogleSignInButton = ({ page }: GoogleSignInButtonProps) => {
+	const { signInWithGoogle, pending } = useGoogleSignIn(page);
 
 	return (
 		<Button

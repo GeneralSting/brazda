@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import { CircleAlert, CircleCheck, Eye } from "lucide-react";
+import { CircleAlert, CircleCheck, TriangleAlert } from "lucide-react";
 import type { ReactNode } from "react";
 import { cn } from "#/utils/cn";
 
@@ -36,7 +36,7 @@ const TONE_STYLES = {
 
 const TONE_ICONS = {
 	destructive: <CircleAlert aria-hidden="true" />,
-	warning: <Eye aria-hidden="true" />,
+	warning: <TriangleAlert aria-hidden="true" />,
 	success: <CircleCheck aria-hidden="true" />,
 };
 

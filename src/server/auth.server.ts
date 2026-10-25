@@ -63,6 +63,7 @@ export const auth = betterAuth({
 			},
 		},
 	},
+	onAPIError: { errorURL: "/prijava" }, // a Google sign-in whose start Better Auth cannot read returns here, not to its bare error page
 	hooks: { before: beforeAuthRequest },
 	databaseHooks: { user: { create: { before: stampGoogleConsent } } },
 	plugins: [signUpWithoutPassword(), tanstackStartCookies()], // the cookie plugin lets sign-in from a server function set its cookie, has to stay the last plugin

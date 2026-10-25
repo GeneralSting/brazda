@@ -7,13 +7,18 @@ import { SignUpFormTerms } from "./sign-up-form-terms";
 type SignUpFormProps = {
 	signUpForm: ReturnType<typeof useSignUpForm>["signUpForm"];
 	formError: string | null;
+	googleError?: string; // the code Google returned with, when the sign-up through it failed
 };
 
 // Google first, then the email and the consent - the password comes through the link in the email
-export const SignUpForm = ({ signUpForm, formError }: SignUpFormProps) => {
+export const SignUpForm = ({
+	signUpForm,
+	formError,
+	googleError,
+}: SignUpFormProps) => {
 	return (
 		<div className="flex flex-col gap-5">
-			<GoogleSignIn />
+			<GoogleSignIn page="/registracija" error={googleError} />
 			<EmailDivider />
 			<FormBuilder
 				form={signUpForm}

@@ -86,7 +86,7 @@ src
 +-- server                # shared: code that runs only on the server - Better Auth, database client and tables
 +-- services              # shared: clients of outside services used in the browser - Better Auth client
 +-- types                 # shared: types used across the application
-+-- utils                 # shared: helpers, one file per subject - cn, form, request, navigation, session (route guards), sidebar-mode
++-- utils                 # shared: helpers, one file per subject - cn, form, request, navigation, session (route guards), sidebar-mode, google-sign-in
 ```
 
 - `app`

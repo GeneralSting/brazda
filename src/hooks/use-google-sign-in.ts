@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { authClient } from "#/services/auth-client";
+import type { GoogleSignInPage } from "#/types/auth";
 
 /**
- * Sends the browser to Google, which returns it to the application, or to the sign-in
- * page when something fails there. The button waits until the page is left, a request
- * that fails before that, or a way back to the page, lets it be pressed again
+ * Sends the browser to Google, which returns it to the application, or to the page it
+ * started on when something fails there, with the code in its address. The button
+ * waits until the page is left, a request that fails before that, or a way back to
+ * the page, lets it be pressed again
  */
-export const useGoogleSignIn = () => {
+export const useGoogleSignIn = (errorPage: GoogleSignInPage) => {
 	const [pending, setPending] = useState(false);
 
 	const signInWithGoogle = async () => {
@@ -16,7 +18,7 @@ export const useGoogleSignIn = () => {
 			const { error } = await authClient.signIn.social({
 				provider: "google",
 				callbackURL: "/aplikacija",
-				errorCallbackURL: "/prijava",
+				errorCallbackURL: errorPage,
 			});
 
 			if (error) {
