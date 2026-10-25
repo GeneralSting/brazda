@@ -4,8 +4,8 @@
 - web only and online only - no offline mode and no native app, phones use it through the browser
 - the interface is in Croatian, code, comments and commit messages are in English
 - farming-domain decisions come from the farmer the owner works with, they are never guessed
-- stack: TanStack Start (React 19, React Compiler, TypeScript, Vite), Tailwind CSS 4, Base UI, TanStack Form with Zod, Biome, Drizzle ORM on Neon PostgreSQL (PostGIS available for parcels), Better Auth
-- commands: `pnpm dev`, `pnpm check` (Biome), `pnpm typecheck`, `pnpm build`, `pnpm db:generate`, `pnpm db:migrate`, `pnpm db:studio`
+- stack: TanStack Start (React 19, React Compiler, TypeScript, Vite), Tailwind CSS 4, Base UI, TanStack Form with Zod, Biome, Vitest, Drizzle ORM on Neon PostgreSQL (PostGIS available for parcels), Better Auth
+- commands: `pnpm dev`, `pnpm check` (Biome), `pnpm typecheck`, `pnpm test` (Vitest), `pnpm build`, `pnpm db:generate`, `pnpm db:migrate`, `pnpm db:studio`
 
 ## Rules by area
 
@@ -14,6 +14,7 @@ Rules for one part of the code live in `.claude/rules/` and load on their own wh
 - `design-system.md` - tokens, type and spacing scale, motion, base components; for `src/**/*.tsx` and `styles.css`
 - `server-and-database.md` - server-only files, environment variables, database; for `*.server.ts`, `src/server`, `drizzle`
 - `forms.md` - how every form is built (schema, field config, form config, hook, UI) and how errors are shown; for `src/components/form`, the form hooks, schemas, configs and utils, and form files of features
+- `testing.md` - where tests live, what they cover and how emails and the environment are handled in them; for `tests/` and `*.test.ts`
 
 ## Project engineering guide
 
@@ -47,6 +48,7 @@ Rules for one part of the code live in `.claude/rules/` and load on their own wh
 
 - structure is based on [bulletproof-react](https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md)
 - `src` has two named sections, `app` and `features` - everything else in `src` is shared code, there is no separate `shared` folder
+- tests are never mixed with the code - they live in `tests/` at the root, next to `src`, one folder per kind (`unit`, `integration`, `e2e`), each following the paths of `src` (`tests/unit/server/email.server.test.ts` tests `src/server/email.server.ts`); everything that serves only tests, their configuration and helpers included, lives there too (`tests/vitest.config.ts`, `tests/support/`), `src` never knows tests exist
 - imports go in one direction only: shared code -> `features` -> `app`
 
 ```sh
