@@ -27,8 +27,30 @@ export const sendSetPasswordLink = (to: string, url: string) => {
 	);
 };
 
+// a password account is pointed to the forgotten password too, a Google one only to its button
+const buildSignInWay = (to: string, hasPassword: boolean) =>
+	hasPassword
+		? {
+				line: "Vaša e-pošta je već potvrđena, pa se možete odmah prijaviti.",
+				outro: [
+					{
+						text: "Ako ste zaboravili lozinku, novu možete zatražiti ovdje:",
+						link: {
+							label: "Zatraži novu lozinku",
+							url: buildForgotPasswordUrl(to),
+						},
+					},
+				],
+			}
+		: {
+				line: "Račun ste napravili preko Googlea, pa se prijavljujete gumbom „Nastavi s Google računom”.",
+				outro: [],
+			};
+
 // the address has an account already, no new one is made and nothing about it changes
-export const sendAccountExists = (to: string) => {
+export const sendAccountExists = (to: string, hasPassword: boolean) => {
+	const signInWay = buildSignInWay(to, hasPassword);
+
 	sendEmailInBackground(
 		buildActionEmail({
 			to,
@@ -36,21 +58,13 @@ export const sendAccountExists = (to: string) => {
 			intro: [
 				"Zatražena je registracija u Brazdi s ovom e-poštom. Račun s njom već imate, pa novi nije napravljen.",
 				"Ako niste vi zatražili registraciju, zanemarite ovu poruku, s vašim računom se ništa ne mijenja.",
-				"Vaša e-pošta je već potvrđena, pa se možete odmah prijaviti.",
+				signInWay.line,
 			],
 			action: {
 				label: "Prijavi se",
 				url: new URL("/prijava", getServerEnv().BETTER_AUTH_URL).toString(),
 			},
-			outro: [
-				{
-					text: "Ako ste zaboravili lozinku, novu možete zatražiti ovdje:",
-					link: {
-						label: "Zatraži novu lozinku",
-						url: buildForgotPasswordUrl(to),
-					},
-				},
-			],
+			outro: signInWay.outro,
 		}),
 	);
 };

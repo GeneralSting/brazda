@@ -47,10 +47,15 @@ export const signUpWithoutPassword = () =>
 
 					const email = context.body.email.toLowerCase();
 					const { internalAdapter } = context.context;
-					const found = await internalAdapter.findUserByEmail(email);
+					const found = await internalAdapter.findUserByEmail(email, {
+						includeAccounts: true,
+					});
 
 					if (found?.user.emailVerified) {
-						sendAccountExists(email);
+						const hasPassword = found.accounts.some(
+							(account) => account.providerId === "credential",
+						);
+						sendAccountExists(email, hasPassword);
 						return context.json({ status: true });
 					}
 
