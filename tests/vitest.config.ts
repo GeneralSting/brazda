@@ -1,18 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
-
-/**
- * Values of the right shape for every variable `getServerEnv` checks, none of them real.
- * The database address leads nowhere, so a unit test that reaches the database fails
- * at once instead of writing into the development data
- */
-const TEST_ENV = {
-	DATABASE_URL_POOLED: "postgresql://unit:tests@127.0.0.1:1/no-database",
-	BETTER_AUTH_SECRET: "a-secret-for-unit-tests-only-32-chars",
-	BETTER_AUTH_URL: "http://localhost:3000",
-	GOOGLE_CLIENT_ID: "000000000000-unit-tests.apps.googleusercontent.com",
-	GOOGLE_CLIENT_SECRET: "GOCSPX-unit-tests",
-};
+import { readFakeEnv, readTestBranchEnv } from "./support/env-files.ts";
 
 /**
  * Tests run without the plugins of vite.config.ts, they import plain TypeScript
@@ -21,10 +9,32 @@ const TEST_ENV = {
 export default defineConfig({
 	root: fileURLToPath(new URL("..", import.meta.url)),
 	test: {
-		include: ["tests/unit/**/*.test.ts"],
 		setupFiles: ["tests/support/setup.ts"],
 		environment: "node",
-		env: TEST_ENV,
+		env: readFakeEnv(), // tests/.env.test
+		projects: [
+			{
+				extends: true,
+				test: { name: "unit", include: ["tests/unit/**/*.test.ts"] },
+			},
+			/**
+			 * Against the Neon test branch of .env.test.local, which the global setup checks and
+			 * migrates first. Files run one after another, every one of them empties the same tables
+			 */
+			{
+				extends: true,
+				test: {
+					name: "integration",
+					include: ["tests/integration/**/*.test.ts"],
+					globalSetup: ["tests/support/database-global-setup.ts"],
+					setupFiles: ["tests/support/database-setup.ts"],
+					env: readTestBranchEnv(), // .env.test.local on top of the fake values
+					fileParallelism: false,
+					testTimeout: 20_000, // a branch that slept wakes up in a few seconds
+					hookTimeout: 20_000,
+				},
+			},
+		],
 		/**
 		 * Counts every file of src, also those no test touches, so the share is never
 		 * flattered. A map for finding untested branches, not a target the run has to meet
