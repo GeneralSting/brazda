@@ -16,6 +16,7 @@
 		"typecheck": "tsc --noEmit",
 		"test": "vitest run --config tests/vitest.config.ts",
 		"test:watch": "vitest --config tests/vitest.config.ts",
+		"test:coverage": "vitest run --config tests/vitest.config.ts --coverage",
 		"db:generate": "drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
 		"db:studio": "drizzle-kit studio"
@@ -49,6 +50,7 @@
 		"@types/react": "^19.2.0",
 		"@types/react-dom": "^19.2.0",
 		"@vitejs/plugin-react": "^6.0.1",
+		"@vitest/coverage-v8": "^5.0.5",
 		"babel-plugin-react-compiler": "^1.0.0",
 		"drizzle-kit": "^0.31.11",
 		"typescript": "^6.0.2",

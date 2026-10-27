@@ -25,5 +25,16 @@ export default defineConfig({
 		setupFiles: ["tests/support/setup.ts"],
 		environment: "node",
 		env: TEST_ENV,
+		/**
+		 * Counts every file of src, also those no test touches, so the share is never
+		 * flattered. A map for finding untested branches, not a target the run has to meet
+		 */
+		coverage: {
+			provider: "v8",
+			include: ["src/**/*.{ts,tsx}"],
+			exclude: ["src/app/routeTree.gen.ts", "src/types/**"],
+			reporter: ["text", "html"],
+			reportsDirectory: "tests/coverage",
+		},
 	},
 });

@@ -8,6 +8,7 @@ paths:
 
 - `src` holds no line that exists only for tests and never knows tests exist - everything that serves only tests (configuration, replacements, helpers) lives in `tests/`
 - tests run with Vitest (`pnpm test` once, `pnpm test:watch` while working), configured in `tests/vitest.config.ts`, apart from `vite.config.ts` - tests import plain TypeScript modules and need none of its plugins
+- `pnpm test:coverage` counts every file of `src`, also the untouched ones, and writes the report to `tests/coverage` (ignored by git, `index.html` opens in the browser) - it shows the branches no test reaches, it is no share the run has to meet
 - tests never sit in `src` - they live in `tests/` at the root, one folder per kind (`unit`, later `integration` and `e2e`), and inside it follow the path of the file they test, named after it: `src/server/email.server.ts` -> `tests/unit/server/email.server.test.ts`
   - a test imports the code through the `#/` alias like any other file, never with a relative path into `src` - only the helpers of `tests/support/` are imported relatively
 - `tests/support/setup.ts` runs before every test file - what every test needs is set there once
